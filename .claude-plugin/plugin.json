@@ -1,0 +1,11 @@
+{
+  "name": "entire-agent-skills",
+  "version": "0.1.0",
+  "description": "Entire-focused skills and commands",
+  "skills": [
+    "hand-off-session"
+  ],
+  "commands": [
+    "hand-off-session"
+  ]
+}
