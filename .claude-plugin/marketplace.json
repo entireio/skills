@@ -1,0 +1,20 @@
+{
+  "name": "entire-agent-skills-dev",
+  "description": "Development marketplace for Entire-focused cross-agent skills and commands",
+  "owner": {
+    "name": "Entire.io",
+    "email": "support@entire.io"
+  },
+  "plugins": [
+    {
+      "name": "entire-agent-skills",
+      "description": "Entire-focused cross-agent skills and commands",
+      "version": "0.1.0",
+      "source": "./",
+      "author": {
+        "name": "Entire.io",
+        "email": "support@entire.io"
+      }
+    }
+  ]
+}

@@ -1,11 +1,16 @@
 {
   "name": "entire-agent-skills",
   "version": "0.1.0",
-  "description": "Entire-focused skills and commands",
-  "skills": [
-    "hand-off-session"
-  ],
-  "commands": [
-    "hand-off-session"
+  "description": "Entire-focused cross-agent skills and commands",
+  "author": {
+    "name": "Entire.io",
+    "email": "support@entire.io"
+  },
+  "license": "MIT",
+  "keywords": [
+    "entire",
+    "skills",
+    "handoff",
+    "agent-workflows"
   ]
 }
