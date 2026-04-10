@@ -13,6 +13,8 @@ This repo is a shared plugin collection for:
 ## What You Get
 
 - Cross-agent skills for Entire workflows
+- A Codex plugin package at `plugins/entire`
+- A Cursor plugin manifest at `.cursor-plugin/`
 - Install docs per agent platform
 - A consistent handoff workflow across Codex, Claude, OpenCode, Cursor, and Gemini
 
@@ -39,7 +41,7 @@ Use the local plugin in `.claude-plugin/`.
 
 ### Codex
 
-Open `.codex/INSTALL.md` and follow the install instructions for Codex.
+Open `.codex/INSTALL.md` and follow the plugin installation instructions for Codex.
 
 ### OpenCode
 

@@ -1,6 +1,6 @@
 # Installing Agent Plugins for Cursor
 
-Enable Entire agent plugins in Cursor via native skill discovery.
+Enable Entire in Cursor as a plugin.
 
 ## Prerequisites
 
@@ -8,13 +8,12 @@ Enable Entire agent plugins in Cursor via native skill discovery.
 
 ## Installation
 
-1. Clone and symlink:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/entireio/agent-plugins.git ~/.cursor/agent-plugins
-ln -s ~/.cursor/agent-plugins/skills ~/.agents/skills/agent-plugins
 ```
 
-2. Restart Cursor to discover the skills.
+2. Use the local Cursor plugin in `~/.cursor/agent-plugins/.cursor-plugin/`.
 
 Verify by asking: "Use the `session-handoff` skill."

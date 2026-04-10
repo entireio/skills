@@ -1,0 +1,20 @@
+{
+  "name": "agent-plugins",
+  "interface": {
+    "displayName": "Agent Plugins"
+  },
+  "plugins": [
+    {
+      "name": "entire",
+      "source": {
+        "source": "local",
+        "path": "./plugins/entire"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    }
+  ]
+}

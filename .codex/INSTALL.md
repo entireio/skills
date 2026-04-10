@@ -1,6 +1,6 @@
 # Installing Agent Plugins for Codex
 
-Enable Entire agent plugins in Codex via native skill discovery.
+Enable Entire in Codex as a plugin.
 
 ## Prerequisites
 
@@ -8,13 +8,22 @@ Enable Entire agent plugins in Codex via native skill discovery.
 
 ## Installation
 
-1. Clone and symlink:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/entireio/agent-plugins.git ~/.codex/agent-plugins
-ln -s ~/.codex/agent-plugins/skills ~/.agents/skills/agent-plugins
 ```
 
-2. Restart Codex to discover the skills.
+2. Register the repo-local marketplace in Codex:
+
+```text
+/plugin marketplace add ~/.codex/agent-plugins/.agents/plugins/marketplace.json
+```
+
+3. Install the `entire` plugin from that marketplace:
+
+```text
+/plugin install entire@agent-plugins
+```
 
 Verify by asking: "Use the `session-handoff` skill."

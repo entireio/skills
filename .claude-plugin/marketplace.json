@@ -10,7 +10,7 @@
       "name": "entire",
       "description": "Cross-agent skills and commands powered by Entire",
       "version": "0.1.0",
-      "source": "./",
+      "source": "./plugins/entire",
       "category": "development",
       "author": {
         "name": "Entire Inc"
