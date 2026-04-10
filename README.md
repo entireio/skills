@@ -19,9 +19,11 @@ This repo is a shared plugin collection for:
 - Install docs and manifests per agent platform
 - A consistent handoff workflow across Codex, Claude, OpenCode, Cursor, and Gemini
 
-## First Skill: `session-handoff`
+## Skills
 
-`session-handoff` reads Entire session metadata and helps move work from one agent to another without making the user reconstruct the context manually.
+### `session-handoff`
+
+Reads Entire session metadata and helps move work from one agent to another without making the user reconstruct the context manually.
 
 Current behavior:
 
@@ -33,6 +35,28 @@ Current behavior:
 - falls back to `entire explain --checkpoint <id> --raw-transcript --no-pager` if full output is unavailable
 - resolves checkpoints from: local `entire/checkpoints/v1` branch, `.entire/settings.json` `checkpoint_remote`, or nearby local clone
 - filters sessions by agent name (e.g. "codex", "gemini") when mentioned
+
+### `explain`
+
+Traces source code back to the original conversation where it was created. Use `/explain` with a function, file, or line of code to understand _why_ it exists.
+
+Current behavior:
+
+- identifies the commit that introduced the code via git blame/log
+- reads the session transcript via `entire explain --no-pager --commit <sha>`
+- works with functions, files, and individual line changes
+- reports clearly when code is untracked, uncommitted, or created outside an Entire session
+
+### `search`
+
+Searches Entire checkpoint history and transcripts to find prior work by topic, repo, branch, author, or time window.
+
+Current behavior:
+
+- runs `entire search "<query>" --json` and summarizes the top matches
+- supports filters: `--repo`, `--branch`, `--author`, `--date`, and inline query filters like `author:<name>`, `date:week`
+- drills into a specific result with `entire explain --checkpoint <id> --full --no-pager`
+- broadens searches progressively when initial results are empty (remove branch filter, widen date, simplify terms)
 
 ## Installation
 
@@ -66,6 +90,11 @@ Natural language examples:
 - "hand off the codex session"
 - "pick up where codex left off"
 - "hand off checkpoint 7b7c2be8a262"
+- `/explain parseConfig` — why does this function exist?
+- `/explain src/auth.ts` — what drove this file's creation?
+- "search past work for rate limiting"
+- "find checkpoints about the migration"
+- "have we done this before?"
 
 ## Checkpoint Resolution
 
