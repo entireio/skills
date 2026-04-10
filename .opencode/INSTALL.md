@@ -1,12 +1,14 @@
 # Installing Agent Plugins for OpenCode
 
-Enable Entire agent plugins in OpenCode via native skill discovery.
+Enable Entire agent plugins in OpenCode via native skill discovery from `plugins/entire/skills`.
 
 ## Prerequisites
 
 - Git
 
 ## Installation
+
+The published `agent-plugins` package installs the `entire` plugin from `plugins/entire`, which exposes the skills in `plugins/entire/skills`.
 
 Add to your OpenCode config:
 
