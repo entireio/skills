@@ -1,6 +1,6 @@
 # Skills
 
-Cross-agent skills and commands powered by Entire, modeled after `obra/superpowers`.
+Cross-agent skills and commands powered by Entire.
 
 This repo is a shared skill collection for:
 
