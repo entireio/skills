@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.5.4",
+  "checkpoint_id": "bba56bfc5e94",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".opencode/INSTALL.md",
+    ".opencode/plugins/entire.js"
+  ],
+  "sessions": [
+    {
+      "metadata": "/bb/a56bfc5e94/0/metadata.json",
+      "transcript": "/bb/a56bfc5e94/0/full.jsonl",
+      "content_hash": "/bb/a56bfc5e94/0/content_hash.txt",
+      "prompt": "/bb/a56bfc5e94/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 235,
+    "cache_creation_tokens": 25963,
+    "cache_read_tokens": 516434,
+    "output_tokens": 5571,
+    "api_call_count": 16
+  }
+}
