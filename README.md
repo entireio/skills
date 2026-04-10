@@ -10,15 +10,6 @@ This repo is a shared skill collection for:
 - Cursor
 - Gemini
 
-## What You Get
-
-- Cross-agent skills for Entire workflows
-- Root Gemini extension files at `gemini-extension.json` and `GEMINI.md`
-- A Codex plugin package at `plugins/entire`
-- A Cursor plugin manifest at `.cursor-plugin/`
-- Install docs and manifests per agent platform
-- A consistent handoff workflow across Codex, Claude, OpenCode, Cursor, and Gemini
-
 ## Skills
 
 ### `session-handoff`
