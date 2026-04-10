@@ -10,5 +10,5 @@
   "repository": "https://github.com/entireio/agent-plugins",
   "license": "MIT",
   "keywords": ["entire", "session-handoff", "handoff", "agent-workflows", "skills"],
-  "skills": "./skills/"
+  "skills": "./plugins/entire/skills/"
 }
