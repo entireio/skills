@@ -1,0 +1,1 @@
+plugins/entire/skills/search/SKILL.md fill out search skill
