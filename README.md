@@ -36,25 +36,27 @@ Current behavior:
 
 ## Installation
 
+Install the agent that matches your workflow from its marketplace or manifest entrypoint:
+
 ### Claude Code
 
-Use the local plugin in `.claude-plugin/`.
+Use `.claude-plugin/marketplace.json`.
 
 ### Codex
 
-Open `.codex/INSTALL.md` and follow the plugin installation instructions for Codex.
+Use `plugins/entire/.codex-plugin/plugin.json`.
 
 ### OpenCode
 
-Open `.opencode/INSTALL.md` and follow the install instructions for OpenCode.
+Use the package-based flow in `.opencode/INSTALL.md`.
 
 ### Cursor
 
-Open `.cursor/INSTALL.md` and follow the install instructions for Cursor.
+Use `.cursor-plugin/plugin.json`.
 
 ### Gemini
 
-Use the root `gemini-extension.json`, which points Gemini at `GEMINI.md`.
+Use `gemini-extension.json` and `GEMINI.md`.
 
 ## Quick Start
 
