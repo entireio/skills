@@ -1,19 +1,19 @@
 {
-  "name": "entire-agent-skills-dev",
-  "description": "Development marketplace for Entire-focused cross-agent skills and commands",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "entire-agent-plugins",
+  "description": "Development marketplace for cross-agent skills and commands powered by Entire",
   "owner": {
-    "name": "Entire.io",
-    "email": "support@entire.io"
+    "name": "Entire Inc"
   },
   "plugins": [
     {
-      "name": "entire-agent-skills",
-      "description": "Entire-focused cross-agent skills and commands",
+      "name": "entire",
+      "description": "Cross-agent skills and commands powered by Entire",
       "version": "0.1.0",
       "source": "./",
+      "category": "development",
       "author": {
-        "name": "Entire.io",
-        "email": "support@entire.io"
+        "name": "Entire Inc"
       }
     }
   ]

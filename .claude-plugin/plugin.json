@@ -1,16 +1,18 @@
 {
-  "name": "entire-agent-skills",
+  "name": "entire",
   "version": "0.1.0",
-  "description": "Entire-focused cross-agent skills and commands",
+  "description": "Cross-agent skills and commands powered by Entire",
   "author": {
-    "name": "Entire.io",
-    "email": "support@entire.io"
+    "name": "Entire Inc"
   },
+  "homepage": "https://github.com/entireio/agent-plugins",
+  "repository": "https://github.com/entireio/agent-plugins",
   "license": "MIT",
   "keywords": [
     "entire",
     "skills",
     "handoff",
-    "agent-workflows"
+    "agent-workflows",
+    "plugins"
   ]
 }

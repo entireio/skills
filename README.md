@@ -1,8 +1,8 @@
-# Entire Agent Skills
+# Agent Plugins
 
-Entire-specific skills modeled after `obra/superpowers`.
+Cross-agent skills and commands powered by Entire, modeled after `obra/superpowers`.
 
-This repo is a shared skills pack for:
+This repo is a shared plugin collection for:
 
 - Codex
 - Claude
@@ -16,9 +16,9 @@ This repo is a shared skills pack for:
 - Install docs per agent platform
 - A consistent handoff workflow across Codex, Claude, OpenCode, Cursor, and Gemini
 
-## First Skill: `hand-off-session`
+## First Skill: `session-handoff`
 
-`hand-off-session` reads Entire session metadata and helps move work from one agent to another without making the user reconstruct the context manually.
+`session-handoff` reads Entire session metadata and helps move work from one agent to another without making the user reconstruct the context manually.
 
 Current behavior:
 
@@ -69,4 +69,3 @@ Checkpoints are resolved in this order:
 1. local `entire/checkpoints/v1` branch
 2. `.entire/settings.json` `checkpoint_remote`
 3. nearby local clone
-

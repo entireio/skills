@@ -1,23 +1,29 @@
-# Installing Entire Agent Skills for OpenCode
+# Installing Agent Plugins for OpenCode
 
-Enable Entire agent skills in OpenCode via native skill discovery.
+Enable Entire agent plugins in OpenCode via native skill discovery.
 
 ## Prerequisites
 
 - Git
-- A local clone of this repository
 
 ## Installation
 
-1. Create the skills symlink:
+Add to your OpenCode config:
 
-```bash
-mkdir -p ~/.agents/skills
-ln -s /path/to/entire-agent-skills/skills ~/.agents/skills/entire-agent-skills
+```json
+{
+  "plugin": ["agent-plugins@git+https://github.com/entireio/agent-plugins.git"]
+}
 ```
 
-Replace `/path/to/entire-agent-skills` with the path to your local clone of this repository.
+To pin a specific version:
 
-2. Restart OpenCode. That's it.
+```json
+{
+  "plugin": ["agent-plugins@git+https://github.com/entireio/agent-plugins.git#v0.1.0"]
+}
+```
 
-Verify by asking: "Use the `hand-off-session` skill."
+Restart OpenCode. That's it.
+
+Verify by asking: "Use the `session-handoff` skill."
