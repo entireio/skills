@@ -36,7 +36,7 @@ Current behavior:
 
 ## Installation
 
-Install the agent that matches your workflow from its marketplace or manifest entrypoint:
+Install the agent that matches your workflow from its marketplace, manifest, or install-doc entrypoint:
 
 ### Claude Code
 
