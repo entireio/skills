@@ -13,9 +13,10 @@ This repo is a shared plugin collection for:
 ## What You Get
 
 - Cross-agent skills for Entire workflows
+- Root Gemini extension files at `gemini-extension.json` and `GEMINI.md`
 - A Codex plugin package at `plugins/entire`
 - A Cursor plugin manifest at `.cursor-plugin/`
-- Install docs per agent platform
+- Install docs and manifests per agent platform
 - A consistent handoff workflow across Codex, Claude, OpenCode, Cursor, and Gemini
 
 ## First Skill: `session-handoff`
@@ -53,7 +54,7 @@ Open `.cursor/INSTALL.md` and follow the install instructions for Cursor.
 
 ### Gemini
 
-Open `.gemini/INSTALL.md` and follow the install instructions for Gemini.
+Use the root `gemini-extension.json`, which points Gemini at `GEMINI.md`.
 
 ## Quick Start
 
