@@ -53,9 +53,19 @@ Current behavior:
 
 Install the agent that matches your workflow from its marketplace, manifest, or install-doc entrypoint:
 
-### Claude Code
+### Claude Code (via Plugin Marketplace)
 
-Use `.claude-plugin/marketplace.json`.
+In Claude Code, register the marketplace first:
+
+```bash
+/plugin marketplace add entireio/skills
+```
+
+Then install the plugin from this marketplace:
+
+```bash
+/plugin install entire 
+```
 
 ### Codex
 
