@@ -6,8 +6,8 @@
   "author": {
     "name": "Entire Inc"
   },
-  "homepage": "https://github.com/entireio/agent-plugins",
-  "repository": "https://github.com/entireio/agent-plugins",
+  "homepage": "https://github.com/entireio/skills",
+  "repository": "https://github.com/entireio/skills",
   "license": "MIT",
   "keywords": ["entire", "session-handoff", "handoff", "agent-workflows", "skills"],
   "skills": "./plugins/entire/skills/"

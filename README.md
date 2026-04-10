@@ -1,8 +1,8 @@
-# Agent Plugins
+# Skills
 
 Cross-agent skills and commands powered by Entire, modeled after `obra/superpowers`.
 
-This repo is a shared plugin collection for:
+This repo is a shared skill collection for:
 
 - Codex
 - Claude

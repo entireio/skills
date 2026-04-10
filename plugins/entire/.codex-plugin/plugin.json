@@ -6,8 +6,8 @@
     "name": "Entire Inc",
     "url": "https://github.com/entireio"
   },
-  "homepage": "https://github.com/entireio/agent-plugins",
-  "repository": "https://github.com/entireio/agent-plugins",
+  "homepage": "https://github.com/entireio/skills",
+  "repository": "https://github.com/entireio/skills",
   "license": "MIT",
   "keywords": [
     "entire",
@@ -26,6 +26,6 @@
       "Interactive",
       "Write"
     ],
-    "websiteURL": "https://github.com/entireio/agent-plugins"
+    "websiteURL": "https://github.com/entireio/skills"
   }
 }

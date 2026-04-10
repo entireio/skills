@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "entire-agent-plugins",
+  "name": "entire-skills",
   "description": "Development marketplace for cross-agent skills and commands powered by Entire",
   "owner": {
     "name": "Entire Inc"

@@ -1,7 +1,7 @@
 {
-  "name": "agent-plugins",
+  "name": "skills",
   "interface": {
-    "displayName": "Agent Plugins"
+    "displayName": "Skills"
   },
   "plugins": [
     {
