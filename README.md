@@ -81,7 +81,9 @@ Use `.cursor-plugin/plugin.json`.
 
 ### Gemini
 
-Use `gemini-extension.json` and `GEMINI.md`.
+```bash
+gemini extensions install https://github.com/entireio/skills
+```
 
 ## Quick Start
 

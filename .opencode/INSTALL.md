@@ -4,7 +4,7 @@ Enable Entire skills in OpenCode via native skill discovery from `plugins/entire
 
 ## Prerequisites
 
-- Git
+- [OpenCode.ai](https://opencode.ai) installed
 
 ## Installation
 
@@ -26,6 +26,6 @@ To pin a specific version:
 }
 ```
 
-Restart OpenCode. That's it.
+Restart OpenCode. The plugin in `.opencode/plugins/entire.js` automatically registers the skills directory — no additional configuration needed.
 
 Verify by asking: "Use the `session-handoff` skill."
