@@ -4,6 +4,17 @@ description: Use when the user wants to continue work from one agent in another 
 
 # Hand-Off Session
 
+## Response Format
+
+Begin the first response to this skill invocation with the line:
+
+`Entire Session Handoff:`
+
+followed by a blank line, then the content. The header applies to the full compaction-summary flow, including the "Unanswered Question" branch (which is still a successful run — the skill summarized the transcript and surfaced the question).
+
+- Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation (e.g. after the user answers the surfaced unanswered question).
+- Do **not** include the header on error or early-exit responses (e.g. no `.git/entire-sessions/` directory, no sessions found after filtering, transcript file missing at the path the session JSON points to). The header's presence should signal that the skill ran and produced real output.
+
 ## STOP — Read these rules before doing ANYTHING
 
 1. **Do NOT ask clarifying questions.** Auto-detect the session and read the transcript.

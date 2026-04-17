@@ -6,6 +6,17 @@ description: Use when the user wants to find prior work, checkpoints, or agent c
 
 Use `entire search` to find relevant checkpoints before guessing from memory.
 
+## Response Format
+
+Begin the first response to this skill invocation with the line:
+
+`Entire Search:`
+
+followed by a blank line, then the content.
+
+- Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation (e.g. after the user answers a clarifying question).
+- Do **not** include the header on error or early-exit responses (e.g. "Entire CLI not installed", "authentication required", "no matches"). The header's presence should signal that the skill ran and produced real output.
+
 ## When to Use
 
 - The user asks things like "have we done this before?", "search past work", "find the previous implementation", or "look for checkpoints about X"
