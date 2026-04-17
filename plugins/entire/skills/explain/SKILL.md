@@ -11,6 +11,17 @@ Explain the intent behind source code by tracing it back to the original convers
 - **Files** — What's the purpose of this file? What requirements drove its creation?
 - **Line changes** — Why was this specific line added or modified?
 
+## Response Format
+
+Begin the first response to this skill invocation with the line:
+
+`Entire Explain:`
+
+followed by a blank line, then the content.
+
+- Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation (e.g. after the user answers a clarifying question).
+- Do **not** include the header on error or early-exit responses (e.g. "Entire CLI is required but not installed", "this file is not tracked by git", "no session transcript was found for this commit"). The header's presence should signal that the skill ran and produced real output.
+
 ## Process
 
 1. Verify the `entire` CLI is installed by running `entire version`.
