@@ -1,0 +1,49 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "c7941d71e671",
+  "session_id": "019dac01-6c3d-71a3-93cb-2bfff5650cbd",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-20T18:19:41.01864Z",
+  "branch": "experiment",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "plugins/entire/skills/collab/references/state-schema.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "521ebdedcced",
+  "initial_attribution": {
+    "calculated_at": "2026-04-20T18:19:41.01772Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 101,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 101,
+    "total_lines_changed": 101,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 794,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/content/agent-integration.html": 114,
+        ".superpowers/brainstorm/90082-1776704014/content/approaches.html": 92,
+        ".superpowers/brainstorm/90082-1776704014/content/e2e-flows.html": 149,
+        ".superpowers/brainstorm/90082-1776704014/content/skill-architecture.html": 138,
+        ".superpowers/brainstorm/90082-1776704014/content/state-protocol.html": 97,
+        ".superpowers/brainstorm/90082-1776704014/content/turn-lifecycle-v2.html": 101,
+        ".superpowers/brainstorm/90082-1776704014/content/turn-lifecycle.html": 88,
+        ".superpowers/brainstorm/90082-1776704014/content/waiting.html": 3,
+        ".superpowers/brainstorm/90082-1776704014/state/server-info": 1,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 10,
+        ".superpowers/brainstorm/90082-1776704014/state/server.pid": 1
+      }
+    }
+  ]
+}

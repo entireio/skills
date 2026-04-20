@@ -1,0 +1,18 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "c7941d71e671",
+  "strategy": "manual-commit",
+  "branch": "experiment",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "plugins/entire/skills/collab/references/state-schema.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c7/941d71e671/0/metadata.json",
+      "transcript": "/c7/941d71e671/0/full.jsonl",
+      "content_hash": "/c7/941d71e671/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
