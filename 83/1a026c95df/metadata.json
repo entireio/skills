@@ -1,0 +1,18 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "831a026c95df",
+  "strategy": "manual-commit",
+  "branch": "experiment",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "plugins/entire/skills/collab/agents/collab-worker.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/83/1a026c95df/0/metadata.json",
+      "transcript": "/83/1a026c95df/0/full.jsonl",
+      "content_hash": "/83/1a026c95df/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
