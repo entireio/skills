@@ -1,0 +1,19 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "b6f9ccf4bef9",
+  "strategy": "manual-commit",
+  "branch": "experiment",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude/settings.json",
+    "plugins/entire/skills/collab/references/permissions.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/b6/f9ccf4bef9/0/metadata.json",
+      "transcript": "/b6/f9ccf4bef9/0/full.jsonl",
+      "content_hash": "/b6/f9ccf4bef9/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
