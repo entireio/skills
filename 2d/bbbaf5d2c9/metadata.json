@@ -3,7 +3,7 @@
   "checkpoint_id": "2dbbbaf5d2c9",
   "strategy": "manual-commit",
   "branch": "experiment",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "plugins/entire/skills/collab/references/turn-protocol.md"
   ],
@@ -13,6 +13,19 @@
       "transcript": "/2d/bbbaf5d2c9/0/full.jsonl",
       "content_hash": "/2d/bbbaf5d2c9/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/2d/bbbaf5d2c9/1/metadata.json",
+      "transcript": "/2d/bbbaf5d2c9/1/full.jsonl",
+      "content_hash": "/2d/bbbaf5d2c9/1/content_hash.txt",
+      "prompt": "/2d/bbbaf5d2c9/1/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 3585,
+    "cache_creation_tokens": 164036,
+    "cache_read_tokens": 9202703,
+    "output_tokens": 82498,
+    "api_call_count": 107
+  }
 }
