@@ -1,0 +1,177 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "43af4fd728b7",
+  "session_id": "fe3ed705-946a-49c1-9c31-0a5ec7a62aba",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-20T18:17:53.560861Z",
+  "branch": "experiment",
+  "checkpoints_count": 12,
+  "files_touched": [
+    ".gitignore"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6[1m]",
+  "turn_id": "23ddaf20aa69",
+  "token_usage": {
+    "input_tokens": 3583,
+    "cache_creation_tokens": 158922,
+    "cache_read_tokens": 8892189,
+    "output_tokens": 78786,
+    "api_call_count": 105
+  },
+  "session_metrics": {
+    "turn_count": 29
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-20T18:17:53.543348Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 378,
+    "human_modified": 1,
+    "human_removed": 0,
+    "total_committed": 378,
+    "total_lines_changed": 379,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 3,
+      "user_lines_removed": 0,
+      "agent_lines_added": 95,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/state/events": 1,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 2
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 3,
+      "user_lines_removed": 0,
+      "agent_lines_added": 192,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 3
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 4,
+      "user_lines_removed": 0,
+      "agent_lines_added": 280,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 4
+      }
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 5,
+      "user_lines_removed": 0,
+      "agent_lines_added": 381,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 5
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 6,
+      "user_lines_removed": 0,
+      "agent_lines_added": 519,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 6
+      }
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 7,
+      "user_lines_removed": 0,
+      "agent_lines_added": 633,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 7
+      }
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 12,
+      "user_lines_removed": 0,
+      "agent_lines_added": 782,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/content/waiting.html": 3,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 9
+      }
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 12,
+      "user_lines_removed": 0,
+      "agent_lines_added": 782,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/content/waiting.html": 3,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 9
+      }
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 12,
+      "user_lines_removed": 0,
+      "agent_lines_added": 782,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/content/waiting.html": 3,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 9
+      }
+    },
+    {
+      "checkpoint_number": 12,
+      "user_lines_added": 1207,
+      "user_lines_removed": 1,
+      "agent_lines_added": 784,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".gitignore": 2,
+        ".superpowers/brainstorm/90082-1776704014/state/server-stopped": 1,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 10,
+        "docs/superpowers/plans/2026-04-14-collab-skill.md": 874,
+        "docs/superpowers/specs/2026-04-14-collab-skill-design.md": 320
+      },
+      "user_removed_per_file": {
+        ".gitignore": 1
+      }
+    },
+    {
+      "checkpoint_number": 13,
+      "user_lines_added": 1205,
+      "user_lines_removed": 0,
+      "agent_lines_added": 786,
+      "agent_lines_removed": 1,
+      "user_added_per_file": {
+        ".superpowers/brainstorm/90082-1776704014/state/server-stopped": 1,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 10,
+        "docs/superpowers/plans/2026-04-14-collab-skill.md": 874,
+        "docs/superpowers/specs/2026-04-14-collab-skill-design.md": 320
+      }
+    }
+  ]
+}
