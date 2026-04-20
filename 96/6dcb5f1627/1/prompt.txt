@@ -180,3 +180,11 @@ hmm can we copy what the codex skill does but for codex and gemini for orchestra
       38 +    }
       39 +  ]
  it would be nice for the user not having to approve or see the agent write to the .entire folder
+
+---
+
+so if I have claude start designing something and it does a bunch of research it doesn't share that research with the other agents. is there a way to compact what it learned so that the other agents have some context when starting?
+
+---
+
+yes
