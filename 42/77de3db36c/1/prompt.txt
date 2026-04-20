@@ -1,0 +1,230 @@
+/superpowers:brainstorming how can I design a skill that uses entire cli and entire checkpoint data so that I can have both a claude code sessiona and a codex session running at the same time and have
+  them both writing a spec or design document. my flow is usually have claude do initial design then have codex review and update then have claude review and update etc..
+  would be nice to have them talk to each other
+
+---
+
+yes
+
+---
+
+c
+
+---
+
+b
+
+---
+
+I want both. let the user decide
+
+---
+
+hmm pros and cons of a and b
+
+---
+
+a
+
+---
+
+b
+
+---
+
+c
+
+---
+
+c
+
+---
+
+allow A or C
+
+---
+
+b. also a requirement is I can still use other skills in this process. currently I like to use brainstorming skill but it could change
+
+---
+
+thats correct
+
+---
+
+c
+
+---
+
+.collab should live in .entire folder
+
+---
+
+looks good but are the commits necessary? it would be great if it didn't commit
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+continue
+
+---
+
+/codex:adversarial-review reviwe docs/superpowers/specs/2026-04-14-collab-skill-design.md
+
+---
+
+is [high] The turn prompt injects untrusted document really an issue if the document was generated from scratch by agent?
+
+---
+
+fix Turn ownership is not fenced, so concurrent or expired turns can both commit state and fix [medium] git hash-object -w makes every uncommitted draft revision durable
+
+---
+
+can claude do adversarial review
+
+---
+
+if agent is on auto mode meaning its having it do 8 turns. does this race become more common
+
+---
+
+explain what this is "do you want real atomicity (rename-from-tmpfile is easy)"
+
+---
+
+okay drop atomic language
+
+---
+
+implement
+
+---
+
+I don't want ot commit doc
+
+---
+
+1
+
+---
+
+I tried this out. does it work if user doesn't have the codex skill installed?
+
+---
+
+hmm can we copy what the codex skill does but for codex and gemini for orchestrator mode? also I see stuff like this ⏺ Bash(cat .entire/collab/c3ee9597/state.json | python3 -c "import json,sys; s=json.load(sys.stdin); print('version:', s['turn']['version'])")
+  ⎿  version: 1
+
+⏺ Bash(cp docs/agent-memory-design.md .entire/collab/c3ee9597/snapshots/turn-1.md && ls .entire/collab/c3ee9597/snapshots/)
+  ⎿  turn-1.md
+
+⏺ Write(.entire/collab/c3ee9597/state.json)
+  ⎿  Added 14 lines, removed 6 lines
+       4    "status": "active",
+       5    "mode": "orchestrated",
+       6    "turn": {
+       7 -    "number": 1,
+       8 -    "agent": "claude-code",
+       9 -    "version": 1,
+      10 -    "started_at": "2026-04-20T12:40:00Z",
+       7 +    "number": 2,
+       8 +    "agent": "codex",
+       9 +    "version": 2,
+      10 +    "started_at": "2026-04-20T12:42:00Z",
+      11      "lease_seconds": 120
+      12    },
+      13    "agents": [
+     ...
+      15        "type": "claude-code",
+      16        "session_id": "5bd5d3dc-85b5-49dc-af16-852198590b5f",
+      17        "role": "Divergent explorer — pose framing questions, surface tradeoffs, generate options. Seed turn 1 with brainstorming questions for codex to answ
+          er. On later turns, challenge codex's answers and push for decisions.",
+      18 -      "turns_completed": 0
+      18 +      "turns_completed": 1
+      19      },
+      20      {
+      21        "type": "codex",
+     ...
+      28      "max_turns": 4,
+      29      "turn_order": ["claude-code", "codex"]
+      30    },
+      31 -  "history": []
+      31 +  "history": [
+      32 +    {
+      33 +      "turn": 1,
+      34 +      "agent": "claude-code",
+      35 +      "snapshot": "snapshots/turn-1.md",
+      36 +      "summary": "Seeded framing questions (problem, scope, memory types, read/write triggers, storage, forget semantics, success criteria) and 4 candidate
+         + architectures for codex to commit to.",
+      37 +      "timestamp": "2026-04-20T12:42:00Z"
+      38 +    }
+      39 +  ]
+ it would be nice for the user not having to approve or see the agent write to the .entire folder
+
+---
+
+so if I have claude start designing something and it does a bunch of research it doesn't share that research with the other agents. is there a way to compact what it learned so that the other agents have some context when starting?
+
+---
+
+yes
+
+---
+
+would it be easier to use entire explain or summary or some new entire command or use agent handoff to do this instead of writing to context.md
+
+---
+
+what would entire compact do?
+
+---
+
+isn't that what entire explain summary does
+
+---
+
+can you check the code at entire cli
+
+---
+
+do session handoff
+
+---
+
+a few more things. should add a clean up command or something that cleans up all the metadata created? also does this allow for a collab command that is like implement but has each agent implement spec on separate branch or git worktree so user can compare?
+
+---
+
+so flow i could do is like collab start then I have agents go back and forth writing spec. then once I like the spec I cnan do collab implement and that causes agents to do off and implement?
+
+---
+
+yes but I want these individual enought that user can do different flow. flow 1: is what you just described. flow 2 is user wrote their own spec and want to have each agent implement the spec then choose winner
+
+---
+
+yes
+
+---
+
+can you make permissions tighter. only exactly whats needed
