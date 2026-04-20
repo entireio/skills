@@ -3,7 +3,7 @@
   "checkpoint_id": "966dcb5f1627",
   "strategy": "manual-commit",
   "branch": "experiment",
-  "checkpoints_count": 0,
+  "checkpoints_count": 2,
   "files_touched": [
     "plugins/entire/skills/collab/SKILL.md",
     "plugins/entire/skills/collab/agents/collab-worker.md",
@@ -15,6 +15,19 @@
       "transcript": "/96/6dcb5f1627/0/full.jsonl",
       "content_hash": "/96/6dcb5f1627/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/96/6dcb5f1627/1/metadata.json",
+      "transcript": "/96/6dcb5f1627/1/full.jsonl",
+      "content_hash": "/96/6dcb5f1627/1/content_hash.txt",
+      "prompt": "/96/6dcb5f1627/1/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 3702,
+    "cache_creation_tokens": 406601,
+    "cache_read_tokens": 22798613,
+    "output_tokens": 110575,
+    "api_call_count": 178
+  }
 }
