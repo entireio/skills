@@ -1,0 +1,52 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "967701736668",
+  "session_id": "fe3ed705-946a-49c1-9c31-0a5ec7a62aba",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-21T19:11:31.252282Z",
+  "branch": "experiment",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "plugins/entire/skills/collab/SKILL.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6[1m]",
+  "turn_id": "8224e265334a",
+  "token_usage": {
+    "input_tokens": 3980,
+    "cache_creation_tokens": 2225137,
+    "cache_read_tokens": 88770125,
+    "output_tokens": 212167,
+    "api_call_count": 388
+  },
+  "session_metrics": {
+    "turn_count": 64
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-21T19:11:31.200031Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 30,
+    "human_removed": 48,
+    "total_committed": 0,
+    "total_lines_changed": 78,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 1202,
+      "user_lines_removed": 0,
+      "agent_lines_added": 794,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 7,
+        ".superpowers/brainstorm/90082-1776704014/state/server-stopped": 1,
+        "docs/superpowers/plans/2026-04-14-collab-skill.md": 874,
+        "docs/superpowers/specs/2026-04-14-collab-skill-design.md": 320
+      }
+    }
+  ]
+}
