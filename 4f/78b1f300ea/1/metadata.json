@@ -1,0 +1,38 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "4f78b1f300ea",
+  "session_id": "fe3ed705-946a-49c1-9c31-0a5ec7a62aba",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-21T22:34:21.889554Z",
+  "branch": "experiment",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6[1m]",
+  "turn_id": "2db4cd3e0fe4",
+  "token_usage": {
+    "input_tokens": 4082,
+    "cache_creation_tokens": 3101982,
+    "cache_read_tokens": 124975532,
+    "output_tokens": 235198,
+    "api_call_count": 472
+  },
+  "session_metrics": {
+    "turn_count": 73
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 1203,
+      "user_lines_removed": 0,
+      "agent_lines_added": 794,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8,
+        ".superpowers/brainstorm/90082-1776704014/state/server-stopped": 1,
+        "docs/superpowers/plans/2026-04-14-collab-skill.md": 874,
+        "docs/superpowers/specs/2026-04-14-collab-skill-design.md": 320
+      }
+    }
+  ]
+}
