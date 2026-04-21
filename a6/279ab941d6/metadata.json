@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "a6279ab941d6",
+  "strategy": "manual-commit",
+  "branch": "experiment",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "plugins/entire/skills/collab/SKILL.md",
+    "plugins/entire/skills/collab/agents/collab-worker.md",
+    "plugins/entire/skills/collab/references/state-schema.md",
+    "plugins/entire/skills/collab/references/turn-protocol.md",
+    "plugins/entire/skills/collab/scripts/dispatch.sh"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a6/279ab941d6/0/metadata.json",
+      "transcript": "/a6/279ab941d6/0/full.jsonl",
+      "content_hash": "/a6/279ab941d6/0/content_hash.txt",
+      "prompt": "/a6/279ab941d6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3875,
+    "cache_creation_tokens": 1426840,
+    "cache_read_tokens": 58575808,
+    "output_tokens": 180254,
+    "api_call_count": 307
+  }
+}
