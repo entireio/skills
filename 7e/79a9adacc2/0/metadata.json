@@ -1,0 +1,66 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "7e79a9adacc2",
+  "session_id": "4f0bf891-e56a-421d-a7d6-2dedc925cd87",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-22T18:53:02.379555Z",
+  "branch": "experiment",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "plugins/entire/skills/collab/SKILL.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "ae5156d6faf8",
+  "token_usage": {
+    "input_tokens": 6,
+    "cache_creation_tokens": 15925,
+    "cache_read_tokens": 18315,
+    "output_tokens": 31,
+    "api_call_count": 1
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-22T18:53:02.376891Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 5,
+    "human_modified": 15,
+    "human_removed": 0,
+    "total_committed": 5,
+    "total_lines_changed": 20,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 2012,
+      "user_lines_removed": 15,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8,
+        ".superpowers/brainstorm/90082-1776704014/content/agent-integration.html": 114,
+        ".superpowers/brainstorm/90082-1776704014/content/approaches.html": 92,
+        ".superpowers/brainstorm/90082-1776704014/content/e2e-flows.html": 149,
+        ".superpowers/brainstorm/90082-1776704014/content/skill-architecture.html": 138,
+        ".superpowers/brainstorm/90082-1776704014/content/state-protocol.html": 97,
+        ".superpowers/brainstorm/90082-1776704014/content/turn-lifecycle-v2.html": 101,
+        ".superpowers/brainstorm/90082-1776704014/content/turn-lifecycle.html": 88,
+        ".superpowers/brainstorm/90082-1776704014/content/waiting.html": 3,
+        ".superpowers/brainstorm/90082-1776704014/state/server-stopped": 1,
+        ".superpowers/brainstorm/90082-1776704014/state/server.log": 11,
+        ".superpowers/brainstorm/90082-1776704014/state/server.pid": 1,
+        "docs/superpowers/plans/2026-04-14-collab-skill.md": 874,
+        "docs/superpowers/specs/2026-04-14-collab-skill-design.md": 320,
+        "plugins/entire/skills/collab/SKILL.md": 15
+      },
+      "user_removed_per_file": {
+        "plugins/entire/skills/collab/SKILL.md": 15
+      }
+    }
+  ]
+}
