@@ -407,3 +407,11 @@ verify claude and gemini don't have dispatch api like codex
 ---
 
 I don't see role when I do /tmp/entire-c collab -h
+
+---
+
+if I have a spec that calls out multiple options can we add a collab create poc command. where it does a fast version of it. no tests etc...
+
+---
+
+if I have a spec that calls out multiple options can we add a collab create poc command. where it does a fast version of it. no tests etc...
