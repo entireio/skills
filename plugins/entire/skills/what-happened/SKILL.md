@@ -88,8 +88,10 @@ rg -n -F "<distinctive snippet line>" -- <path>
 - If whitespace differs but the code is otherwise identical, normalize leading indentation and
   trailing whitespace before deciding the snippet does not match.
 - If the snippet appears multiple times, report the ambiguity and list the candidate ranges
-  instead of picking one silently.
-- If the snippet cannot be found exactly, say so plainly and stop rather than inferring a nearby match.
+  instead of picking one silently. Do not use the `Entire What Happened:` header for this
+  unresolved-input response.
+- If the snippet cannot be found exactly, say so plainly and stop rather than inferring a nearby
+  match. Do not use the `Entire What Happened:` header for this unresolved-input response.
 
 ### 2. Gather provenance
 
