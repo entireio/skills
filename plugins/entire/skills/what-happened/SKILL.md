@@ -40,6 +40,7 @@ Allowed examples:
 
 Supported inputs:
 
+- `path:line`
 - `path:start-end`
 - `path` plus a pasted code snippet from that file
 
@@ -84,10 +85,10 @@ as not checkpoint-backed.
 
 ### 1. Resolve the target block
 
-If the user gave `path:start-end`, use that range directly and read only that range from
-the file before explaining it. If the path does not exist, the file cannot be read, or the
-range is outside the file, say so plainly and stop without using the `Entire What Happened:`
-header.
+If the user gave `path:line` or `path:start-end`, use that line or range directly and read only
+that target from the file before explaining it. If the path does not exist, the file cannot be
+read, or the line/range is outside the file, say so plainly and stop without using the
+`Entire What Happened:` header.
 
 If the user gave a path and a snippet:
 
