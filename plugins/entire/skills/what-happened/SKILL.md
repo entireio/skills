@@ -12,6 +12,20 @@ description: >
 
 Use this skill when the user wants a provenance-focused explanation for a code block.
 
+## Response Format
+
+Begin the first response to this skill invocation with the line:
+
+`Entire What Happened:`
+
+followed by a blank line, then the content.
+
+- Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation (e.g. after the user disambiguates a snippet match).
+- Do **not** include the header on unresolved-input responses (e.g. snippet not found,
+  ambiguous snippet, invalid path or range). If the target code was resolved but no
+  checkpoint-backed context exists, still use the header and clearly label the answer as
+  current-code fallback analysis rather than a checkpoint summary.
+
 Supported inputs:
 
 - `path:start-end`
@@ -21,7 +35,9 @@ Supported inputs:
 
 Find the most recent change blocks matching the user's target lines, list the matching
 commit hashes and checkpoint state, then summarize why each block was changed using the
-cheapest reliable context available.
+cheapest reliable context available. When checkpoint-backed context is unavailable, still
+explain what the current code does as an explicit fallback and clearly mark that explanation
+as not checkpoint-backed.
 
 ## Rules
 
@@ -41,7 +57,10 @@ cheapest reliable context available.
    - a checkpoint is referenced but is unavailable locally or remotely
    - a checkpoint is available, but full transcript expansion failed
    - the code is untracked, uncommitted, or otherwise has no committed history
-8. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
+8. For every resolved code block, include either checkpoint-backed history or a fallback
+   explanation of what the current code does. Label fallback explanations as "not
+   checkpoint-backed" and do not imply intent or historical rationale from checkpoints.
+9. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
    of the file.
 
 ## Workflow
@@ -78,8 +97,8 @@ Run:
 git blame --porcelain -L <start>,<end> -- <path>
 ```
 
-If the command fails because the file is untracked, stop and say that the file is not tracked
-by git, so there is no committed history to trace.
+If the command fails because the file is untracked, mark the whole target range as having no
+committed history and continue to fallback code behavior analysis.
 
 If blame reports an uncommitted pseudo-commit such as all zeroes or `Not Committed Yet`, mark
 those ranges as local uncommitted changes and do not run `entire explain` for them. If other
@@ -112,7 +131,7 @@ commit-level context. Do not use `--search-all` unless the user explicitly asks 
 failed lookup; it removes branch/depth limits and may be slow.
 
 If this command fails, do not scan raw session files. Use `git show --no-patch` for commit
-metadata, mark the explanation as commit-only context, and report that Entire transcript
+metadata, mark the range for fallback code behavior analysis, and report that Entire transcript
 lookup failed. Include the command error only if it helps the user fix the issue, such as
 authentication or missing remote configuration.
 
@@ -143,8 +162,9 @@ Use the collected output to answer:
 - why this block changed
 - any constraint, bug, edge case, or refactor pressure that caused the final code
 
-If the commit has no checkpoint ID, use commit-level context and the code block itself, clearly
-marked as "commit-only context; no Entire checkpoint was referenced."
+If the commit has no checkpoint ID, use commit metadata only for provenance and mark the range
+for fallback code behavior analysis. Clearly state "no checkpoint-backed summary; no Entire
+checkpoint was referenced."
 
 If a checkpoint ID is present but `entire explain --checkpoint` cannot load it, keep the
 checkpoint ID in the answer and say "checkpoint <id> was referenced, but the checkpoint was
@@ -156,12 +176,34 @@ was available but transcript expansion failed, then answer from the default chec
 
 Map each unique commit explanation back to every target range blamed to that commit.
 
+### 4. Add fallback code behavior analysis when needed
+
+For any resolved range without a checkpoint-backed explanation, still answer what the current
+code does. This applies when:
+
+- the file is untracked
+- the range is locally uncommitted
+- no checkpoint is referenced for the commit
+- the checkpoint is referenced but unavailable
+- transcript lookup or expansion fails
+- any other provenance command fails after the target code was resolved
+
+Use only source-backed analysis:
+
+- Read the target block and the smallest necessary surrounding scope, such as the enclosing
+  function, type, imports, or constants.
+- Use `rg` to inspect direct call sites or definitions only when the block cannot be understood
+  from local context.
+- Explain observable behavior, inputs, outputs, side effects, and important branches.
+- Do not present this as historical intent, checkpoint rationale, or an agent transcript summary.
+- State what cannot be known from current code alone.
+
 ## Response format
 
 Start with a short provenance summary:
 
 ````text
-What Happened:
+Entire What Happened:
 
 Matches
 - <path>:<start>-<end> -> commit <sha> | checkpoint <id>
@@ -182,11 +224,19 @@ Matches
   ```
 ````
 
-Then give one short section per distinct matching block:
+For checkpoint-backed ranges, give one short section per distinct matching block:
 
 ```text
 Why
 - <path>:<start>-<end>: <2-4 sentence explanation of why this block changed last time>
+```
+
+For ranges without checkpoint-backed context, use this separate section instead:
+
+```text
+Current-code fallback (not checkpoint-backed)
+- <path>:<start>-<end>: <2-4 sentence explanation of what the current code does, plus any
+  limits on what can be inferred without checkpoint history>
 ```
 
 Snippet guidance:
