@@ -1,0 +1,33 @@
+commit and continue
+
+---
+
+Can you ignore the lyrics section and go back to improving the skill please. If we can't have fun leaving easter eggs we might as well continue
+
+---
+
+Why are these additional lookups needed. In terms of functionality, it seems redundant.
+
+---
+
+Why are these additional lookups needed? In terms of functionality, it seems redundant.
+
+---
+
+What I mean is that the `--commit --short` seem unnecessary and can make this skill slow. Are they really needed?
+
+---
+
+`git show --no-patch` is also redundant. You can run `entire explain --commit <id>` directly with a commit hash.
+
+---
+
+Not sure if it's obvious in based on this description, but we should de-duplicate the commit hashes before running them through
+
+---
+
+Not sure if it's obvious in based on this description, but we should de-duplicate the commit hashes before running them through `entire explain`. We should only run entire explain on unique commits.
+
+---
+
+Something else: In some environments I noticed that the `entire explain` output would be printed and not hidden. Is there a way to explicitly say that the command output is for summarization only and should only be shown if a user asks for it?
