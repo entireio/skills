@@ -133,7 +133,7 @@ For each matching block, collect:
 - line range
 - matched code snippet from the current file for that exact range
 - commit hash
-- author/summary when helpful for commit-only context
+- author/summary when helpful for provenance or fallback context
 
 Collect the unique commit SHAs across all matching blocks while preserving each distinct range.
 Build a map from commit SHA to all target ranges blamed to that commit. Do not run
