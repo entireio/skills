@@ -46,8 +46,10 @@ range, or pasted snippet through git blame and Entire checkpoints.
 Current behavior:
 
 - resolves file lines, ranges, or pasted snippets to exact line numbers
-- groups matching blame ranges by unique commit before running `entire explain`
-- summarizes `entire explain` output without dumping raw transcripts by default
+- asks for a concrete file line, range, or snippet before running provenance commands
+- deduplicates commit and checkpoint lookups before running expensive transcript commands
+- asks before expanding broad ranges with many unique commits
+- summarizes `entire explain` output without dumping raw transcripts by default; raw transcript expansion is opt-in
 - falls back to clearly labeled current-code analysis when checkpoint-backed context is unavailable
 
 Examples:

@@ -45,6 +45,9 @@ Supported inputs:
 - `path:start-end`
 - `path` plus a pasted code snippet from that file
 
+If the user asks a vague provenance question without a file path, line range, or pasted
+snippet, ask for the target code and stop without running commands or using the header.
+
 ## Goal
 
 Find the most recent change blocks matching the user's target lines, list the matching
@@ -60,36 +63,43 @@ as not checkpoint-backed.
 2. Use the installed `entire` binary from `PATH`, not `./entire` from the current repo.
 3. Prefer `git blame` for provenance and `entire explain --commit` for transcript-backed context.
    Do not use experimental `entire why` for this skill.
-4. Do not manually hunt through `.git/entire-sessions/` or raw transcript files for commit
+4. Use this skill for latest-change provenance on a specific block. For broad original intent
+   of a symbol, file, or feature, prefer the `explain` skill.
+5. Do not manually hunt through `.git/entire-sessions/` or raw transcript files for commit
    provenance. If `entire explain` cannot provide transcript context, report the exact
    missing or unavailable state.
-5. If the user provides a snippet, resolve it to exact line numbers before explaining anything.
-6. If multiple blame blocks match, include all distinct ranges. Deduplicate commit hashes
+6. If the user provides a snippet, resolve it to exact line numbers before explaining anything.
+7. If multiple blame blocks match, include all distinct ranges. Deduplicate commit hashes
    before running `entire explain`; run transcript lookups once per unique commit, not once
-   per range.
-7. Distinguish these states explicitly:
+   per range. Also deduplicate checkpoint IDs before expanding checkpoint transcripts; run
+   checkpoint expansion once per unique checkpoint, not once per commit or range.
+8. Distinguish these states explicitly:
    - no checkpoint is referenced for the commit
    - a checkpoint is referenced but is unavailable locally or remotely
-   - a checkpoint is available, but full transcript expansion failed
+   - a checkpoint is available, but full transcript expansion failed and raw transcript
+     expansion was not explicitly requested
    - the code is untracked, uncommitted, or otherwise has no committed history
-8. For every resolved code block, include either checkpoint-backed history or a fallback
+9. For every resolved code block, include either checkpoint-backed history or a fallback
    explanation of what the current code does. Label fallback explanations as "not
    checkpoint-backed" and do not imply intent or historical rationale from checkpoints.
-9. Treat `entire explain` command output as intermediate source material for summarization.
+10. Treat `entire explain` command output as intermediate source material for summarization.
    Do not paste raw command output or full transcripts into the user response unless the user
    explicitly asks for raw output. Include only short error excerpts when they help the user fix
    a failed lookup.
-10. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
+11. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
    of the file.
 
 ## Workflow
 
 ### 1. Resolve the target block
 
-If the user gave `path:line` or `path:start-end`, use that line or range directly and read only
-that target from the file before explaining it. If the path does not exist, the file cannot be
-read, or the line/range is outside the file, say so plainly and stop without using the
-`Entire What Happened:` header.
+If the user did not provide a file path plus exact line/range or pasted snippet, ask them for
+the target code and stop. Do not run commands or use the `Entire What Happened:` header.
+
+If the user gave `path:line` or `path:start-end`, use that line or range directly and read
+only that target from the file before explaining it. If the path does not exist, the file
+cannot be read, or the line/range is outside the file, say so plainly and stop without using
+the `Entire What Happened:` header.
 
 If the user gave a path and a snippet:
 
@@ -97,7 +107,7 @@ If the user gave a path and a snippet:
   matching to find candidate locations:
 
 ```bash
-grep -n -F -- "<distinctive snippet line>" <path>
+grep -n -F -- "<distinctive snippet line>" "<path>"
 ```
 
 - Read the small candidate windows around each hit, not the whole file unless the file is
@@ -121,7 +131,7 @@ name, or approximate range.
 Run:
 
 ```bash
-git blame --porcelain -L <start>,<end> -- <path>
+git blame --porcelain -L <start>,<end> -- "<path>"
 ```
 
 If the command fails because the file is untracked, mark the whole target range as an untracked
@@ -145,6 +155,10 @@ Collect the unique real commit SHAs across all matching blocks while preserving 
 range. Exclude untracked and local uncommitted pseudo-commits from this set. Build a map from
 commit SHA to all target ranges blamed to that commit. Do not run `entire explain` separately
 for multiple ranges that share the same commit.
+
+If the resolved target spans more than 5 unique real commits, stop before running `entire
+explain`. Report the matched ranges and ask the user to narrow the range or confirm the deeper
+lookup. Do not use the `Entire What Happened:` header for this confirmation response.
 
 Keep the exact snippets from the target-resolution read so the final answer can show users
 which code each provenance entry refers to. Only reread a matched block if the snippet for
@@ -171,13 +185,19 @@ lookup failed. Include the command error only if it helps the user fix the issue
 authentication or missing remote configuration.
 
 If the commit view reveals a checkpoint ID but is still not enough to answer the user's
-question, run:
+question, collect the checkpoint ID for expansion. Deduplicate checkpoint IDs across all
+commit views before running checkpoint lookups; if several commits reference the same
+checkpoint, expand that checkpoint once and map the result back to every relevant range.
+
+For each unique checkpoint ID that needs more detail, run:
 
 ```bash
 entire explain --checkpoint <checkpoint-id> --full --no-pager
 ```
 
-If `--full` fails and raw transcript is necessary to answer the user's question, run:
+Do not run raw transcript expansion automatically. If `--full` fails or is insufficient,
+mark the affected ranges for current-code fallback analysis unless the user explicitly asked
+for raw transcript detail. Only when explicitly requested, run:
 
 ```bash
 entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
@@ -201,10 +221,11 @@ checkpoint ID in the answer and say "checkpoint <id> was referenced, but the che
 not available locally or remotely." Include the command error only if it helps the user fix
 the issue, such as authentication or missing remote configuration.
 
-If the checkpoint loads but `--full` or `--raw-transcript` fails, say that checkpoint metadata
-was available but transcript expansion failed. Answer checkpoint-backed facts from the
-`entire explain --commit` output, and use current-code fallback analysis for anything that
-output cannot support.
+If the checkpoint loads but `--full` fails, say that checkpoint metadata was available but
+full transcript expansion failed. If raw transcript detail was not explicitly requested, say
+it was not expanded automatically. Answer checkpoint-backed facts from the `entire
+explain --commit` output, and use current-code fallback analysis for anything that output
+cannot support.
 
 Map each unique commit explanation back to every target range blamed to that commit.
 
