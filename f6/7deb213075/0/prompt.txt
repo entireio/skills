@@ -1,5 +1,1 @@
 commit and continue
-
----
-
-Can we add some more trigger phrases like "Why does this code look like this?" and such?
