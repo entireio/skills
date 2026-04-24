@@ -1,0 +1,9 @@
+okay, commit and continue
+
+---
+
+You've just updated a section for the search skill. That's not the right place
+
+---
+
+I didn't tell you to undo your changes. I told you that the two lines under the ### search section belonged to a different skill.
