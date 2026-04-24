@@ -36,7 +36,7 @@ Allowed examples:
 
 - `Tell me why: the blame points here.`
 - `Tell me why: the diff left a trail.`
-- `Tell me why: the checkpoint has receipts.`
+- `Tell me why: the context starts here.`
 
 Supported inputs:
 
@@ -62,8 +62,9 @@ as not checkpoint-backed.
    provenance. If `entire explain` cannot provide transcript context, report the exact
    missing or unavailable state.
 5. If the user provides a snippet, resolve it to exact line numbers before explaining anything.
-6. If multiple blame blocks match, include all distinct ranges. Run expensive transcript
-   lookups once per unique commit, not once per range.
+6. If multiple blame blocks match, include all distinct ranges. Deduplicate commit hashes
+   before running `entire explain`; run transcript lookups once per unique commit, not once
+   per range.
 7. Distinguish these states explicitly:
    - no checkpoint is referenced for the commit
    - a checkpoint is referenced but is unavailable locally or remotely
@@ -72,7 +73,11 @@ as not checkpoint-backed.
 8. For every resolved code block, include either checkpoint-backed history or a fallback
    explanation of what the current code does. Label fallback explanations as "not
    checkpoint-backed" and do not imply intent or historical rationale from checkpoints.
-9. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
+9. Treat `entire explain` command output as intermediate source material for summarization.
+   Do not paste raw command output or full transcripts into the user response unless the user
+   explicitly asks for raw output. Include only short error excerpts when they help the user fix
+   a failed lookup.
+10. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
    of the file.
 
 ## Workflow
@@ -131,43 +136,40 @@ For each matching block, collect:
 - author/summary when helpful for commit-only context
 
 Collect the unique commit SHAs across all matching blocks while preserving each distinct range.
+Build a map from commit SHA to all target ranges blamed to that commit. Do not run
+`entire explain` separately for multiple ranges that share the same commit.
 
 After resolving the matching ranges, read the file contents for each matched block and keep
 the exact snippet so the final answer can show users which code each provenance entry refers to.
 
 ### 3. Explain each unique commit
 
-For each unique commit SHA, first run the cheapest lookup:
+For each unique commit SHA in that map, run exactly once:
 
 ```bash
-entire explain --commit <commit-sha> --short --no-pager
+entire explain --commit <commit-sha> --no-pager
 ```
 
-Use this to discover whether the commit has an associated checkpoint ID and to gather
-commit-level context. Do not use `--search-all` unless the user explicitly asks to widen a
-failed lookup; it removes branch/depth limits and may be slow.
+When there are multiple unique commits, run those independent commit lookups in parallel when
+the agent environment supports parallel tool calls.
 
-If this command fails, do not scan raw session files. Use `git show --no-patch` for commit
-metadata, mark the range for fallback code behavior analysis, and report that Entire transcript
+Use this output to answer the question and identify the checkpoint state. Do not use
+`--search-all` unless the user explicitly asks to widen a failed lookup; it removes branch/depth
+limits and may be slow.
+
+If this command fails, do not run extra commit metadata lookups and do not scan raw session
+files. Mark the range for fallback code behavior analysis and report that Entire transcript
 lookup failed. Include the command error only if it helps the user fix the issue, such as
 authentication or missing remote configuration.
 
-Then use the cheapest sufficient detail:
-
-1. If `--commit --short` gives enough context, use it.
-2. If it reveals a checkpoint ID but more detail is needed, run:
-
-```bash
-entire explain --checkpoint <checkpoint-id> --no-pager
-```
-
-3. If the default checkpoint view is still not enough, run:
+If the commit view reveals a checkpoint ID but is still not enough to answer the user's
+question, run:
 
 ```bash
 entire explain --checkpoint <checkpoint-id> --full --no-pager
 ```
 
-4. If `--full` fails and raw transcript is necessary to answer the user's question, run:
+If `--full` fails and raw transcript is necessary to answer the user's question, run:
 
 ```bash
 entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
@@ -178,6 +180,9 @@ Use the collected output to answer:
 - what the agent was trying to do
 - why this block changed
 - any constraint, bug, edge case, or refactor pressure that caused the final code
+
+Do not show the raw `entire explain` output by default. Summarize only the relevant parts tied
+to the target ranges.
 
 If the commit has no checkpoint ID, use commit metadata only for provenance and mark the range
 for fallback code behavior analysis. Clearly state "no checkpoint-backed summary; no Entire
