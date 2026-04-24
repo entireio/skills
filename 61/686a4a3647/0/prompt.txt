@@ -1,5 +1,1 @@
-commit and continue
-
----
-
-Continue
+Commit and continue
