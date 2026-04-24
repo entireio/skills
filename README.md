@@ -52,6 +52,8 @@ Current behavior:
 
 Examples:
 
+- "tell me why this code is like that"
+- "why does this code look like this?"
 - "what happened here: `src/auth.ts:42-57`"
 - "what happened at `src/auth.ts:42`"
 - "what happened to this block?" plus a pasted snippet

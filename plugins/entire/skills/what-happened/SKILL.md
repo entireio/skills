@@ -300,6 +300,9 @@ to transcript summarization. Present the candidate ranges and ask which one they
 This skill should trigger for questions like:
 
 - "wtf is going on with this code"
+- "tell me why this code is like this"
+- "tell me why this code is like that"
+- "tell me why this was changed"
 - "what happened here"
 - "what happened to this block"
 - "why is this code like this"
