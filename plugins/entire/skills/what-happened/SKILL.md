@@ -28,9 +28,8 @@ followed by a blank line, then the content.
   ambiguous snippet, invalid path or range). If the target code was resolved but no
   checkpoint-backed context exists, still use the header and clearly label the answer as
   current-code fallback analysis rather than a checkpoint summary.
-- After the header, you may include exactly one short, original, non-lyrical "Tell me why"
-  line randomly chosen from the examples below. Do not quote, paraphrase, or imitate song
-  lyrics.
+- After the header, include exactly one short, original, non-lyrical "Tell me why" line
+  randomly chosen from the examples below. Do not quote, paraphrase, or imitate song lyrics.
 
 Allowed examples:
 
