@@ -194,9 +194,9 @@ not available locally or remotely." Include the command error only if it helps t
 the issue, such as authentication or missing remote configuration.
 
 If the checkpoint loads but `--full` or `--raw-transcript` fails, say that checkpoint metadata
-was available but transcript expansion failed. Answer checkpoint-backed facts from the default
-checkpoint view, and use current-code fallback analysis for anything the default view cannot
-support.
+was available but transcript expansion failed. Answer checkpoint-backed facts from the
+`entire explain --commit` output, and use current-code fallback analysis for anything that
+output cannot support.
 
 Map each unique commit explanation back to every target range blamed to that commit.
 
