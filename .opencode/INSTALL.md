@@ -1,6 +1,6 @@
 # Installing Skills for OpenCode
 
-Enable Entire skills in OpenCode via native skill discovery from `plugins/entire/skills`.
+Enable Entire skills in OpenCode via native skill discovery from `skills/`.
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ Enable Entire skills in OpenCode via native skill discovery from `plugins/entire
 
 ## Installation
 
-The published `skills` package installs the `entire` plugin from `plugins/entire`, which exposes the skills in `plugins/entire/skills`.
+The published `skills` package installs the `entire` plugin, which exposes the skills in `./skills/`.
 
 Add to your OpenCode config:
 
