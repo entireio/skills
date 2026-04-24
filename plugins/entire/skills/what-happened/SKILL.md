@@ -112,6 +112,10 @@ rg -n -F "<distinctive snippet line>" -- <path>
 
 ### 2. Gather provenance
 
+Only run blame after the target has been resolved to actual line numbers in the current file.
+Do not run `git blame -L` against an unresolved pasted snippet, inferred nearby block, symbol
+name, or approximate range.
+
 Run:
 
 ```bash
@@ -135,9 +139,10 @@ For each matching block, collect:
 - commit hash
 - author/summary when helpful for provenance or fallback context
 
-Collect the unique commit SHAs across all matching blocks while preserving each distinct range.
-Build a map from commit SHA to all target ranges blamed to that commit. Do not run
-`entire explain` separately for multiple ranges that share the same commit.
+Collect the unique real commit SHAs across all matching blocks while preserving each distinct
+range. Exclude untracked and local uncommitted pseudo-commits from this set. Build a map from
+commit SHA to all target ranges blamed to that commit. Do not run `entire explain` separately
+for multiple ranges that share the same commit.
 
 Keep the exact snippets from the target-resolution read so the final answer can show users
 which code each provenance entry refers to. Only reread a matched block if the snippet for
