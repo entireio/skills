@@ -1,0 +1,5 @@
+commit and continue
+
+---
+
+Can we also say something about using `git blame -L` after actual line numbers were resolved?
