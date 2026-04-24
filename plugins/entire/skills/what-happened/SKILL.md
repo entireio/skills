@@ -310,5 +310,6 @@ This skill should trigger for questions like:
 
 Especially trigger when the user includes:
 
+- a single file line like `cmd/entire/cli/explain.go:103`
 - a file range like `cmd/entire/cli/explain.go:103-107`
 - a file path plus a pasted code snippet
