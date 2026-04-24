@@ -1,0 +1,80 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "453006269783",
+  "session_id": "95047199-69f0-49a5-9432-18cba428ecec",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-24T17:18:00.599721Z",
+  "branch": "alisha/refactor",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".agents/plugins/marketplace.json",
+    ".claude-plugin/marketplace.json",
+    ".claude-plugin/plugin.json",
+    ".codex-plugin/plugin.json",
+    ".cursor-plugin/plugin.json",
+    ".opencode/INSTALL.md",
+    ".opencode/plugins/entire.js",
+    "GEMINI.md",
+    "README.md",
+    "plugins/entire/.claude-plugin/plugin.json",
+    "plugins/entire/.codex-plugin/plugin.json",
+    "plugins/entire/skills/explain/SKILL.md",
+    "plugins/entire/skills/search/SKILL.md",
+    "plugins/entire/skills/session-handoff/SKILL.md",
+    "skills/explain/SKILL.md",
+    "skills/search/SKILL.md",
+    "skills/session-handoff/SKILL.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "2abc88d40ff9",
+  "token_usage": {
+    "input_tokens": 79,
+    "cache_creation_tokens": 111444,
+    "cache_read_tokens": 3516353,
+    "output_tokens": 16186,
+    "api_call_count": 64
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-24T17:18:00.592507Z",
+    "agent_lines": 310,
+    "agent_removed": 275,
+    "human_added": 4,
+    "human_modified": 30,
+    "human_removed": 0,
+    "total_committed": 330,
+    "total_lines_changed": 619,
+    "agent_percentage": 94.50726978998385,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 7,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 7
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 24,
+      "user_lines_removed": 15,
+      "agent_lines_added": 343,
+      "agent_lines_removed": 290,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 7,
+        "README.md": 17
+      },
+      "user_removed_per_file": {
+        "GEMINI.md": 1,
+        "README.md": 14
+      }
+    }
+  ]
+}
