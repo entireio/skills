@@ -97,8 +97,9 @@ Run:
 git blame --porcelain -L <start>,<end> -- <path>
 ```
 
-If the command fails because the file is untracked, mark the whole target range as having no
-committed history and continue to fallback code behavior analysis.
+If the command fails because the file is untracked, mark the whole target range as an untracked
+file with no committed history, keep the exact snippet for that range, and continue to fallback
+code behavior analysis.
 
 If blame reports an uncommitted pseudo-commit such as all zeroes or `Not Committed Yet`, mark
 those ranges as local uncommitted changes and do not run `entire explain` for them. If other
@@ -219,6 +220,10 @@ Matches
   <matched code snippet>
   ```
 - <path>:<start>-<end> -> local uncommitted changes | no committed history
+  ```<language>
+  <matched code snippet>
+  ```
+- <path>:<start>-<end> -> untracked file | no committed history
   ```<language>
   <matched code snippet>
   ```
