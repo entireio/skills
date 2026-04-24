@@ -1,0 +1,5 @@
+Continue
+
+---
+
+In addtition to a summary based on entire checkpoints, it would also be good to show what the code does as an explicit fallback when no checkpoints were found or the code hasn't been committed yet and other error cases. We should make it clear that this isn't a checkpoint summary, though.
