@@ -45,8 +45,8 @@ Explains what happened to a specific code block by tracing the latest change for
 Current behavior:
 
 - resolves file ranges or pasted snippets to exact line numbers
-- groups matching blame ranges by unique commit before reading checkpoint context
-- uses cheap-first `entire explain` lookups before expanding checkpoint transcripts
+- groups matching blame ranges by unique commit before running `entire explain`
+- summarizes `entire explain` output without dumping raw transcripts by default
 - falls back to clearly labeled current-code analysis when checkpoint-backed context is unavailable
 
 Examples:
