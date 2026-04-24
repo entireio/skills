@@ -47,7 +47,7 @@ Supported inputs:
 
 Find the most recent change blocks matching the user's target lines, list the matching
 commit hashes and checkpoint state, then summarize why each block was changed using the
-cheapest reliable context available. When checkpoint-backed context is unavailable, still
+best available context. When checkpoint-backed context is unavailable, still
 explain what the current code does as an explicit fallback and clearly mark that explanation
 as not checkpoint-backed.
 
