@@ -139,8 +139,9 @@ Collect the unique commit SHAs across all matching blocks while preserving each 
 Build a map from commit SHA to all target ranges blamed to that commit. Do not run
 `entire explain` separately for multiple ranges that share the same commit.
 
-After resolving the matching ranges, read the file contents for each matched block and keep
-the exact snippet so the final answer can show users which code each provenance entry refers to.
+Keep the exact snippets from the target-resolution read so the final answer can show users
+which code each provenance entry refers to. Only reread a matched block if the snippet for
+that range was not already captured.
 
 ### 3. Explain each unique commit
 
