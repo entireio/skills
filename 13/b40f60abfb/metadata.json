@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "13b40f60abfb",
+  "strategy": "manual-commit",
+  "branch": "alisha/refactor",
+  "checkpoints_count": 0,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/13/b40f60abfb/0/metadata.json",
+      "transcript": "/13/b40f60abfb/0/full.jsonl",
+      "content_hash": "/13/b40f60abfb/0/content_hash.txt",
+      "prompt": "/13/b40f60abfb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 30,
+    "cache_creation_tokens": 7657,
+    "cache_read_tokens": 1167897,
+    "output_tokens": 5599,
+    "api_call_count": 15
+  }
+}
