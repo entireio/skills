@@ -303,8 +303,12 @@ This skill should trigger for questions like:
 - "what happened here"
 - "what happened to this block"
 - "why is this code like this"
+- "why does this code look like this"
+- "why does this look weird"
 - "why was this changed"
 - "why does this exist"
+- "why was this written this way"
+- "what is the history behind this code"
 - "help me understand this block"
 - "what changed here and why"
 
