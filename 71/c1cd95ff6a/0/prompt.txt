@@ -1,0 +1,9 @@
+Commit and continue
+
+---
+
+Can you try to combine git add and git commit into a single line so I won't have to approve two commands instead of one?
+
+---
+
+That's not what I asked you to do. What I said was run `git add ... && git commit ...` so I'll only have to approve it once.
