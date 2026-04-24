@@ -28,6 +28,14 @@ followed by a blank line, then the content.
   ambiguous snippet, invalid path or range). If the target code was resolved but no
   checkpoint-backed context exists, still use the header and clearly label the answer as
   current-code fallback analysis rather than a checkpoint summary.
+- After the header, you may include exactly one short, original, non-lyrical "Tell me why"
+  line chosen from the examples below. Do not quote, paraphrase, or imitate song lyrics.
+
+Allowed examples:
+
+- `Tell me why: the blame points here.`
+- `Tell me why: the diff left a trail.`
+- `Tell me why: the checkpoint has receipts.`
 
 Supported inputs:
 
@@ -214,6 +222,8 @@ Start with a short provenance summary:
 
 ````text
 Entire What Happened:
+
+Tell me why: the blame points here.
 
 Matches
 - <path>:<start>-<end> -> commit <sha> | checkpoint <id>
