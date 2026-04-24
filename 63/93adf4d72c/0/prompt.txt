@@ -7,3 +7,7 @@ Anything else that should be improved?
 ---
 
 Can you fix all of these issues in on batch. Just let it rip and I'll review and commit when they're done.
+
+---
+
+commit the changes
