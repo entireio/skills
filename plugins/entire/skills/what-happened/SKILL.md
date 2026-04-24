@@ -217,6 +217,10 @@ Matches
   ```<language>
   <matched code snippet>
   ```
+- <path>:<start>-<end> -> commit <sha> | Entire transcript lookup failed
+  ```<language>
+  <matched code snippet>
+  ```
 - <path>:<start>-<end> -> commit <sha> | checkpoint <id> unavailable
   ```<language>
   <matched code snippet>
