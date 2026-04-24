@@ -184,9 +184,9 @@ Use the collected output to answer:
 Do not show the raw `entire explain` output by default. Summarize only the relevant parts tied
 to the target ranges.
 
-If the commit has no checkpoint ID, use commit metadata only for provenance and mark the range
-for fallback code behavior analysis. Clearly state "no checkpoint-backed summary; no Entire
-checkpoint was referenced."
+If the commit has no checkpoint ID, use only the commit-level context returned by
+`entire explain --commit` for provenance and mark the range for fallback code behavior
+analysis. Clearly state "no checkpoint-backed summary; no Entire checkpoint was referenced."
 
 If a checkpoint ID is present but `entire explain --checkpoint` cannot load it, keep the
 checkpoint ID in the answer and say "checkpoint <id> was referenced, but the checkpoint was
