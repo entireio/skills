@@ -29,7 +29,8 @@ followed by a blank line, then the content.
   checkpoint-backed context exists, still use the header and clearly label the answer as
   current-code fallback analysis rather than a checkpoint summary.
 - After the header, include exactly one short, original, non-lyrical "Tell me why" line
-  randomly chosen from the examples below. Do not quote, paraphrase, or imitate song lyrics.
+  randomly chosen from the examples below. Do not quote, paraphrase, or imitate Backstreet
+  Boys lyrics or any other song lyrics.
 
 Allowed examples:
 
