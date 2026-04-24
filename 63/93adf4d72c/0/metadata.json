@@ -1,0 +1,63 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "6393adf4d72c",
+  "session_id": "019dc0d3-6b22-7052-b168-4487a38e0f4d",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-24T21:14:38.359561Z",
+  "branch": "add-what-happened-skill",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "README.md",
+    "plugins/entire/skills/what-happened/SKILL.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "c4c51418cc8f",
+  "checkpoint_transcript_start": 2350,
+  "transcript_lines_at_start": 2350,
+  "token_usage": {
+    "input_tokens": 860083,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 786688,
+    "output_tokens": 14983,
+    "api_call_count": 22
+  },
+  "session_metrics": {
+    "turn_count": 49
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-24T21:14:38.301896Z",
+    "agent_lines": 46,
+    "agent_removed": 23,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 46,
+    "total_lines_changed": 69,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 7,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 53,
+      "agent_lines_removed": 23
+    }
+  ]
+}
