@@ -38,6 +38,22 @@ Current behavior:
 - works with functions, files, and individual line changes
 - reports clearly when code is untracked, uncommitted, or created outside an Entire session
 
+### `what-happened`
+
+Explains what happened to a specific code block by tracing the latest change for a file range or pasted snippet through git blame and Entire checkpoints.
+
+Current behavior:
+
+- resolves file ranges or pasted snippets to exact line numbers
+- groups matching blame ranges by unique commit before reading checkpoint context
+- uses cheap-first `entire explain` lookups before expanding checkpoint transcripts
+- falls back to clearly labeled current-code analysis when checkpoint-backed context is unavailable
+
+Examples:
+
+- "what happened here: `src/auth.ts:42-57`"
+- "what happened to this block?" plus a pasted snippet
+
 ### `search`
 
 Searches Entire checkpoint history and transcripts to find prior work by topic, repo, branch, author, or time window.
