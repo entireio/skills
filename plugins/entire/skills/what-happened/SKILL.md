@@ -13,32 +13,6 @@ description: >
 
 Use this skill when the user wants a provenance-focused explanation for a code block.
 
-## Response Format
-
-Begin the first successful resolved-code response to this skill invocation with the line:
-
-`Entire What Happened:`
-
-followed by a blank line, then the content.
-
-- Apply the header to the **first successful resolved-code response of the invocation only.**
-  If an earlier unresolved-input response omitted the header and the user later disambiguates
-  the target, include the header on the resolved-code response. Do not re-print it on later
-  follow-up turns within the same invocation.
-- Do **not** include the header on unresolved-input responses (e.g. snippet not found,
-  ambiguous snippet, invalid path or range). If the target code was resolved but no
-  checkpoint-backed context exists, still use the header and clearly label the answer as
-  current-code fallback analysis rather than a checkpoint summary.
-- After the header, include exactly one short, original, non-lyrical "Tell me why" line
-  randomly chosen from the examples below. Do not quote, paraphrase, or imitate Backstreet
-  Boys lyrics or any other song lyrics.
-
-Allowed examples:
-
-- `Tell me why: the blame points here.`
-- `Tell me why: the diff left a trail.`
-- `Tell me why: the context starts here.`
-
 Supported inputs:
 
 - `path:line`
@@ -68,25 +42,26 @@ as not checkpoint-backed.
 5. Do not manually hunt through `.git/entire-sessions/` or raw transcript files for commit
    provenance. If `entire explain` cannot provide transcript context, report the exact
    missing or unavailable state.
-6. If the user provides a snippet, resolve it to exact line numbers before explaining anything.
-7. If multiple blame blocks match, include all distinct ranges. Deduplicate commit hashes
+6. If multiple blame blocks match, include all distinct ranges. Deduplicate commit hashes
    before running `entire explain`; run transcript lookups once per unique commit, not once
    per range. Also deduplicate checkpoint IDs before expanding checkpoint transcripts; run
    checkpoint expansion once per unique checkpoint, not once per commit or range.
-8. Distinguish these states explicitly:
+7. Distinguish these states explicitly:
    - no checkpoint is referenced for the commit
    - a checkpoint is referenced but is unavailable locally or remotely
    - a checkpoint is available, but full transcript expansion failed and raw transcript
      expansion was not explicitly requested
+   - Entire transcript lookup failed (the `entire explain` command itself errored)
    - the code is untracked, uncommitted, or otherwise has no committed history
-9. For every resolved code block, include either checkpoint-backed history or a fallback
+   - any other provenance command fails after the target code was resolved
+8. For every resolved code block, include either checkpoint-backed history or a fallback
    explanation of what the current code does. Label fallback explanations as "not
    checkpoint-backed" and do not imply intent or historical rationale from checkpoints.
-10. Treat `entire explain` command output as intermediate source material for summarization.
+9. Treat `entire explain` command output as intermediate source material for summarization.
    Do not paste raw command output or full transcripts into the user response unless the user
    explicitly asks for raw output. Include only short error excerpts when they help the user fix
    a failed lookup.
-11. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
+10. Keep the final explanation concise and block-focused. Do not summarize unrelated parts
    of the file.
 
 ## Workflow
@@ -231,15 +206,8 @@ Map each unique commit explanation back to every target range blamed to that com
 
 ### 4. Add fallback code behavior analysis when needed
 
-For any resolved range without a checkpoint-backed explanation, still answer what the current
-code does. This applies when:
-
-- the file is untracked
-- the range is locally uncommitted
-- no checkpoint is referenced for the commit
-- the checkpoint is referenced but unavailable
-- transcript lookup or expansion fails
-- any other provenance command fails after the target code was resolved
+For any resolved range that falls into one of the states listed in Rule 7 where
+checkpoint-backed context is unavailable, still answer what the current code does.
 
 Use only source-backed analysis:
 
@@ -253,7 +221,31 @@ Use only source-backed analysis:
 
 ## Response format
 
-Start with a short provenance summary:
+Begin the first successful resolved-code response to this skill invocation with the line:
+
+`Entire What Happened:`
+
+followed by a blank line, then the content.
+
+- Apply the header to the **first successful resolved-code response of the invocation only.**
+  If an earlier unresolved-input response omitted the header and the user later disambiguates
+  the target, include the header on the resolved-code response. Do not re-print it on later
+  follow-up turns within the same invocation.
+- Do **not** include the header on unresolved-input responses (e.g. snippet not found,
+  ambiguous snippet, invalid path or range). If the target code was resolved but no
+  checkpoint-backed context exists, still use the header and clearly label the answer as
+  current-code fallback analysis rather than a checkpoint summary.
+- After the header, include exactly one short, original, non-lyrical "Tell me why" line
+  randomly chosen from the examples below. Do not quote, paraphrase, or imitate Backstreet
+  Boys lyrics or any other song lyrics.
+
+Allowed examples:
+
+- `Tell me why: the blame points here.`
+- `Tell me why: the diff left a trail.`
+- `Tell me why: the context starts here.`
+
+Start with a short provenance summary using one status per range from the states in Rule 7:
 
 ````text
 Entire What Happened:
@@ -313,9 +305,6 @@ Snippet guidance:
 - If the block is long, include the smallest contiguous excerpt that still lets the user recognize it and say that it was truncated.
 
 When the input was a pasted snippet, include the resolved line range in the answer.
-
-If the snippet matched multiple ranges and the user has not disambiguated them, do not continue
-to transcript summarization. Present the candidate ranges and ask which one they want explained.
 
 ## Trigger phrases
 
