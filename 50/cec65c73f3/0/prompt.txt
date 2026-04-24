@@ -1,0 +1,9 @@
+Commit and continue
+
+---
+
+Would it be possible to randomly output a bar from the Backstreet Boys song "Tell me why" in the skill output?
+
+---
+
+Do it
