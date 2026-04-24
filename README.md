@@ -40,11 +40,12 @@ Current behavior:
 
 ### `what-happened`
 
-Explains what happened to a specific code block by tracing the latest change for a file range or pasted snippet through git blame and Entire checkpoints.
+Explains what happened to a specific code block by tracing the latest change for a file line,
+range, or pasted snippet through git blame and Entire checkpoints.
 
 Current behavior:
 
-- resolves file ranges or pasted snippets to exact line numbers
+- resolves file lines, ranges, or pasted snippets to exact line numbers
 - groups matching blame ranges by unique commit before running `entire explain`
 - summarizes `entire explain` output without dumping raw transcripts by default
 - falls back to clearly labeled current-code analysis when checkpoint-backed context is unavailable
@@ -52,6 +53,7 @@ Current behavior:
 Examples:
 
 - "what happened here: `src/auth.ts:42-57`"
+- "what happened at `src/auth.ts:42`"
 - "what happened to this block?" plus a pasted snippet
 
 ### `search`

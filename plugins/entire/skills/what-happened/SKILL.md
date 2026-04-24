@@ -96,7 +96,7 @@ If the user gave a path and a snippet:
   matching to find candidate locations:
 
 ```bash
-rg -n -F "<distinctive snippet line>" -- <path>
+grep -n -F -- "<distinctive snippet line>" <path>
 ```
 
 - Read the small candidate windows around each hit, not the whole file unless the file is
@@ -223,8 +223,8 @@ Use only source-backed analysis:
 
 - Read the target block and the smallest necessary surrounding scope, such as the enclosing
   function, type, imports, or constants.
-- Use `rg` to inspect direct call sites or definitions only when the block cannot be understood
-  from local context.
+- Use `grep -n -F` to inspect direct call sites or definitions only when the block cannot be
+  understood from local context.
 - Explain observable behavior, inputs, outputs, side effects, and important branches.
 - Do not present this as historical intent, checkpoint rationale, or an agent transcript summary.
 - State what cannot be known from current code alone.
