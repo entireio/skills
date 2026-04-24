@@ -1,9 +1,1 @@
 commit and continue
-
----
-
-Also: Tell me why this code is like that
-
----
-
-Tell me why is important
