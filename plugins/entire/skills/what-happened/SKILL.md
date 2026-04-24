@@ -14,13 +14,16 @@ Use this skill when the user wants a provenance-focused explanation for a code b
 
 ## Response Format
 
-Begin the first response to this skill invocation with the line:
+Begin the first successful resolved-code response to this skill invocation with the line:
 
 `Entire What Happened:`
 
 followed by a blank line, then the content.
 
-- Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation (e.g. after the user disambiguates a snippet match).
+- Apply the header to the **first successful resolved-code response of the invocation only.**
+  If an earlier unresolved-input response omitted the header and the user later disambiguates
+  the target, include the header on the resolved-code response. Do not re-print it on later
+  follow-up turns within the same invocation.
 - Do **not** include the header on unresolved-input responses (e.g. snippet not found,
   ambiguous snippet, invalid path or range). If the target code was resolved but no
   checkpoint-backed context exists, still use the header and clearly label the answer as
