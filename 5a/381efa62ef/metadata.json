@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "5a381efa62ef",
+  "strategy": "manual-commit",
+  "branch": "alisha/refactor",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "GEMINI.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/5a/381efa62ef/0/metadata.json",
+      "transcript": "/5a/381efa62ef/0/full.jsonl",
+      "content_hash": "/5a/381efa62ef/0/content_hash.txt",
+      "prompt": "/5a/381efa62ef/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 174,
+    "cache_creation_tokens": 459475,
+    "cache_read_tokens": 9398742,
+    "output_tokens": 42808,
+    "api_call_count": 125
+  }
+}
