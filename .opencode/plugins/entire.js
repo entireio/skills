@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const EntirePlugin = async ({ client, directory }) => {
-  const skillsDir = path.resolve(__dirname, '../../plugins/entire/skills');
+  const skillsDir = path.resolve(__dirname, '../../skills');
 
   return {
     config: async (config) => {

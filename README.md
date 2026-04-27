@@ -2,14 +2,6 @@
 
 Cross-agent skills and commands powered by Entire.
 
-This repo is a shared skill collection for:
-
-- Codex
-- Claude
-- OpenCode
-- Cursor
-- Gemini
-
 ## Skills
 
 ### `session-handoff`
@@ -73,39 +65,103 @@ Current behavior:
 
 ## Installation
 
-Install the agent that matches your workflow from its marketplace, manifest, or install-doc entrypoint:
+Install with [skills](https://skills.sh/) CLI (universal, works with any [Agent Skills](https://agentskills.io)-compatible tool):
 
-### Claude Code (via Plugin Marketplace)
+```bash
+npx skills add https://github.com/entireio/skills --all
+# or a single skill:
+npx skills add https://github.com/entireio/skills --skill session-handoff
+```
 
-In Claude Code, register the marketplace first:
+<!-- prettier-ignore-start -->
+
+<details>
+<summary>Claude Code</summary>
 
 ```bash
 /plugin marketplace add entireio/skills
+/plugin install entire
 ```
 
-Then install the plugin from this marketplace:
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+Copy skills into the cross-client discovery directory:
 
 ```bash
-/plugin install entire 
+git clone https://github.com/entireio/skills.git ~/.cursor/skills/entire
 ```
 
-### Codex
+Cursor auto-discovers skills from `.agents/skills/` and `.cursor/skills/`.
 
-Use `plugins/entire/.codex-plugin/plugin.json`.
+</details>
 
-### OpenCode
-
-Use the package-based flow in `.opencode/INSTALL.md`.
-
-### Cursor
-
-Use `.cursor-plugin/plugin.json`.
-
-### Gemini
+<details>
+<summary>Gemini CLI</summary>
 
 ```bash
 gemini extensions install https://github.com/entireio/skills
 ```
+
+Update with `gemini extensions update entire`.
+
+</details>
+
+<details>
+<summary>OpenCode</summary>
+
+Copy skills into the cross-client discovery directory:
+
+```bash
+git clone https://github.com/entireio/skills.git ~/.agents/skills/entire
+```
+
+OpenCode auto-discovers skills from `.agents/skills/`, `.opencode/skills/`, and `.claude/skills/`.
+
+</details>
+
+<details>
+<summary>Codex (OpenAI)</summary>
+
+Clone into the cross-client discovery path:
+
+```bash
+git clone https://github.com/entireio/skills.git ~/.agents/skills/entire
+```
+
+Codex auto-discovers skills from `~/.agents/skills/` and `.agents/skills/`. Update with `cd ~/.agents/skills/entire && git pull`.
+
+</details>
+
+<details>
+<summary>Copilot</summary>
+
+```bash
+/plugin install https://github.com/entireio/skills
+# or
+git clone https://github.com/entireio/skills.git ~/.copilot/skills/entire
+```
+
+Copilot auto-discovers skills from `.copilot/skills/`.
+
+</details>
+
+<details>
+<summary>Antigravity</summary>
+
+Clone and symlink into the cross-client discovery path:
+
+```bash
+git clone https://github.com/entireio/skills.git ~/.antigravity/skills/entire
+```
+
+Update with `cd ~/.antigravity/skills/entire && git pull`.
+
+</details>
+
+<!-- prettier-ignore-end -->
 
 ## Quick Start
 
