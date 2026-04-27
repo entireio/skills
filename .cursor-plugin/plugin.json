@@ -9,6 +9,6 @@
   "homepage": "https://github.com/entireio/skills",
   "repository": "https://github.com/entireio/skills",
   "license": "MIT",
-  "keywords": ["entire", "session-handoff", "handoff", "agent-workflows", "skills"],
+  "keywords": ["entire", "session-handoff", "what-happened", "handoff", "agent-workflows", "skills"],
   "skills": "./skills/"
 }

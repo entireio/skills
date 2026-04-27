@@ -12,6 +12,7 @@
   "keywords": [
     "entire",
     "session-handoff",
+    "what-happened",
     "handoff",
     "agent-workflows",
     "skills"
@@ -19,7 +20,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Entire",
-    "shortDescription": "Continue work across agents with session handoff",
+    "shortDescription": "Continue work and inspect code history with Entire",
     "developerName": "Entire Inc",
     "category": "Development",
     "capabilities": [
