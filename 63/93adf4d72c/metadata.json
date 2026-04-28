@@ -3,7 +3,7 @@
   "checkpoint_id": "6393adf4d72c",
   "strategy": "manual-commit",
   "branch": "add-what-happened-skill",
-  "checkpoints_count": 2,
+  "checkpoints_count": 4,
   "files_touched": [
     "README.md",
     "plugins/entire/skills/what-happened/SKILL.md"
@@ -14,13 +14,19 @@
       "transcript": "/63/93adf4d72c/0/transcript.jsonl",
       "content_hash": "/63/93adf4d72c/0/transcript_hash.txt",
       "prompt": "/63/93adf4d72c/0/prompt.txt"
+    },
+    {
+      "metadata": "/63/93adf4d72c/1/metadata.json",
+      "transcript": "/63/93adf4d72c/1/transcript.jsonl",
+      "content_hash": "/63/93adf4d72c/1/transcript_hash.txt",
+      "prompt": "/63/93adf4d72c/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 860083,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 786688,
-    "output_tokens": 14983,
-    "api_call_count": 22
+    "input_tokens": 860109,
+    "cache_creation_tokens": 60042,
+    "cache_read_tokens": 1621445,
+    "output_tokens": 21893,
+    "api_call_count": 45
   }
 }
