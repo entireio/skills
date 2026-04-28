@@ -1,0 +1,2 @@
+{"v":1,"agent":"Claude Code","cli_version":"0.5.6","type":"user","ts":"2026-04-22T15:59:59.652Z","content":[{"id":"920cbfd3-f524-4f1c-8274-02765f42bb8a","text":"show me your version"}]}
+{"v":1,"agent":"Claude Code","cli_version":"0.5.6","type":"assistant","ts":"2026-04-22T16:00:01.864Z","id":"msg_01DvjtmUp18Cs676UT7fFwRy","input_tokens":6,"output_tokens":31,"content":[{"text":"claude-opus-4-7[1m] (Opus 4.7, 1M context)","type":"text"}]}
