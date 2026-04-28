@@ -1,0 +1,5 @@
+update readme to include the search and explain skill
+
+---
+
+/entire:search what's the purpose of plugins/entire/skills/explain/skill.md
