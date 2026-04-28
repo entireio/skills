@@ -1,0 +1,9 @@
+I think something like this is miising from out opencode installation? https://github.com/obra/superpowers/blob/main/.opencode/plugins/superpowers.js
+
+---
+
+would entire benefit from a using-entire skill similar to b?
+
+---
+
+okay can you just do a then

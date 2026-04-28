@@ -1,0 +1,38 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "bba56bfc5e94",
+  "session_id": "c5b3d2bd-c81b-487f-94a7-8fcb42d2abcb",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T16:31:00.598608Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".opencode/INSTALL.md",
+    ".opencode/plugins/entire.js"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6[1m]",
+  "turn_id": "1f9a3bd6a661",
+  "token_usage": {
+    "input_tokens": 235,
+    "cache_creation_tokens": 25963,
+    "cache_read_tokens": 516434,
+    "output_tokens": 5571,
+    "api_call_count": 16
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-10T23:30:57.090116Z",
+    "agent_lines": 22,
+    "agent_removed": 0,
+    "human_added": 2,
+    "human_modified": 3,
+    "human_removed": 0,
+    "total_committed": 26,
+    "total_lines_changed": 28,
+    "agent_percentage": 78.57142857142857,
+    "metric_version": 2
+  }
+}
