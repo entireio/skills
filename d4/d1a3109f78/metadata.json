@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "d4d1a3109f78",
+  "strategy": "manual-commit",
+  "branch": "experiment",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".claude/settings.json",
+    "plugins/entire/skills/collab/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d4/d1a3109f78/0/metadata.json",
+      "transcript": "/d4/d1a3109f78/0/transcript.jsonl",
+      "content_hash": "/d4/d1a3109f78/0/transcript_hash.txt",
+      "prompt": "/d4/d1a3109f78/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3724,
+    "cache_creation_tokens": 419544,
+    "cache_read_tokens": 25484290,
+    "output_tokens": 118093,
+    "api_call_count": 190
+  }
+}
