@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "365164ad6988",
+  "strategy": "manual-commit",
+  "branch": "alisha/refactor",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude-plugin/plugin.json",
+    ".codex-plugin/plugin.json",
+    ".cursor-plugin/plugin.json",
+    "GEMINI.md",
+    "gemini-extension.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/36/5164ad6988/0/metadata.json",
+      "transcript": "/36/5164ad6988/0/transcript.jsonl",
+      "content_hash": "/36/5164ad6988/0/transcript_hash.txt",
+      "prompt": "/36/5164ad6988/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 34,
+    "cache_creation_tokens": 120798,
+    "cache_read_tokens": 3178636,
+    "output_tokens": 10748,
+    "api_call_count": 29
+  }
+}
