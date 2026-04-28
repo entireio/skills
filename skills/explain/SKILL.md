@@ -1,4 +1,5 @@
 ---
+name: explain
 description: Explains the intent behind source code by finding original session transcripts. Use /explain with a function, file, or line of code to understand why it exists.
 argument-hint: <function, file, or line>
 ---

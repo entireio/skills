@@ -1,4 +1,5 @@
 ---
+name: search
 description: Use when the user wants to find prior work, checkpoints, or agent conversations by topic, repo, branch, author, or recent time window
 ---
 

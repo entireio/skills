@@ -1,4 +1,5 @@
 ---
+name: session-handoff
 description: Use when the user wants to continue work from one agent in another agent, inspect recent sessions, or summarize a saved session or checkpoint for handoff
 ---
 
