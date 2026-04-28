@@ -3,21 +3,29 @@
   "checkpoint_id": "1fb1fe555aea",
   "strategy": "manual-commit",
   "branch": "add-what-happened-skill",
-  "checkpoints_count": 1,
-  "files_touched": null,
+  "checkpoints_count": 2,
+  "files_touched": [
+    "plugins/entire/skills/what-happened/SKILL.md"
+  ],
   "sessions": [
     {
       "metadata": "/1f/b1fe555aea/0/metadata.json",
       "transcript": "/1f/b1fe555aea/0/transcript.jsonl",
       "content_hash": "/1f/b1fe555aea/0/transcript_hash.txt",
       "prompt": "/1f/b1fe555aea/0/prompt.txt"
+    },
+    {
+      "metadata": "/1f/b1fe555aea/1/metadata.json",
+      "transcript": "/1f/b1fe555aea/1/transcript.jsonl",
+      "content_hash": "/1f/b1fe555aea/1/transcript_hash.txt",
+      "prompt": "/1f/b1fe555aea/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 36287900,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 35707776,
-    "output_tokens": 128069,
-    "api_call_count": 329
+    "input_tokens": 36287918,
+    "cache_creation_tokens": 14177,
+    "cache_read_tokens": 36522124,
+    "output_tokens": 132857,
+    "api_call_count": 343
   }
 }
