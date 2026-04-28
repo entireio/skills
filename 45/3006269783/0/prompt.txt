@@ -1,0 +1,48 @@
+can you read this and tell me whats going on https://github.com/entireio/skills/issues/3
+
+---
+
+please research and verify
+
+---
+
+do the proper fix
+
+---
+
+the name will cause issues with the other agent
+
+---
+
+just do the other chnages first. maybe we don't need to add name
+
+---
+
+how do I test the cursor plugin
+
+---
+
+its hard to test because I already see the skill in cursor even though ~/.cursor/plugins is empty
+
+---
+
+I think its coming from my other agent installs like claude code and codex
+
+---
+
+can you create the test skill
+
+---
+
+nope I don't see it in cursor. ~/Projects  $ ln -s ~/src/entire-skills/plugins/entire ~/.cursor/plugins/entire
+~/Projects  $ rm ~/.cursor/plugins/entire
+~/Projects  $ ls ~/.cursor/plugins
+local
+~/Projects  $ ln -s /Users/alisha/Projects/skills/plugins/entire ~/.cursor/plugins/entire
+~/Projects  $ ls ~/.cursor/plugins
+entire  local
+~/Projects  $ ls ~/.cursor/plugins/entire
+skills
+~/Projects  $ ls ~/.cursor/plugins/entire/skills
+cursor-loader-probe     search
+explain                 session-handoff
