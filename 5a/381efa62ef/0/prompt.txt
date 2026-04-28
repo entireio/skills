@@ -1,0 +1,9 @@
+can you fix merge conflicts without introducing regressions
+
+---
+
+/improve-codebase-architecture
+
+---
+
+how to test all the changes to install
