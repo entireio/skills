@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "d654a3e78b3c",
+  "strategy": "manual-commit",
+  "branch": "add-what-happened-skill",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "plugins/entire/skills/what-happened/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d6/54a3e78b3c/0/metadata.json",
+      "transcript": "/d6/54a3e78b3c/0/transcript.jsonl",
+      "content_hash": "/d6/54a3e78b3c/0/transcript_hash.txt",
+      "prompt": "/d6/54a3e78b3c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1173519,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1053056,
+    "output_tokens": 24806,
+    "api_call_count": 26
+  }
+}
