@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "71c7dd8058dc",
+  "session_id": "95047199-69f0-49a5-9432-18cba428ecec",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T16:30:56.376102Z",
+  "branch": "alisha/refactor",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "gemini-extension.json"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "6a7b5bfe29e5",
+  "token_usage": {
+    "input_tokens": 212,
+    "cache_creation_tokens": 744913,
+    "cache_read_tokens": 12021380,
+    "output_tokens": 48130,
+    "api_call_count": 144
+  },
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-27T20:22:19.334605Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 1,
+    "human_removed": 1,
+    "total_committed": 0,
+    "total_lines_changed": 2,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
+}
