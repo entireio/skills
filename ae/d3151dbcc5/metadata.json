@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "aed3151dbcc5",
+  "strategy": "manual-commit",
+  "branch": "alisha/marvin",
+  "checkpoints_count": 0,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/ae/d3151dbcc5/0/metadata.json",
+      "transcript": "/ae/d3151dbcc5/0/transcript.jsonl",
+      "content_hash": "/ae/d3151dbcc5/0/transcript_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 5,
+    "cache_creation_tokens": 78640,
+    "cache_read_tokens": 392659,
+    "output_tokens": 4487,
+    "api_call_count": 5
+  }
+}
