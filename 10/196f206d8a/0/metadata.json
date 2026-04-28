@@ -1,0 +1,58 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "10196f206d8a",
+  "session_id": "019dd4b9-496d-7581-a780-16f20aecff69",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T15:44:31.716116Z",
+  "branch": "codex/fix-skill-discovery-issue-6",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/explain/SKILL.md",
+    "skills/search/SKILL.md",
+    "skills/session-handoff/SKILL.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "baaaa4478991",
+  "token_usage": {
+    "input_tokens": 89039,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 360832,
+    "output_tokens": 4632,
+    "api_call_count": 14
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-28T15:44:31.709976Z",
+    "agent_lines": 4,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 4,
+    "total_lines_changed": 5,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 387,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "TUTORIAL.md": 387
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 391,
+      "agent_lines_removed": 1
+    }
+  ]
+}
