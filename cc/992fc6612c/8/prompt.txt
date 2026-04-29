@@ -1,0 +1,14 @@
+Review Task 2 for code quality only. Do not edit files.
+
+Context:
+- Repo: `/Users/alisha/.marvin/worktrees/project-overview`
+- File under review: `README.md`
+- Scope is only the `code-tour` summary change.
+- The task is already spec-approved. Focus on clarity, concision, consistency with the surrounding README skill catalog, and whether the sentence reads naturally.
+
+Please answer:
+1. `APPROVED` or `CHANGES REQUIRED` first.
+2. If changes are required, list concrete issues with file/line references.
+3. If approved, briefly note strengths and any low-risk residual concerns.
+
+Do not evaluate against broader plan items except where they affect quality of this README text.
