@@ -3,7 +3,7 @@ name: code-tour
 description: Use when a developer is new to a repo or returning after time away and wants an overview: architecture, recent agent activity, hot files, and key contributors. Triggers on phrases like "give me a repo overview", "onboard me", "what is this repo about", and "where do I start in this repo"
 ---
 
-# Entire Project Overview
+# Entire Code Tour
 
 Use `entire dispatch`, `entire search`, and `entire explain` to build a fast repo overview for someone onboarding to an unfamiliar codebase.
 
@@ -11,7 +11,7 @@ Use `entire dispatch`, `entire search`, and `entire explain` to build a fast rep
 
 Begin the first response to this skill invocation with the line:
 
-`Entire Project Overview:`
+`Entire Code Tour:`
 
 followed by a blank line, then the content.
 
@@ -97,7 +97,7 @@ entire search "billing" --json --limit 10 --date month
 5. Build the overview in this order, even if some sections are thin:
 
 ```text
-Entire Project Overview:
+Entire Code Tour:
 
 ## What this repo is
 <2-3 sentence summary from README, manifest, and top-level layout>
