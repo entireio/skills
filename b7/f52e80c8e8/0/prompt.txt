@@ -1,0 +1,38 @@
+1
+
+---
+
+hmm what is this diagram 
+  flowchart TD
+      GH[GitHub webhook] --> HTTP["/webhooks/github HTTP route"]
+      HTTP --> Q[(Cloudflare Queue)]
+      Q --> QW["queue.ts: processQueueMessage<br/>idempotency: webhook:{deliveryId}<br/>large payloads via KV"]
+      QW --> ALL["processAllWebhookEvents<br/>(processing.ts:125)"]
+
+      ALL --> A[processWebhookEvent<br/>repo upsert + branch cache]
+      ALL --> B[processInstallationEvent<br/>installation/installation_repositories]
+      ALL --> C[processAccessChangeEvent<br/>member / membership / team / org]
+
+      ALL --> D[processPullRequestEvent<br/>upsert + Turbopuffer index]
+      ALL --> E[processTrailMergeOnPRClose<br/>fast-path trail merge]
+      ALL --> F[processTrailLinkOnPROpened<br/>PR body trail link]
+      F --> G[processTrailGhPrIdLinkOnPROpened<br/>backfill gh_pr_id]
+
+      ALL --> H[processSessionsPushEvent<br/>checkpoint refs only]
+      H --> H2["processSessionBranchPushForRepo<br/>hydrate + dispatchAnalysis<br/>+ SEARCH_INDEX_QUEUE"]
+      ALL --> I[processCommitPushEvent<br/>commits + checkpoint trailers]
+      ALL --> J[processTrailMergeDetection<br/>push-based merge fallback]
+      ALL --> K[processTrailCIDraftPR<br/>shadow draft PR for CI]
+      ALL --> L["push only:<br/>handlePushAutoRuns (agents)"]
+
+---
+
+no why did the skill produce that a human can read that
+
+---
+
+I want a diagram that claude code and codex can render
+
+---
+
+okay update ti
