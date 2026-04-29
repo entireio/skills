@@ -17,15 +17,7 @@ followed by a blank line, then the content.
 
 - Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation.
 - Do **not** include the header on error or early-exit responses, including missing CLI, missing auth, or not being inside a git repo.
-- Diagrams are optional and should appear only when they are clear and useful.
-- Include at most two diagrams total.
-- Allowed diagram types, in priority order: Repo Map, Request/Execution Flow, Artifact Flow.
-- Prefer simple diagrams for high-level understanding.
-- Emit 0 diagrams when the repo structure is ambiguous, the evidence is too thin, or a diagram would require guessing.
-- Emit 1 diagram when one clear, simple visual explains the repo better than prose alone.
-- Emit 2 diagrams only when a second diagram adds distinct value without repeating the first.
-- After each diagram, add 1-2 sentences interpreting what the user should notice.
-- If the repo structure is ambiguous, the evidence is too thin, or a diagram would require guessing, skip the diagram instead of speculating.
+- The initial overview is text-only. Reserve diagrams for walkthrough follow-ups with a concrete target.
 
 ## When to Use
 
@@ -113,9 +105,6 @@ entire search "billing" --json --limit 10 --date month
 ```text
 Entire Code Tour:
 
-## Visual Map
-<Optional. Follow the Visual Map rules above. Omit this section rather than speculate.>
-
 ## What this repo is
 <2-3 sentence summary from README, manifest, and top-level layout>
 
@@ -138,7 +127,6 @@ Entire Code Tour:
 
 6. Keep the structure consistent:
 
-- `Visual Map`: optional. Use only when it adds clarity from strong evidence already gathered; follow the Visual Map rules above.
 - `What this repo is`: summarize purpose, stack, and the main entry points or domains.
 - `Architecture at a glance`: cover roughly 5-8 top-level directories or grouped areas.
 - `Recent activity`: distill dispatch into 3-5 high-signal bullets. Anchor each bullet to a checkpoint ID when available, otherwise a commit SHA.
@@ -165,4 +153,15 @@ If `--full` fails, fall back to:
 entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 ```
 
-When the user asks about a hot file or contributor, use the checkpoint IDs or commits already surfaced in the overview as the starting points for the follow-up rather than redoing the whole overview from scratch.
+When the user asks a concrete walkthrough follow-up about a file, skill, subsystem, or contributor thread, use the checkpoint IDs or commits already surfaced in the overview as the starting points for the follow-up rather than redoing the whole overview from scratch.
+
+For walkthrough follow-ups:
+
+- Diagrams are optional and should appear only when they are clear and useful for the specific target.
+- Use at most one diagram by default. Add a second only when it explains a distinct behavior that the first cannot.
+- Prefer simple diagrams for high-level understanding.
+- Prefer behavioral diagrams in this priority order: Request/Execution Flow, Artifact Flow, Repo Map.
+- Good targets include decision flow, fallback flow, and input -> resolution -> output flow inside the target.
+- Do not draw repo tree or folder-layout diagrams as the default visual.
+- After each diagram, add 1-2 sentences interpreting what the user should notice.
+- If the target is ambiguous, the evidence is too thin, or a diagram would require guessing, skip the diagram instead of speculating.
