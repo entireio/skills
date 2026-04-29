@@ -1,0 +1,16 @@
+Review Task 2 for spec compliance only. Do not edit files.
+
+Context:
+- Repo: `/Users/alisha/.marvin/worktrees/project-overview`
+- File under review: `README.md`
+- Approved Task 2 requirements:
+  - update the `code-tour` section to mention optional high-level diagrams before the prose overview
+  - make clear that diagrams appear only when the repo structure is clear enough to support them
+- Ignore all other tasks and files.
+
+Please answer:
+1. `APPROVED` or `CHANGES REQUIRED` first.
+2. If changes are required, list the exact gaps.
+3. If approved, briefly state why.
+
+Do not assess code quality or style beyond Task 2 spec compliance.
