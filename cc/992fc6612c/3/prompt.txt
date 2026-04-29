@@ -1,0 +1,25 @@
+Re-review Task 1 for spec compliance only. Do not edit files.
+
+Context:
+- Repo: `/Users/alisha/.marvin/worktrees/project-overview`
+- Approved design constraints:
+  - diagrams only when clear and useful
+  - emit 0, 1, or 2 diagrams max
+  - diagrams go before `## What this repo is`
+  - prefer simple diagrams for high-level understanding
+  - guard against speculation
+  - recommended diagram types in priority order: `Repo Map`, `Request/Execution Flow`, `Artifact Flow`
+- Implementation plan Task 1 required:
+  - define an optional `## Visual Map` section before the explanatory sections
+  - describe when to emit `0`, `1`, or `2` diagrams
+  - define allowed diagram types in priority order
+  - explain that each diagram needs 1-2 sentences of interpretation
+  - add skip conditions and anti-speculation guardrails
+  - keep output header `Entire Code Tour:`
+
+Please inspect only `skills/code-tour/SKILL.md` in its current state and answer:
+1. Is Task 1 spec compliant? Answer only `APPROVED` or `CHANGES REQUIRED` first.
+2. If changes are required, list the exact gaps.
+3. If approved, briefly state why.
+
+Do not assess code quality or style beyond spec compliance.
