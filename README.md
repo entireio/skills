@@ -63,6 +63,18 @@ Current behavior:
 - drills into a specific result with `entire explain --checkpoint <id> --full --no-pager`
 - broadens searches progressively when initial results are empty (remove branch filter, widen date, simplify terms)
 
+### `project-overview`
+
+Builds an onboarding-oriented overview of an unfamiliar repo by combining architecture signals from git and manifests with recent Entire activity, hot files, and key contributors.
+
+Current behavior:
+
+- summarizes what the repo is from `README.md`, manifests, and top-level layout
+- uses `entire dispatch --since 30d` as the primary recent-activity narrative
+- derives focused `entire search` queries to identify recurring topics, hot files, and checkpoint-backed drill-down suggestions
+- uses `entire explain --short --no-pager` to collect current-branch checkpoint anchors for follow-up prompts
+- fails clearly when `entire` is missing, authentication is required, or the command is run outside a git repo
+
 ## Installation
 
 Install with [skills](https://skills.sh/) CLI (universal, works with any [Agent Skills](https://agentskills.io)-compatible tool):
@@ -176,6 +188,9 @@ Natural language examples:
 - "search past work for rate limiting"
 - "find checkpoints about the migration"
 - "have we done this before?"
+- "give me a repo overview"
+- "onboard me to this codebase"
+- "where do I start in this repo?"
 
 ## Checkpoint Resolution
 
