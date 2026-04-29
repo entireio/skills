@@ -1,13 +1,7 @@
-yes
+what is going on. why is this taking so long
 
 ---
 
-skill is pretty good. can we add more diagrams for high level understanding before the explanations
-
----
-
-only when clear and useful
-
----
-
-yes
+<subagent_notification>
+{"agent_path":"019ddb96-d98b-7b31-9736-7094e307e0fd","status":{"completed":"CHANGES REQUIRED\n\n1. [README.md](/Users/alisha/.marvin/worktrees/project-overview/README.md:68) The new second sentence is less concise and less natural than the surrounding skill summaries. “When the repo structure is clear enough to support them” is hedged and a bit clunky, and the pronoun “them” makes the reader briefly resolve back to “optional high-level diagrams.”\n2. [README.md](/Users/alisha/.marvin/worktrees/project-overview/README.md:68) “appear before the prose overview” reads more like a rendering/UI description than a clean capability summary. The surrounding catalog entries describe what the skill does in direct, concrete terms, so this wording feels slightly inconsistent with the README’s established style.\n\nResidual note: the added concept itself is useful and belongs here; the issue is wording, not scope."}}
+</subagent_notification>
