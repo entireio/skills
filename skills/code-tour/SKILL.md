@@ -158,10 +158,13 @@ When the user asks a concrete walkthrough follow-up about a file, skill, subsyst
 For walkthrough follow-ups:
 
 - Diagrams are optional and should appear only when they are clear and useful for the specific target.
-- Use at most one diagram by default. Add a second only when it explains a distinct behavior that the first cannot.
+- Start with a small Mermaid diagram when a diagram will help. Use at most one diagram by default. Add a second only when it explains a distinct behavior that the first cannot.
+- Keep the first diagram to 5-7 boxes max.
+- Use concept-level labels, not function names, in the first diagram.
 - Prefer simple diagrams for high-level understanding.
 - Prefer behavioral diagrams in this priority order: Request/Execution Flow, Artifact Flow, Repo Map.
 - Good targets include decision flow, fallback flow, and input -> resolution -> output flow inside the target.
 - Do not draw repo tree or folder-layout diagrams as the default visual.
+- Explain function names and lower-level implementation details in prose after the diagram instead of packing them into the diagram.
 - After each diagram, add 1-2 sentences interpreting what the user should notice.
-- If the target is ambiguous, the evidence is too thin, or a diagram would require guessing, skip the diagram instead of speculating.
+- If the flow cannot be simplified into a small Mermaid diagram with concept-level labels, skip the diagram instead of speculating or drawing a code-trace.
