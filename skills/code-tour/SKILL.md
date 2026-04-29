@@ -17,6 +17,15 @@ followed by a blank line, then the content.
 
 - Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation.
 - Do **not** include the header on error or early-exit responses, including missing CLI, missing auth, or not being inside a git repo.
+- Diagrams are optional and should appear only when they are clear and useful.
+- Include at most two diagrams total.
+- Allowed diagram types, in priority order: Repo Map, Request/Execution Flow, Artifact Flow.
+- Prefer simple diagrams for high-level understanding.
+- Emit 0 diagrams when the repo structure is ambiguous, the evidence is too thin, or a diagram would require guessing.
+- Emit 1 diagram when one clear, simple visual explains the repo better than prose alone.
+- Emit 2 diagrams only when a second diagram adds distinct value without repeating the first.
+- After each diagram, add 1-2 sentences interpreting what the user should notice.
+- If the repo structure is ambiguous, the evidence is too thin, or a diagram would require guessing, skip the diagram instead of speculating.
 
 ## When to Use
 
@@ -47,6 +56,8 @@ entire version
 
 `entire dispatch` and `entire search` require authentication. Run `entire login` and try again.
 
+Do not print `Entire Code Tour:` until both `entire dispatch` and the focused `entire search` phase have succeeded. If auth fails during either phase, stop immediately without the header and show the same login message.
+
 3. Gather the independent inputs in parallel:
 
 - Architecture skeleton:
@@ -54,9 +65,12 @@ entire version
 ```bash
 git ls-files | head -200
 git shortlog -sne --since=90d
+git log --since=30d --name-only --format='' | sed '/^$/d' | sort | uniq -c | sort -nr | head -50
 ```
 
-Read `README.md` plus the most relevant manifest that exists, such as `package.json`, `go.mod`, `pyproject.toml`, or `Cargo.toml`.
+Use the churn-by-path output to identify hot paths and derive the most active top-level directories.
+
+Read `README.md` plus manifests using this rule: prefer a root manifest when one exists. If multiple manifests are relevant, prefer the root manifest first, then read up to two manifests that best match the hottest churn paths or the primary app/package named in the README. If no clear manifest stands out, say the repo is polyglot or a monorepo and infer cautiously from the layout rather than guessing.
 
 - Current-branch checkpoint anchors:
 
@@ -77,7 +91,7 @@ Use dispatch as the spine of the recent-activity section.
 4. After dispatch returns, derive up to 5 focused search terms from:
 
 - the repo name or README title
-- the most active top-level directories from recent git churn
+- the most active top-level directories from the churn-by-path command above
 - one or two domain nouns that recur in the dispatch summary
 
 Then run focused searches in parallel, for example:
@@ -98,6 +112,9 @@ entire search "billing" --json --limit 10 --date month
 
 ```text
 Entire Code Tour:
+
+## Visual Map
+<Optional. Follow the Visual Map rules above. Omit this section rather than speculate.>
 
 ## What this repo is
 <2-3 sentence summary from README, manifest, and top-level layout>
@@ -121,6 +138,7 @@ Entire Code Tour:
 
 6. Keep the structure consistent:
 
+- `Visual Map`: optional. Use only when it adds clarity from strong evidence already gathered; follow the Visual Map rules above.
 - `What this repo is`: summarize purpose, stack, and the main entry points or domains.
 - `Architecture at a glance`: cover roughly 5-8 top-level directories or grouped areas.
 - `Recent activity`: distill dispatch into 3-5 high-signal bullets. Anchor each bullet to a checkpoint ID when available, otherwise a commit SHA.

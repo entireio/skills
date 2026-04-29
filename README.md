@@ -65,7 +65,7 @@ Current behavior:
 
 ### `code-tour`
 
-Builds an onboarding-oriented overview of an unfamiliar repo by combining architecture signals from git and manifests with recent Entire activity, hot files, and key contributors.
+Builds an onboarding-oriented overview of an unfamiliar repo by combining architecture signals from git and manifests with recent Entire activity, hot files, key contributors, and optional high-level diagrams when the repo structure clearly supports a useful visual map.
 
 Current behavior:
 
