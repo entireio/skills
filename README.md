@@ -63,7 +63,7 @@ Current behavior:
 - drills into a specific result with `entire explain --checkpoint <id> --full --no-pager`
 - broadens searches progressively when initial results are empty (remove branch filter, widen date, simplify terms)
 
-### `project-overview`
+### `code-tour`
 
 Builds an onboarding-oriented overview of an unfamiliar repo by combining architecture signals from git and manifests with recent Entire activity, hot files, and key contributors.
 

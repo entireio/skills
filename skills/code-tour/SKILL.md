@@ -1,5 +1,5 @@
 ---
-name: project-overview
+name: code-tour
 description: Use when a developer is new to a repo or returning after time away and wants an overview: architecture, recent agent activity, hot files, and key contributors. Triggers on phrases like "give me a repo overview", "onboard me", "what is this repo about", and "where do I start in this repo"
 ---
 
