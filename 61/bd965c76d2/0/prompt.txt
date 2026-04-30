@@ -1,0 +1,25 @@
+/entire:commit-push-pr
+
+---
+
+why is outcome always missing
+
+---
+
+is there anyway aroudn this?
+
+---
+
+but what if commit 1 was codex and commit 2 was claude. needs to work cross agent
+
+---
+
+can it just use what-happended? what is the what-happened skill?
+
+---
+
+for now don't put in shared helper
+
+---
+
+for now don't put in shared helper. just have this coommit pr skill use it
