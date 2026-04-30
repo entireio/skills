@@ -1,0 +1,22 @@
+do we need a commit skill too so that commit messages use entire?
+
+---
+
+pull down bugbot comments and fix
+
+---
+
+explain more how skill works
+
+---
+
+no explain how entire commit pr skill works and why its better than the claude one
+
+---
+
+can we make pr title generation better?
+
+---
+
+synthesize a
+  title from the full set of Outcomes + the diff stat. don't bump version
