@@ -22,7 +22,7 @@ To pin a specific version:
 
 ```json
 {
-  "plugin": ["skills@git+https://github.com/entireio/skills.git#v0.3.0"]
+  "plugin": ["skills@git+https://github.com/entireio/skills.git#v0.4.0"]
 }
 ```
 

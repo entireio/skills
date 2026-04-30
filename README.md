@@ -63,6 +63,20 @@ Current behavior:
 - drills into a specific result with `entire explain --checkpoint <id> --full --no-pager`
 - broadens searches progressively when initial results are empty (remove branch filter, widen date, simplify terms)
 
+### `commit-push-pr`
+
+Commits, pushes, and opens a draft PR with the title and body synthesized from `entire` checkpoint context instead of `git diff` / `git log`. Use when you want a PR description that explains *why* the changes were made — drawn from the agent transcripts that produced them.
+
+Current behavior:
+
+- aggregates `entire explain --commit <sha> --short --no-pager` for every commit in the push range (capped at 10) so each PR bullet is sourced from the original session intent
+- falls back to a single `entire dispatch --local --since <window>` for branches with more than 10 commits
+- if no commit in the push range has Entire context, silently falls back to a git-only PR equivalent to upstream `commit-commands:commit-push-pr`
+- always opens the PR as `--draft`; updates an existing open PR via `gh pr edit` instead of creating a duplicate
+- never uses `entire search` (server-indexed, missing local checkpoints) or `git add -A`/`git add .`
+
+Pick this over `commit-commands:commit-push-pr` when the branch was driven by Entire-tracked agent work; pick the upstream one when there is no Entire history to draw on.
+
 ## Installation
 
 Install with [skills](https://skills.sh/) CLI (universal, works with any [Agent Skills](https://agentskills.io)-compatible tool):
@@ -176,6 +190,8 @@ Natural language examples:
 - "search past work for rate limiting"
 - "find checkpoints about the migration"
 - "have we done this before?"
+- "open a PR with entire context"
+- "commit and PR this work"
 
 ## Checkpoint Resolution
 
