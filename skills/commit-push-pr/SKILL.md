@@ -110,7 +110,13 @@ Deduplicate per-checkpoint output where multiple commits share a checkpoint. Cla
 - `no-checkpoint` — commit was authored outside an Entire session (manual commit, rebase). Detected by the literal output `No associated Entire checkpoint` (or its `--short` equivalent), or by a zero-exit run with no intent line. Use the commit subject verbatim.
 - `lookup-failed` — non-zero exit. Log to stderr; treat as `no-checkpoint`.
 
-**Title.** Derive from the **most recent** `checkpoint-backed` commit's `Outcome` line (or `Intent` if Outcome and Intent are the same line), trimmed to ≤70 chars. If no commit in the range is `checkpoint-backed`, fall back to the git-only title (most recent commit subject, trimmed to ≤70 chars).
+**Title.** Synthesize a single ≤70-char title from the **full set** of `checkpoint-backed` Outcomes plus the `git diff --stat "$MERGE_BASE"..HEAD` summary — not just one commit's Outcome. A 5-commit branch ending in a small "fix typo" cleanup must not get titled "fix typo"; the title should name the dominant intent of the branch as a whole. Apply these rules in order:
+
+- If one Outcome clearly dominates the branch (one large change plus small follow-ups), seed the title from that Outcome.
+- If the Outcomes form a coherent progression (build → polish → test), name the feature, not the latest tweak.
+- If the Outcomes are unrelated, name the *area* touched per the diff stat instead of any one commit (e.g. "Refactor auth and storage layers").
+
+If no commit in the range is `checkpoint-backed`, synthesize the title from `git log "$MERGE_BASE"..HEAD --format=%s` plus the diff stat using the same rules. Always trim the final string to ≤70 chars without breaking words.
 
 **If zero commits in the push range are `checkpoint-backed`, switch the entire PR-content path (title and body) to the git-only fallback below.** `checkpoint-prompt-only` and `no-checkpoint` both count as "not checkpoint-backed" for this gate. Don't synthesize Summary/Changes from empty Entire data.
 
@@ -171,7 +177,7 @@ Echo the PR URL as the final line of output.
 If `entire` is not installed, not configured for the repo, or the push range produced **zero** `checkpoint-backed` commits, fall back silently to a git-only flow equivalent to `commit-commands:commit-push-pr`:
 
 - Commit message seed from `git diff --staged` (Step 3) or last commit subject.
-- Title: most recent commit subject, trimmed to ≤70 chars.
+- Title: synthesized from `git log "$MERGE_BASE"..HEAD --format=%s` + `git diff --stat` using the rules in Step 5's Title section (dominant change / coherent progression / area touched). Trim to ≤70 chars.
 - Body: `## Summary` (1-3 bullets from `git log "$MERGE_BASE"..HEAD --format=%s`), `## Test plan` (derived from `git diff --stat`).
 - Steps 1, 2, 4, 6, 7 unchanged.
 
