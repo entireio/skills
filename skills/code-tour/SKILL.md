@@ -122,7 +122,6 @@ Entire Code Tour:
 ## Want to drill in?
 - "Show me checkpoint <id>"
 - "Walk me through <hot-file>"
-- "What's <contributor> been working on?"
 ```
 
 6. Keep the structure consistent:
@@ -153,7 +152,7 @@ If `--full` fails, fall back to:
 entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 ```
 
-When the user asks a concrete walkthrough follow-up about a file, skill, subsystem, or contributor thread, use the checkpoint IDs or commits already surfaced in the overview as the starting points for the follow-up rather than redoing the whole overview from scratch.
+When the user asks a concrete walkthrough follow-up about a file, skill, subsystem, or checkpoint, use the checkpoint IDs or commits already surfaced in the overview as the starting points for the follow-up rather than redoing the whole overview from scratch.
 
 For walkthrough follow-ups:
 
