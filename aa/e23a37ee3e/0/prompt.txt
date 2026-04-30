@@ -1,0 +1,6 @@
+/Users/alisha/.marvin/worktrees/project-overview/skills/code-tour/SKILL.md: invalid YAML:
+  mapping values are not allowed in this context at line 2 column 102
+
+---
+
+remove te drill in questions about what a specific person has been up tp
