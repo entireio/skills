@@ -1,0 +1,50 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "27682c867ad7",
+  "session_id": "a88641f6-df38-4dda-89ef-d14176b173e6",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-30T21:10:43.050058Z",
+  "branch": "alisha/commit",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "skills/commit-push-pr/SKILL.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "98d4637e8abd",
+  "checkpoint_transcript_start": 79,
+  "token_usage": {
+    "input_tokens": 19,
+    "cache_creation_tokens": 21908,
+    "cache_read_tokens": 1196788,
+    "output_tokens": 16577,
+    "api_call_count": 9
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-30T21:10:43.019181Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 14,
+    "human_modified": 15,
+    "human_removed": 0,
+    "total_committed": 14,
+    "total_lines_changed": 29,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 102,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "entire-commit-push-pr-plan.md": 102
+      }
+    }
+  ]
+}
