@@ -19,6 +19,21 @@ Current behavior:
 - resolves checkpoints from: local `entire/checkpoints/v1` branch, `.entire/settings.json` `checkpoint_remote`, or nearby local clone
 - filters sessions by agent name (e.g. "codex", "gemini") when mentioned
 
+### `session-to-skill`
+
+Turns Entire session history into a focused reusable skill draft without making the user manually find, paste, or reconstruct old agent conversations.
+
+Current behavior:
+
+- asks what reusable behavior the user wants to extract before reading transcripts
+- accepts an explicit session ID or checkpoint ID when the user already has one
+- searches Entire history with `entire search "<query>" --json` when the user describes a repeated workflow
+- expands selected checkpoints with `entire explain --checkpoint <id> --full --no-pager`
+- reads active session metadata from `.git/entire-sessions/<session-id>.json` when needed
+- extracts durable lessons such as repo conventions, validation commands, user corrections, required inputs, and behaviors to avoid
+- drafts a focused `SKILL.md` instead of recapping the whole session
+- asks before writing, installing, or overwriting a skill
+
 ### `explain`
 
 Traces source code back to the original conversation where it was created. Use `/explain` with a function, file, or line of code to understand _why_ it exists.
@@ -171,6 +186,9 @@ Natural language examples:
 - "hand off the codex session"
 - "pick up where codex left off"
 - "hand off checkpoint 7b7c2be8a262"
+- "turn my blog publishing workflow into a skill"
+- "make a skill from session 019ddbc1-a5bf-77e2-8b7a-b4094e850347"
+- "I keep doing the same release notes workflow; find the sessions and draft a skill"
 - `/explain parseConfig` — why does this function exist?
 - `/explain src/auth.ts` — what drove this file's creation?
 - "search past work for rate limiting"
