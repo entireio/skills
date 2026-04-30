@@ -1,0 +1,37 @@
+/entire:commit-push-pr
+
+---
+
+why is outcome always missing
+
+---
+
+is there anyway aroudn this?
+
+---
+
+but what if commit 1 was codex and commit 2 was claude. needs to work cross agent
+
+---
+
+can it just use what-happended? what is the what-happened skill?
+
+---
+
+for now don't put in shared helper
+
+---
+
+for now don't put in shared helper. just have this coommit pr skill use it
+
+---
+
+/entire:commit-push-pr
+
+---
+
+I feel like it should always take first commit and then last 9? instead of just last 10?
+
+---
+
+/entire:commit-push-pr
