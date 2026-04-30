@@ -9,24 +9,26 @@ Commit local work, push, and open a draft PR. Unlike a git-only flow, this skill
 
 For the upstream git-only equivalent, see `commit-commands:commit-push-pr`. Pick this skill when the branch was driven by Entire-tracked agent work; pick the upstream one when there is no Entire history to draw on.
 
+**Best on branches with prior committed agent sessions.** When the only Entire context available is the just-made commit, `entire explain --commit` often returns only the user's prompt as `Intent` and `Outcome: (not generated)` — the skill detects this and degrades cleanly to the git-only fallback for the title and Changes section. The Entire-mined value compounds across multiple committed agent turns; on a single-commit branch, expect git-only output.
+
 ## Response Format
 
-Begin the first successful response to this skill invocation with the line:
+The skill's "first successful response" is the **final summary turn** that reports the PR URL, not the per-step progress messages interleaved with tool calls. Begin that final summary with the line:
 
 `Entire Commit:`
 
-followed by a blank line, then the content.
+followed by a blank line, then the content (PR URL plus a short recap of what was committed and pushed).
 
-- Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation.
+- Apply the header to the **final summary turn only.** Do not re-print it on follow-up turns within the same invocation.
 - Do **not** include the header on error or early-exit responses (e.g. `gh` not installed, not in a git repo, push refused, no upstream branch). The header signals that the skill ran end-to-end and produced real output.
+- Per-step progress messages during execution should be terse and headerless — they communicate intent before tool calls but are not the skill's reportable output.
 
 ## Tooling rules
 
 1. Use the installed `entire` from `PATH`, not a `./entire` checked into the repo.
 2. `entire search` hits a server-side index that does **not** contain unpushed local checkpoints. Do not use it. Permitted Entire commands:
-   - `entire explain --commit <sha> --short --no-pager` — primary per-commit intent.
+   - `entire explain --commit <sha> --short --no-pager` — primary per-commit intent. Always look up checkpoints by commit SHA, not by checkpoint ID — the truncated IDs displayed in `entire explain --no-pager` listings are not accepted as input to the same command.
    - `entire explain --commit <sha> --no-pager` — fuller per-commit context if `--short` is too thin.
-   - `entire explain <checkpoint-id> --short --no-pager` — most recent current-branch checkpoint when synthesizing a commit message for newly staged work.
    - `entire dispatch --local --since <window>` — prose summary; fallback only when the push range exceeds `MAX_PER_COMMIT_LOOKUPS` (= 10) commits.
 3. Always pass `--no-pager` to `entire explain` calls so output stays non-interactive. Do not invent `--no-pager` on commands that do not support it (`entire dispatch` does not).
 4. Stage with explicit paths. Never use `git add -A` or `git add .` (per the user's git-safety rules).
@@ -61,10 +63,14 @@ Do not prompt the user for a branch name in v1.
 
 - `git status --porcelain`. Skip this step if clean.
 - Stage with explicit paths.
-- Build the commit message seed:
-  - Inspect the newest checkpoint on the current branch via `entire explain --no-pager`. If a relevant checkpoint exists, run `entire explain <checkpoint-id> --short --no-pager` and use its intent line as the seed.
-  - If there is no relevant checkpoint, or the intent clearly does not match `git diff --staged`, fall back to a `git diff --staged` summary (the upstream skill's path).
-- Commit with the standard `Co-Authored-By` trailer. Use a HEREDOC for the message:
+- After staging, list any **untracked** files left behind (`git status --porcelain | awk '$1=="??"{print $2}'`) in your progress message so the user can react before the push. Do not auto-stage them — they may be workflow artifacts (scratch plans, log files, generated files) that the user explicitly didn't include.
+- Build the commit message seed from a `git diff --staged` summary (same approach as upstream `commit-commands:commit-push-pr`). Per-checkpoint context is mined later in Step 5 from each commit's SHA — that path is more reliable than discovering checkpoints by ID at this stage, because the IDs displayed by `entire explain --no-pager` are truncated and not accepted as input to the same command.
+- Commit with the standard `Co-Authored-By` trailer. The trailer value should be the agent's published identity, not the literal placeholder. Examples:
+  - `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>`
+  - `Co-Authored-By: Codex <noreply@openai.com>`
+  - `Co-Authored-By: Gemini CLI <noreply@google.com>`
+
+  Use a HEREDOC for the message:
 
 ```bash
 git commit -m "$(cat <<'EOF'
@@ -72,7 +78,7 @@ git commit -m "$(cat <<'EOF'
 
 <optional body>
 
-Co-Authored-By: <agent name> <noreply@anthropic.com>
+Co-Authored-By: <agent's published identity> <agent-noreply-address>
 EOF
 )"
 ```
@@ -99,13 +105,14 @@ Cap at `MAX_PER_COMMIT_LOOKUPS = 10`. If the push range exceeds the cap, skip th
 
 Deduplicate per-checkpoint output where multiple commits share a checkpoint. Classify each commit:
 
-- `checkpoint-backed` — has an intent/summary line.
-- `no-checkpoint` — commit was authored outside an Entire session (manual commit, rebase). Detected by the literal output `No associated Entire checkpoint` (or its `--short` equivalent), or by a zero-exit run with no intent line. Use the commit subject verbatim for this commit.
+- `checkpoint-backed` — checkpoint exists **and** has substantive synthesized text. Specifically: `Outcome` is populated (not the literal `(not generated)`) **and** `Intent` is more than 3 words and does not match a slash-command / agent-prompt pattern (`/foo`, `marvin work`, `codex run`, `gemini ask`). The `Outcome` line is the primary "why"; `Intent` is the secondary fallback only when `Outcome` is the same line.
+- `checkpoint-prompt-only` — checkpoint exists but `Outcome` is `(not generated)` **or** `Intent` is the bare user prompt (≤3 words / matches the slash-command pattern above). Treat exactly like `no-checkpoint` for title and "Why" purposes — the user's prompt is not a useful PR title. Use the commit subject verbatim. (This is the common state for commits made *during the same agent turn* as the skill invocation, since `entire explain --generate` has not run yet.)
+- `no-checkpoint` — commit was authored outside an Entire session (manual commit, rebase). Detected by the literal output `No associated Entire checkpoint` (or its `--short` equivalent), or by a zero-exit run with no intent line. Use the commit subject verbatim.
 - `lookup-failed` — non-zero exit. Log to stderr; treat as `no-checkpoint`.
 
-**Title.** Derive from the **most recent** `checkpoint-backed` commit's intent, trimmed to ≤70 chars. If no commit is checkpoint-backed, fall back to the git-only title (most recent commit subject).
+**Title.** Derive from the **most recent** `checkpoint-backed` commit's `Outcome` line (or `Intent` if Outcome and Intent are the same line), trimmed to ≤70 chars. If no commit in the range is `checkpoint-backed`, fall back to the git-only title (most recent commit subject, trimmed to ≤70 chars).
 
-**If zero commits in the push range are `checkpoint-backed`, switch the entire PR-content path (title and body) to the git-only fallback below.** Don't synthesize Summary/Changes from empty Entire data.
+**If zero commits in the push range are `checkpoint-backed`, switch the entire PR-content path (title and body) to the git-only fallback below.** `checkpoint-prompt-only` and `no-checkpoint` both count as "not checkpoint-backed" for this gate. Don't synthesize Summary/Changes from empty Entire data.
 
 **Body.** Use this exact template:
 
@@ -128,7 +135,14 @@ Notes:
 
 - The Summary paragraph is **synthesized**, not a literal concatenation of per-commit output.
 - "Changes" lists every commit in chronological order. Mixed-author branches naturally show some commits with rich Entire-derived "why" and some with bare subjects — that's informative, not a bug.
-- The Test plan is derived from `git diff --stat "$MERGE_BASE"..HEAD` file types. Examples: touched `*.ts` → "type-check + test the affected component"; touched `*.go` → "go test + go vet".
+- **Single-commit PRs.** Collapse the Summary into a one-sentence preamble and **omit** the Changes section entirely — Summary and Changes both describe the same commit, so listing both is redundant. The Test plan section is unchanged.
+- The Test plan is derived from `git diff --stat "$MERGE_BASE"..HEAD` file types. Recipes:
+  - Touched `*.ts` / `*.tsx` → "type-check + test the affected component"
+  - Touched `*.go` → "go test + go vet"
+  - Touched `*.py` → "run the relevant pytest module"
+  - Touched `*.rs` → "cargo test + cargo clippy"
+  - **Docs/config-only** (only `*.md`, `*.json`, `*.yaml`, `*.yml`, `*.toml`) → "validate JSON/YAML; render the markdown locally; smoke-test in a clean repo if the change is to a skill/plugin/config"
+  - Mixed → combine the relevant recipes; one checklist item per language family.
 - This repo has no checked-in PR template, so the skill defines the body shape itself.
 
 ### 6. Open or update the PR
