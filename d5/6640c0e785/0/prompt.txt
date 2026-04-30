@@ -1,10 +1,2 @@
-okay update ti
-
----
-
-how to install this local skill into codex to test
-
----
-
 /Users/alisha/.marvin/worktrees/project-overview/skills/code-tour/SKILL.md: invalid YAML:
   mapping values are not allowed in this context at line 2 column 102
