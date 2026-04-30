@@ -3,7 +3,7 @@
   "checkpoint_id": "7cdaf836fa0f",
   "strategy": "manual-commit",
   "branch": "alisha/commit",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     ".claude-plugin/marketplace.json",
     ".claude-plugin/plugin.json",
@@ -11,6 +11,7 @@
     ".cursor-plugin/plugin.json",
     ".opencode/INSTALL.md",
     "README.md",
+    "gemini-extension.json",
     "package.json"
   ],
   "sessions": [
@@ -19,13 +20,19 @@
       "transcript": "/7c/daf836fa0f/0/transcript.jsonl",
       "content_hash": "/7c/daf836fa0f/0/transcript_hash.txt",
       "prompt": "/7c/daf836fa0f/0/prompt.txt"
+    },
+    {
+      "metadata": "/7c/daf836fa0f/1/metadata.json",
+      "transcript": "/7c/daf836fa0f/1/transcript.jsonl",
+      "content_hash": "/7c/daf836fa0f/1/transcript_hash.txt",
+      "prompt": "/7c/daf836fa0f/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 213,
-    "cache_creation_tokens": 745349,
-    "cache_read_tokens": 12183356,
-    "output_tokens": 48410,
-    "api_call_count": 145
+    "input_tokens": 268,
+    "cache_creation_tokens": 911933,
+    "cache_read_tokens": 14297755,
+    "output_tokens": 68946,
+    "api_call_count": 172
   }
 }
