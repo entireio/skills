@@ -30,8 +30,7 @@ followed by a blank line, then the content (PR URL plus a short recap of what wa
    - `entire explain --commit <sha> --short --no-pager` — primary per-commit intent. Always look up checkpoints by commit SHA, not by checkpoint ID — the truncated IDs displayed in `entire explain --no-pager` listings are not accepted as input to the same command.
    - `entire explain --commit <sha> --no-pager` — fuller per-commit context if `--short` is too thin.
    - `entire explain --commit <sha> --raw-transcript --no-pager` — raw session transcript for a commit. Used by Step 5 to synthesize a client-side "why" line when entire's `Outcome` is `(not generated)`. Transcripts are stored in a uniform format regardless of which agent (Claude / Codex / Gemini / …) produced the commit, so the invoking agent can read another agent's transcript the same way it reads its own.
-   - `entire dispatch --local --since <window>` — prose summary; fallback only when the push range exceeds `MAX_PER_COMMIT_LOOKUPS` (= 10) commits.
-3. Always pass `--no-pager` to `entire explain` calls so output stays non-interactive. Do not invent `--no-pager` on commands that do not support it (`entire dispatch` does not).
+3. Always pass `--no-pager` to `entire explain` calls so output stays non-interactive.
 4. Stage with explicit paths. Never use `git add -A` or `git add .` (per the user's git-safety rules).
 5. Always create the PR as `--draft`.
 
@@ -102,7 +101,13 @@ For each commit SHA in the push range, run **in parallel**:
 entire explain --commit <sha> --short --no-pager
 ```
 
-Cap at `MAX_PER_COMMIT_LOOKUPS = 10`. If the push range exceeds the cap, skip the per-commit loop and instead run a single `entire dispatch --local --since <window>` where `<window>` is the timestamp of the oldest commit in the push range minus a 1-hour buffer (`git log --reverse --format=%aI "$MERGE_BASE"..HEAD | head -1`).
+Cap at `MAX_PER_COMMIT_LOOKUPS = 10`. If the push range exceeds the cap, sample **the first commit plus the last 9** in chronological order:
+
+```bash
+git log --reverse --format=%H "$MERGE_BASE"..HEAD | { head -1; tail -9; } | awk '!seen[$0]++'
+```
+
+The first commit captures the branch's original intent; the last 9 capture the recent state. Together they cover both ends of the arc, which is more useful than just sampling the tail. The intermediate commits still appear in the Changes section by their bare subjects (no "why" line), so reviewers see the full progression.
 
 Deduplicate per-checkpoint output where multiple commits share a checkpoint. Classify each commit:
 
@@ -121,7 +126,7 @@ Trim each transcript before synthesizing — full transcripts can be tens of tho
 
 If the synthesis is substantive (more than 3 words and not just a re-statement of the prompt), **promote** the commit to `checkpoint-backed` for the rest of Step 5 — its synthesized "why" line plays the role of the missing `Outcome`. If the transcript is unavailable, the synthesis collapses to a re-statement of the prompt, or the lookup fails, the commit stays `checkpoint-prompt-only` and falls through to the commit-subject path.
 
-Total raw-transcript reads are also bounded by `MAX_PER_COMMIT_LOOKUPS = 10`. If the push range exceeded the cap, the dispatch fallback already ran in place of per-commit lookups and this synthesis step is skipped.
+Total raw-transcript reads are also bounded by `MAX_PER_COMMIT_LOOKUPS = 10`, applied to the same first-1 + last-9 sample as the per-commit explain loop. Don't fetch transcripts for commits that aren't in the sample.
 
 **Title.** Synthesize a single ≤70-char title from the **full set** of `checkpoint-backed` Outcomes plus the `git diff --stat "$MERGE_BASE"..HEAD` summary — not just one commit's Outcome. A 5-commit branch ending in a small "fix typo" cleanup must not get titled "fix typo"; the title should name the dominant intent of the branch as a whole. Apply these rules in order:
 
@@ -153,7 +158,7 @@ If no commit in the range is `checkpoint-backed`, synthesize the title from `git
 Notes:
 
 - The Summary paragraph is **synthesized**, not a literal concatenation of per-commit output.
-- "Changes" lists every commit in chronological order. Mixed-author branches naturally show some commits with rich Entire-derived "why" and some with bare subjects — that's informative, not a bug.
+- "Changes" lists every commit in chronological order. Mixed-author branches naturally show some commits with rich Entire-derived "why" and some with bare subjects — that's informative, not a bug. **For branches over 10 commits**: the first commit plus the last 9 get rich "why" annotations from the per-commit explain pass; the intermediate commits show their bare subjects, since the lookup cap kicks in.
 - **Single-commit PRs.** Collapse the Summary into a one-sentence preamble and **omit** the Changes section entirely — Summary and Changes both describe the same commit, so listing both is redundant. The Test plan section is unchanged.
 - The Test plan is derived from `git diff --stat "$MERGE_BASE"..HEAD` file types. Recipes:
   - Touched `*.ts` / `*.tsx` → "type-check + test the affected component"
