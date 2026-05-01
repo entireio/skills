@@ -95,7 +95,7 @@ Builds a topic-focused guided lesson from 3-5 canonical checkpoints, with a ment
 
 Current behavior:
 
-- searches over a 180-day window so the lesson uses canonical examples, not just recent activity
+- searches over the last month so the lesson uses canonical examples, not just recent activity
 - scores hits by topical specificity (topic in prompt/title), transcript depth, and recency, and prefers diversity (different files, different authors) when picking the 3-5 anchors
 - reads each anchor with `entire explain --checkpoint <id> --full --no-pager` (falls back to `--raw-transcript`)
 - produces a lesson with what-you'll-learn, mental model, per-anchor lessons, patterns to remember, and where-to-go-next
