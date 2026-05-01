@@ -78,6 +78,41 @@ Current behavior:
 - drills into a specific result with `entire explain --checkpoint <id> --full --no-pager`
 - broadens searches progressively when initial results are empty (remove branch filter, widen date, simplify terms)
 
+### `recall`
+
+Turns "have we done this before?" into a task playbook by recalling the closest prior session for a described task and synthesizing what worked, gotchas, files touched, and a suggested approach for the new task.
+
+Current behavior:
+
+- runs paired `entire search` queries (the original task phrasing plus an alternate phrasing) and deduplicates by checkpoint ID
+- scores hits by topical overlap with recency as a tiebreak, then reads the top 1-3 transcripts via `entire explain --checkpoint <id> --full --no-pager` (falls back to `--raw-transcript`)
+- produces a playbook with sections for closest precedent, what worked, gotchas, files touched, suggested approach, and other relevant precedents
+- broadens progressively (simplify query, drop date filter, drop branch filter) and reports each empty attempt before giving up
+
+### `teach`
+
+Builds a topic-focused guided lesson from 3-5 canonical checkpoints, with a mental model and patterns to remember rather than a flat list of search results.
+
+Current behavior:
+
+- searches over the last month so the lesson uses canonical examples, not just recent activity
+- scores hits by topical specificity (topic in prompt/title), transcript depth, and recency, and prefers diversity (different files, different authors) when picking the 3-5 anchors
+- reads each anchor with `entire explain --checkpoint <id> --full --no-pager` (falls back to `--raw-transcript`)
+- produces a lesson with what-you'll-learn, mental model, per-anchor lessons, patterns to remember, and where-to-go-next
+- adds an optional small Mermaid diagram only when the topic has a clear behavioral flow worth illustrating
+
+### `replay`
+
+Steps through a feature's checkpoints chronologically, pausing for questions at each step instead of dumping a summary.
+
+Current behavior:
+
+- resolves either a topic ("how X was built") or a time window ("replay last week"), using `entire dispatch` to derive seed terms when needed
+- builds a chronological sequence of up to 10 checkpoints by default and collapses near-duplicate prompts within a 30-minute window
+- opens with a session card (topic, total steps, date range, primary authors) and then shows step 1 with a paired pause prompt
+- on `next` / `continue` / `yes`, advances; on a question, answers from the current step's transcript only and re-prompts
+- closes with 3-5 journey takeaways generalized across the steps
+
 ## Installation
 
 Install with [skills](https://skills.sh/) CLI (universal, works with any [Agent Skills](https://agentskills.io)-compatible tool):
@@ -194,6 +229,14 @@ Natural language examples:
 - "search past work for rate limiting"
 - "find checkpoints about the migration"
 - "have we done this before?"
+- "recall how we added a tenant-scoped field last time"
+- "find similar work for migrating a worker pool"
+- "teach me how this repo handles auth"
+- "school me on hooks"
+- "give me a lesson on billing webhooks"
+- "walk me through how the v2 checkpoints feature was built"
+- "replay last week"
+- "step me through how the doctor command was implemented"
 
 ## Checkpoint Resolution
 
