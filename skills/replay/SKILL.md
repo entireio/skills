@@ -82,7 +82,7 @@ Sort hits chronologically (ascending).
 4. Build the chronological sequence (cap at 10 by default; honor explicit user requests like "show me 15 steps"):
 
 - Drop near-duplicates: same prompt fingerprint within a 30-minute window collapses to the **latest** occurrence.
-- Drop checkpoints whose transcripts cannot be read in step 5; do not silently merge.
+- If a step's transcript cannot be read at step 5 / step 7 fetch time, skip it inline using the failure-mode rule below — do not pre-fetch transcripts here.
 
 5. Read transcripts lazily — only fetch the next step's transcript when the user is about to see it. For step 1:
 
