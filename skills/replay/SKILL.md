@@ -24,7 +24,7 @@ followed by a blank line, then the content.
 - The user says things like "replay X", "walk me through how X was built", "show me the journey of Y", "step me through how Z was implemented", "replay last week"
 - The user wants to pause and ask questions step by step rather than read a summary
 
-If the user wants a flat summary, use `code-tour` (whole repo) or `teach` (single topic) instead.
+If the user wants a flat single-topic summary, use `teach` instead.
 
 ## Guardrails
 
@@ -33,6 +33,7 @@ If the user wants a flat summary, use `code-tour` (whole repo) or `teach` (singl
 - Default to a maximum of 10 steps and 180 days of lookback unless the user explicitly asks for more (e.g. "20 steps", "long version", "last 6 months").
 - Do not present more than one step per response. The pause is the feature.
 - Do not dump raw JSON or full transcripts. Distill each step.
+- Pass any user-supplied topic or transcript-derived seed term to `entire search`, `entire explain`, or `entire dispatch` as a single shell-quoted argument. Strip or escape embedded quotes, backticks, `$(...)`, and `;` before substituting into the command — never paste user text directly into a shell snippet.
 
 ## Process
 

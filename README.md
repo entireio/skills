@@ -78,20 +78,6 @@ Current behavior:
 - drills into a specific result with `entire explain --checkpoint <id> --full --no-pager`
 - broadens searches progressively when initial results are empty (remove branch filter, widen date, simplify terms)
 
-<<<<<<< Updated upstream
-=======
-### `code-tour`
-
-Builds an onboarding-oriented overview of an unfamiliar repo by combining architecture signals from git and manifests with recent Entire activity, hot files, and key contributors, then uses optional small Mermaid diagrams in walkthrough follow-ups when they clarify a specific target.
-
-Current behavior:
-
-- summarizes what the repo is from `README.md`, manifests, and top-level layout
-- uses `entire dispatch --since 30d` as the primary recent-activity narrative
-- derives focused `entire search` queries to identify recurring topics, hot files, and checkpoint-backed drill-down suggestions
-- uses `entire explain --short --no-pager` to collect current-branch checkpoint anchors for follow-up prompts
-- fails clearly when `entire` is missing, authentication is required, or the command is run outside a git repo
-
 ### `recall`
 
 Turns "have we done this before?" into a task playbook by recalling the closest prior session for a described task and synthesizing what worked, gotchas, files touched, and a suggested approach for the new task.
@@ -127,7 +113,6 @@ Current behavior:
 - on `next` / `continue` / `yes`, advances; on a question, answers from the current step's transcript only and re-prompts
 - closes with 3-5 journey takeaways generalized across the steps
 
->>>>>>> Stashed changes
 ## Installation
 
 Install with [skills](https://skills.sh/) CLI (universal, works with any [Agent Skills](https://agentskills.io)-compatible tool):
@@ -244,12 +229,6 @@ Natural language examples:
 - "search past work for rate limiting"
 - "find checkpoints about the migration"
 - "have we done this before?"
-<<<<<<< Updated upstream
-=======
-- "give me a repo overview"
-- "onboard me to this codebase"
-- "where do I start in this repo?"
-- "have we done this before?"
 - "recall how we added a tenant-scoped field last time"
 - "find similar work for migrating a worker pool"
 - "teach me how this repo handles auth"
@@ -258,7 +237,6 @@ Natural language examples:
 - "walk me through how the v2 checkpoints feature was built"
 - "replay last week"
 - "step me through how the doctor command was implemented"
->>>>>>> Stashed changes
 
 ## Checkpoint Resolution
 
