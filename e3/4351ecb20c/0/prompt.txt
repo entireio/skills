@@ -1,9 +1,1 @@
-okay add these please..wait also are people allowed to just create regular issues and prs without the template..if so thats good
-
----
-
-checkout main, pull the latest
-
----
-
 for contributing guide ..we should add that support information about opening an issue or reaching out in discord..and you called it Entire Discord..you should say Entire Community Discord Server for both readme and Contributing guidelines..open PR
