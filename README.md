@@ -88,10 +88,14 @@ Finds prior work in your Entire history by topic, repo, branch, author, or time
 window, so your agent can bring past context into the current task before making
 changes.
 
+https://github.com/user-attachments/assets/52e50eae-ba53-4f31-ad2e-2a29a767a34f
+
 ### `explain`
 
 Looks up the session behind a function, file, or line so your agent can explain
 the requirement, decision, or original problem that shaped it.
+
+https://github.com/user-attachments/assets/ab2e88f6-9bce-417b-ba71-6e93ecad370b
 
 ### `what-happened`
 
@@ -99,11 +103,15 @@ Starts from an exact file line, range, or pasted snippet and traces the latest
 change with `git blame` and Checkpoint context. Useful when reviewing a concrete
 block, debugging a regression, or asking why that block changed.
 
+https://github.com/user-attachments/assets/47db0daa-60bd-4000-b956-2d0e4d980b9b
+
 ### `session-handoff`
 
 Reads saved or active session context so another agent can pick up the task
 state, important discoveries, blockers, and next steps without making you
 reconstruct everything manually.
+
+https://github.com/user-attachments/assets/0df3b5cd-fe37-4145-af48-138642ccc8bc
 
 ### `session-to-skill`
 
