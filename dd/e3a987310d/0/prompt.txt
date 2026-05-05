@@ -1,0 +1,83 @@
+this repo needs contributing guidelines / somethign for first time contributors..what should it say based on how this repo is set up
+
+---
+
+lets say fork. dont say branch from main yet..we need to show them a command to fork
+
+1. Fork or branch from main.
+2. Create a branch from main
+
+Maybe these two parts should be in adding or changing a skill
+3. what does that mean? Read the existing skill closest to the one you want to change.
+
+4. Keep the change focused. A skill should teach an agent one repeatable
+workflow, not become a general manual.
+
+---
+
+i imagine these people are not using the github cli..whats just the regular github command
+
+---
+
+and let's be clear in the create a branch from name that it should be a descriptive branch explain what the skill is
+
+---
+
+do you see a tutorial md in here?
+
+---
+
+okay so we dont want to highlight that one then. ..only stuff in remote..
+
+---
+
+is there a way we can hyperlink the word fork so that it will fork the repo
+
+---
+
+okay take away step 1 and then just start at click fork
+
+---
+
+what does this mean for users? do they need to know this? It's okay if they do..but i want to know from u
+
+There is no application build system in this repo. Most changes are Markdown,
+JSON metadata, or a small plugin shim.
+
+---
+
+i think just take that line out completely
+
+---
+
+im trying to figure out how we can redo the repo layout section. ideally i would've wanted this linked to real files
+
+---
+
+im thinking lets remove the repo layout..most people may be contributing with agents so we dont need this
+
+---
+
+shoulld contributors be preparing a release for this repo or is it no big deal
+
+---
+
+maybe agent compatibility just leave it out
+
+---
+
+okay in the pull request section we should explain how to open a PR
+
+---
+
+remove this "If you are unsure whether a change belongs in a skill or the README, put
+repeatable agent behavior in the skill and public summary or installation
+details in the README."
+
+---
+
+okay what do we think of this
+
+---
+
+okay make those changes
