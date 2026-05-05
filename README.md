@@ -7,10 +7,11 @@ Bring your Entire context to your agents with cross-agent skills.
 ## Why This Exists
 
 The [Entire CLI](https://github.com/entireio/cli) captures the context behind your
-code changes: prompts, transcripts, Checkpoints, and the decisions that led to
-each change, alongside your git history. This repository packages agent-invokable
-workflows that teach coding agents how to use that context across development
-environments.
+code changes: prompts, transcripts,
+[Checkpoints](https://docs.entire.io/cli/checkpoints), and the decisions that led
+to each change, alongside your git history. This repository packages
+agent-invokable workflows that teach coding agents how to use that context across
+development environments.
 
 Instead of looking up Entire commands yourself, you can ask in plain language and
 let your agent search prior work, inspect provenance, hand off session state, or
