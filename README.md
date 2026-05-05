@@ -49,7 +49,7 @@ search past work for rate limiting
 ```
 
 ```text
-/explain src/auth.ts
+explain src/auth.ts
 ```
 
 ```text
@@ -72,7 +72,7 @@ For a guided walkthrough, see the
 | Goal | Example prompt |
 | --- | --- |
 | Find prior work before making changes | `search past work for the migration` |
-| Understand the intent behind a function, file, or line | `/explain parseConfig` |
+| Understand the intent behind a function, file, or line | `explain parseConfig` |
 | Investigate the latest change to a specific block | `what happened at src/auth.ts:42` |
 | Pick up another agent's work | `hand off the codex session` |
 | Convert repeated work into a reusable workflow | `make a skill from this session` |
