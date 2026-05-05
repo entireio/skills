@@ -1,3 +1,5 @@
+![Entire Skills cover](assets/gh-repo-cover.png)
+
 # Skills
 
 Cross-agent skills and commands powered by Entire.
