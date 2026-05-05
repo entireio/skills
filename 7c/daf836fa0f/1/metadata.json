@@ -1,0 +1,63 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "7cdaf836fa0f",
+  "session_id": "a88641f6-df38-4dda-89ef-d14176b173e6",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-30T21:01:34.196244Z",
+  "branch": "alisha/commit",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".claude-plugin/marketplace.json",
+    ".claude-plugin/plugin.json",
+    ".codex-plugin/plugin.json",
+    ".cursor-plugin/plugin.json",
+    "README.md",
+    "gemini-extension.json",
+    "package.json"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "a12126d538f6",
+  "token_usage": {
+    "input_tokens": 55,
+    "cache_creation_tokens": 166584,
+    "cache_read_tokens": 2114399,
+    "output_tokens": 20536,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-30T21:01:34.164406Z",
+    "agent_lines": 22,
+    "agent_removed": 6,
+    "human_added": 1,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 23,
+    "total_lines_changed": 30,
+    "agent_percentage": 93.33333333333333,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 274,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "entire-commit-push-pr-plan.md": 102,
+        "skills/commit-push-pr/SKILL.md": 172
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 297,
+      "agent_lines_removed": 7
+    }
+  ]
+}

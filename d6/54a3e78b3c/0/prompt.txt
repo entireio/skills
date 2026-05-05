@@ -1,0 +1,7 @@
+I have added a new skill to plugins/entire/skills/what-happened
+
+First and foremost, this skill is now called "What Happened", not wat anymore. Otherwise, can you review this skill and find issues. I'm especially interested in improving its performance since it's pretty slow at the moment. Anything else that would help? Removing ambiguity when local checkpoints aren't available etc. would be an area of improvement I can think of.
+
+---
+
+Can you work on these?

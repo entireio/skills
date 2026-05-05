@@ -1,0 +1,14 @@
+Review Task 1 for code quality only. Do not edit files.
+
+Context:
+- Repo: `/Users/alisha/.marvin/worktrees/project-overview`
+- File under review: `skills/code-tour/SKILL.md`
+- The task is already spec-approved. Focus now on clarity, maintainability, consistency with existing skill style, duplication, ambiguity, over-prescription, or wording that could confuse the agent following the skill.
+- Ignore unrelated files.
+
+Please answer:
+1. `APPROVED` or `CHANGES REQUIRED` first.
+2. If changes are required, list concrete issues ordered by severity, with file/line references.
+3. If approved, briefly note strengths and any low-risk residual concerns.
+
+Do not evaluate against the earlier plan except where it affects quality of this final skill text.

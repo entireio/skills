@@ -1,0 +1,2 @@
+{"v":1,"agent":"Claude Code","cli_version":"0.5.6","type":"user","ts":"2026-04-22T15:59:21.002Z","content":[{"id":"771ed796-a3d2-4061-a1e9-7fb7dfe94735","text":"test prompt"}]}
+{"v":1,"agent":"Claude Code","cli_version":"0.5.6","type":"assistant","ts":"2026-04-22T15:59:25.569Z","id":"msg_01PHjCY3wFM2i2iNu8QmJupy","input_tokens":5,"output_tokens":129,"content":[{"text":"Received. What would you like me to do?","type":"text"}]}

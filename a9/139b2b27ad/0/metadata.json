@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "a9139b2b27ad",
+  "session_id": "019d78fc-c449-7300-92a1-1e92604a4f6a",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T16:31:00.683326Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "plugins/entire/skills/search/SKILL.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "26501993599b",
+  "token_usage": {
+    "input_tokens": 356812,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 317184,
+    "output_tokens": 7917,
+    "api_call_count": 15
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-10T20:18:36.572136Z",
+    "agent_lines": 45,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 6,
+    "human_removed": 16,
+    "total_committed": 48,
+    "total_lines_changed": 67,
+    "agent_percentage": 67.16417910447761,
+    "metric_version": 2
+  }
+}

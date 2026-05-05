@@ -1,0 +1,13 @@
+/review
+
+---
+
+Can you re-check and see which ones still apply?
+
+---
+
+Do all of them in one batch
+
+---
+
+commit and continue

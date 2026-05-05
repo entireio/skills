@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "2644faf040dc",
+  "strategy": "manual-commit",
+  "branch": "alisha/commit",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "skills/commit-push-pr/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/26/44faf040dc/0/metadata.json",
+      "transcript": "/26/44faf040dc/0/transcript.jsonl",
+      "content_hash": "/26/44faf040dc/0/transcript_hash.txt",
+      "prompt": "/26/44faf040dc/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 46,
+    "cache_creation_tokens": 28933,
+    "cache_read_tokens": 1941191,
+    "output_tokens": 13197,
+    "api_call_count": 13
+  }
+}
