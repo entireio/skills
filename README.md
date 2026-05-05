@@ -113,12 +113,6 @@ reconstruct everything manually.
 
 https://github.com/user-attachments/assets/0df3b5cd-fe37-4145-af48-138642ccc8bc
 
-### `session-to-skill`
-
-Turns repeated agent sessions into reusable `SKILL.md` drafts. It extracts the
-process from real work instead of asking you to write idealized instructions
-from scratch.
-
 ## Requirements
 
 These skills are designed for repositories where Entire has captured useful
