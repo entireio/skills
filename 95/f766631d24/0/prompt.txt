@@ -1,0 +1,129 @@
+check out main, pull the latest..get rid of uncommitted changes
+
+---
+
+okay lets take a look at the readme..what can be improved? this doesnt seem like the best readme right
+
+---
+
+that description is too specific bc the skills we have in here will get added or be changed over time ..this is NOT a readme..but can be helpful for you
+
+# Bring Your Entire Context to Your Agents with Skills
+
+As agents become the primary interface for development, many developers are choosing to delegate command execution to their coding agents. The [Entire CLI](https://github.com/entireio/cli) already captures the context behind your code changes: prompts, transcripts, and the decisions that led to each change, alongside your git history. Today we're making that data easier for your agent to use.
+
+## Make your agent more powerful
+
+Our [skills](https://docs.entire.io/skills/overview) repository contains agent-invokable workflows that teach your agent how to use the Entire CLI. Instead of looking up syntax or running commands yourself, you can ask in plain language and let your agent drive the workflow.
+
+\<**add screen recording of a skill in action\>**
+
+This initial release enables your agent to:
+
+* **Search past work**\- The [`search`](https://github.com/entireio/skills/blob/main/skills/search/SKILL.md) skill finds prior work in your Entire history by topic, repo, branch, author, or time window, so your agent can bring past context into the current task before making changes.  
+* **Explain why code exists \-** The [`explain`](https://github.com/entireio/skills/blob/main/skills/explain/SKILL.md) skill traces a function, file, or line back to the session that created it, so your agent can answer the intent behind code, not just describe what the code currently does.  
+* **Investigate changes \-** The [`what-happened`](https://github.com/entireio/skills/blob/main/skills/what-happened/SKILL.md) skill combines `git blame` with Entire checkpoint context to explain why a specific block of code looks the way it does. It is useful during code review or when you are investigating a regression.  
+* **Hand off between agents \-** The [`session-handoff`](https://github.com/entireio/skills/blob/main/skills/session-handoff/SKILL.md) picks up where another agent left off by reading the saved or active session and summarizing the task state, important discoveries, blockers, and next steps.  
+* **Turn sessions into skills \-** The [`session-to-skill`](https://github.com/entireio/skills/blob/main/skills/session-to-skill/SKILL.md) skill turns repeated agent sessions into reusable workflows via `SKILL.md` drafts. It extracts the process from real work instead of asking you to write idealized instructions from scratch.
+
+## Cross-agent by design
+
+All skills are cross-agent. Install them once and use the same workflows in [Agent Skills](https://agentskills.io)\-compatible tools, including Claude Code, Codex, Cursor, Copilot, Gemini CLI, OpenCode, Factory Droid, Kiro, and Pi.
+
+## Try it
+
+We published a [tutorial](https://docs.entire.io/skills/tutorial) for trying the skills from scratch. It walks through installation, and using the skills in real codebase.
+---
+
+there is also this that teaches creating a good README https://dev.to/github/how-to-create-the-perfect-readme-for-your-open-source-project-1k69
+
+---
+
+is this correct? Install every skill with the [skills](https://skills.sh/) CLI:
+
+---
+
+like im saying is the skills.sh correct?
+
+---
+
+we need to lnk to code of conduct as well
+
+---
+
+just say code of conduct..we dont need to say Entire code of conduct
+
+---
+
+instead of saying Entire Skills tutorial just say skills tutorial
+
+---
+
+i think one of these sectinos should be titled Why This Exists like u dont need to add more words..but it should be separated to that..i think earlier we need to mention that it's cross agent..but we dont need to do the whole cross agent by design section..
+
+---
+
+we dont support antigravity so we need to remove that
+
+---
+
+is there a better way to say this where we're not listing out every agent in this sentence See 
+Agent-Specific Installation
+ for Claude Code,
+Codex, Cursor, Copilot, Gemini CLI, and OpenCode.
+
+---
+
+yeah lets use this See [Agent-Specific Installation](#agent-specific-installation) for setup instructions by agent.
+
+---
+
+the thing about these skills they will be more useful if u have actual checkpoints from entire cli in your codebase and the more rich the history is ..the better..i think if it's like an empty codebase..or one with no too much..it will be harder to see the value
+
+---
+
+instead of saying Entire Checkpoints..just say Checkpoints and let's link it to https://docs.entire.io/cli/checkpoints
+
+---
+
+Entire search service is awkward here..we dont need to preface everything with the word Entire ..and it's not really called search service..so what's a better way we can write this
+
+entire login for workflows that use the Entire search service
+
+we should also link to entire login docs like hyperlink the word https://docs.entire.io/cli/commands#login
+
+we should also make the word Checkpoints is uppercase through the readme
+
+---
+
+For support or something we should encourage people to open an issue..link that..and then join our discord..which would be https://discord.gg/jZJs3Tue4S
+
+---
+
+people complained that the explain and the what happened seemed so similar..and it was hard to understand the differentiation..can you read the Skills.md for each to make sure the description in the README is clear. you dont have to explicitly say oh here's how they are different from each other. in fact, I prefer u dont
+
+---
+
+Entire Skills i think we should just say Skills in the title
+
+---
+
+should this be moved as a note below the quickstart
+
+These skills are most useful in codebases with real
+Checkpoints
+ and session history. The
+richer the history, the more context your agent has to work with; in a new or
+lightly captured repository, some workflows may have less to find or explain.
+
+---
+
+yes
+
+---
+
+i think put it above..like  right befor eyou say after installing..put the note above
+
+---
+
+what do we think? can we open a repo
