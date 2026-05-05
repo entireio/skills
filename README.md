@@ -1,6 +1,6 @@
-![Entire Skills cover](assets/gh-repo-cover.png)
+![Entire skills cover](assets/gh-repo-cover.png)
 
-# Skills
+# skills
 
 Bring your Entire context to your agents with cross-agent skills.
 
@@ -64,9 +64,9 @@ turn my release notes workflow into a skill
 ```
 
 For a guided walkthrough, see the
-[Skills tutorial](https://docs.entire.io/skills/tutorial).
+[skills tutorial](https://docs.entire.io/skills/tutorial).
 
-## What These Skills Help Agents Do
+## What skills help agents do
 
 | Goal | Example prompt |
 | --- | --- |
@@ -76,7 +76,7 @@ For a guided walkthrough, see the
 | Pick up another agent's work | `hand off the codex session` |
 | Convert repeated work into a reusable workflow | `make a skill from this session` |
 
-## Included Skills
+## Included skills
 
 The current repository includes these skills. Each skill lives in
 `skills/<skill-name>/SKILL.md`.

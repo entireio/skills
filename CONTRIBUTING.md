@@ -1,6 +1,6 @@
-# Contributing to Entire Skills
+# Contributing to Entire skills
 
-Thanks for helping improve Entire Skills. This repo is intentionally small: each
+Thanks for helping improve Entire skills. This repo is intentionally small: each
 skill lives in `skills/<skill-name>/SKILL.md`, with a few plugin and extension
 metadata files that make the same skills installable across different agents.
 
