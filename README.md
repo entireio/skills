@@ -1,16 +1,17 @@
-![Entire Skills cover](assets/gh-repo-cover.png)
+![skills cover](assets/gh-repo-cover.png)
 
-# Skills
+# skills
 
 Bring your Entire context to your agents with cross-agent skills.
 
 ## Why This Exists
 
 The [Entire CLI](https://github.com/entireio/cli) captures the context behind your
-code changes: prompts, transcripts, Checkpoints, and the decisions that led to
-each change, alongside your git history. This repository packages agent-invokable
-workflows that teach coding agents how to use that context across development
-environments.
+code changes: prompts, transcripts,
+[Checkpoints](https://docs.entire.io/cli/checkpoints), and the decisions that led
+to each change, alongside your git history. This repository packages
+agent-invokable workflows that teach coding agents how to use that context across
+development environments.
 
 Instead of looking up Entire commands yourself, you can ask in plain language and
 let your agent search prior work, inspect provenance, hand off session state, or
@@ -64,9 +65,9 @@ turn my release notes workflow into a skill
 ```
 
 For a guided walkthrough, see the
-[Skills tutorial](https://docs.entire.io/skills/tutorial).
+[skills tutorial](https://docs.entire.io/skills/tutorial).
 
-## What These Skills Help Agents Do
+## What skills help agents do
 
 | Goal | Example prompt |
 | --- | --- |
@@ -76,7 +77,7 @@ For a guided walkthrough, see the
 | Pick up another agent's work | `hand off the codex session` |
 | Convert repeated work into a reusable workflow | `make a skill from this session` |
 
-## Included Skills
+## Included skills
 
 The current repository includes these skills. Each skill lives in
 `skills/<skill-name>/SKILL.md`.
@@ -223,7 +224,7 @@ request guidance. Please also follow the
 
 For bugs, feature requests, or questions, open a
 [GitHub issue](https://github.com/entireio/skills/issues). You can also join the
-[Entire Discord](https://discord.gg/jZJs3Tue4S).
+[Entire Community Discord Server](https://discord.gg/jZJs3Tue4S).
 
 ## License
 

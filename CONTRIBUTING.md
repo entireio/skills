@@ -1,6 +1,6 @@
-# Contributing to Entire Skills
+# Contributing to skills
 
-Thanks for helping improve Entire Skills. This repo is intentionally small: each
+Thanks for helping improve skills. This repo is intentionally small: each
 skill lives in `skills/<skill-name>/SKILL.md`, with a few plugin and extension
 metadata files that make the same skills installable across different agents.
 
@@ -110,6 +110,12 @@ In the PR description, include:
 
 If you changed skill behavior, include a short example prompt that demonstrates
 the new or updated behavior.
+
+## Support
+
+For bugs, feature requests, or questions, open a
+[GitHub issue](https://github.com/entireio/skills/issues). You can also join the
+[Entire Community Discord Server](https://discord.gg/jZJs3Tue4S).
 
 ## Style
 
