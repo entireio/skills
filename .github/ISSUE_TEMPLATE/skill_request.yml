@@ -1,0 +1,33 @@
+name: Skill request
+description: Suggest a new skill or workflow
+title: "[Skill request]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: What workflow should this skill help with?
+    validations:
+      required: true
+  - type: textarea
+    id: when-to-use
+    attributes:
+      label: When would an agent use it?
+    validations:
+      required: true
+  - type: textarea
+    id: example-prompt
+    attributes:
+      label: Example prompt
+      render: text
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: What should the agent produce or do?
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Add links, examples, or related tools here.
