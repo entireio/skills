@@ -1,4 +1,4 @@
-![Entire skills cover](assets/gh-repo-cover.png)
+![skills cover](assets/gh-repo-cover.png)
 
 # skills
 
