@@ -223,7 +223,7 @@ request guidance. Please also follow the
 
 For bugs, feature requests, or questions, open a
 [GitHub issue](https://github.com/entireio/skills/issues). You can also join the
-[Entire Discord](https://discord.gg/jZJs3Tue4S).
+[Entire Community Discord Server](https://discord.gg/jZJs3Tue4S).
 
 ## License
 

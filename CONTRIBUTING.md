@@ -111,6 +111,12 @@ In the PR description, include:
 If you changed skill behavior, include a short example prompt that demonstrates
 the new or updated behavior.
 
+## Support
+
+For bugs, feature requests, or questions, open a
+[GitHub issue](https://github.com/entireio/skills/issues). You can also join the
+[Entire Community Discord Server](https://discord.gg/jZJs3Tue4S).
+
 ## Style
 
 - Prefer concise, direct instructions over long explanations.
