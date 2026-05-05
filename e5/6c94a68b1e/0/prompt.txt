@@ -1,0 +1,5 @@
+in the readme right here..we should link Checkpoints to the docs on Checkpoints The Entire CLI captures the context behind your code changes: prompts, transcripts, Checkpoints, and the
+
+---
+
+and we need to stop calling it Entire Skills .it's just skills
