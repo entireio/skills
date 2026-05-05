@@ -1,10 +1,1 @@
-checkout main..pull the latest
-
----
-
-# Files mentioned by the user:
-
-## gh-repo-cover.png: /Users/rizel/Downloads/skills-reexport/gh-repo-cover.png
-
-## My request for Codex:
-add this image to the very top of the readme
+open a PR
