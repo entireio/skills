@@ -1,0 +1,53 @@
+name: Bug report
+description: Report an install, discovery, or skill behavior problem
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell us what went wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      description: Which skill was involved, if any?
+      placeholder: search, explain, what-happened, session-handoff, session-to-skill
+  - type: input
+    id: agent
+    attributes:
+      label: Agent
+      description: Which agent or editor were you using?
+      placeholder: Claude Code, Codex, Cursor, Copilot, Gemini CLI, OpenCode
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |
+        OS:
+        Agent/version:
+        Entire CLI version:
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Paste relevant command output, errors, or screenshots here.
