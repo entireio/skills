@@ -1,0 +1,1 @@
+we're branding skills as lowercased ..so are their parts in our readme or contributing guide that ishould probably change to lowercase

@@ -1,0 +1,103 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "ca64320841af",
+  "session_id": "019df7a8-7926-77d3-8ea8-9ad76f056204",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-05T10:24:21.711841Z",
+  "branch": "codex/add-readme-cover-image",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "README.md",
+    "assets/gh-repo-cover.png"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "560258cfb1dd",
+  "token_usage": {
+    "input_tokens": 56678,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 323840,
+    "output_tokens": 1937,
+    "api_call_count": 16
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-05T10:24:21.696745Z",
+    "agent_lines": 2,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "total_lines_changed": 2,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1490,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/worktrees/thirsty-turing-af3fae/.agents/plugins/marketplace.json": 20,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude-plugin/marketplace.json": 20,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude-plugin/plugin.json": 19,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude/agents/entire-search.md": 25,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude/settings.json": 84,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex-plugin/plugin.json": 32,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex/agents/entire-search.toml": 23,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex/config.toml": 3,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex/hooks.json": 40,
+        ".claude/worktrees/thirsty-turing-af3fae/.cursor-plugin/plugin.json": 14,
+        ".claude/worktrees/thirsty-turing-af3fae/.entire/.gitignore": 5,
+        ".claude/worktrees/thirsty-turing-af3fae/.entire/settings.json": 7,
+        ".claude/worktrees/thirsty-turing-af3fae/.gitignore": 2,
+        ".claude/worktrees/thirsty-turing-af3fae/.opencode/INSTALL.md": 31,
+        ".claude/worktrees/thirsty-turing-af3fae/.opencode/plugins/entire.js": 24,
+        ".claude/worktrees/thirsty-turing-af3fae/README.md": 186,
+        ".claude/worktrees/thirsty-turing-af3fae/gemini-extension.json": 5,
+        ".claude/worktrees/thirsty-turing-af3fae/package.json": 6,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/explain/SKILL.md": 34,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/search/SKILL.md": 70,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/session-handoff/SKILL.md": 120,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/what-happened/SKILL.md": 333,
+        "TUTORIAL.md": 387
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 1103,
+      "user_lines_removed": 0,
+      "agent_lines_added": 389,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/worktrees/thirsty-turing-af3fae/.agents/plugins/marketplace.json": 20,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude-plugin/marketplace.json": 20,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude-plugin/plugin.json": 19,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude/agents/entire-search.md": 25,
+        ".claude/worktrees/thirsty-turing-af3fae/.claude/settings.json": 84,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex-plugin/plugin.json": 32,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex/agents/entire-search.toml": 23,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex/config.toml": 3,
+        ".claude/worktrees/thirsty-turing-af3fae/.codex/hooks.json": 40,
+        ".claude/worktrees/thirsty-turing-af3fae/.cursor-plugin/plugin.json": 14,
+        ".claude/worktrees/thirsty-turing-af3fae/.entire/.gitignore": 5,
+        ".claude/worktrees/thirsty-turing-af3fae/.entire/settings.json": 7,
+        ".claude/worktrees/thirsty-turing-af3fae/.gitignore": 2,
+        ".claude/worktrees/thirsty-turing-af3fae/.opencode/INSTALL.md": 31,
+        ".claude/worktrees/thirsty-turing-af3fae/.opencode/plugins/entire.js": 24,
+        ".claude/worktrees/thirsty-turing-af3fae/README.md": 186,
+        ".claude/worktrees/thirsty-turing-af3fae/gemini-extension.json": 5,
+        ".claude/worktrees/thirsty-turing-af3fae/package.json": 6,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/explain/SKILL.md": 34,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/search/SKILL.md": 70,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/session-handoff/SKILL.md": 120,
+        ".claude/worktrees/thirsty-turing-af3fae/skills/what-happened/SKILL.md": 333
+      }
+    }
+  ]
+}
