@@ -4,6 +4,10 @@ Thanks for helping improve skills. This repo is intentionally small: each
 skill lives in `skills/<skill-name>/SKILL.md`, with a few plugin and extension
 metadata files that make the same skills installable across different agents.
 
+If this is your first time contributing here, see
+[FIRST-TIME-CONTRIBUTORS.md](FIRST-TIME-CONTRIBUTORS.md) for a slower
+walkthrough of how to pick a change, set up the repo, and open a PR.
+
 ## Before you start
 
 Fork the repo:
@@ -61,6 +65,20 @@ Good skill instructions should:
 
 If you add, remove, rename, or materially change a skill, update `README.md`
 when the public list or examples change.
+
+## Using AI
+
+It is fine to use coding agents while contributing to this repo, and you do not
+need to disclose that you did. Use whatever agent and workflow you like.
+
+You are still responsible for the final wording, examples, and metadata. Review
+the diff yourself before opening a PR. Watch for vague "when to use"
+descriptions, instructions that read like marketing instead of a concrete
+workflow, and generic advice that does not match this repo's style. PRs that
+look generated, unreviewed, or "vibe coded" may be closed.
+
+See [FIRST-TIME-CONTRIBUTORS.md](FIRST-TIME-CONTRIBUTORS.md#use-ai-carefully)
+for longer guidance.
 
 ## Validation
 
