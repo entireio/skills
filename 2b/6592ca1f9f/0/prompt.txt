@@ -1,0 +1,9 @@
+can we add a First time contributors guide to this project. we should use the one in Documents/work/cli as an example
+
+---
+
+i think the contributing md could also have a note about using AI
+
+---
+
+okay open a PR please thank you

@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "2b6592ca1f9f",
+  "strategy": "manual-commit",
+  "branch": "claude/strange-driscoll-873c0f",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "CONTRIBUTING.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/2b/6592ca1f9f/0/metadata.json",
+      "transcript": "/2b/6592ca1f9f/0/transcript.jsonl",
+      "content_hash": "/2b/6592ca1f9f/0/transcript_hash.txt",
+      "prompt": "/2b/6592ca1f9f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 113,
+    "cache_creation_tokens": 53155,
+    "cache_read_tokens": 899420,
+    "output_tokens": 12734,
+    "api_call_count": 22
+  }
+}
