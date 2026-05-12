@@ -1,0 +1,32 @@
+can you fix merge conflicts without introducing regressions
+
+---
+
+/improve-codebase-architecture
+
+---
+
+how to test all the changes to install
+
+---
+
+/bugbot-review
+
+---
+
+<task-notification>
+<task-id>b1en6q7cs</task-id>
+<tool-use-id>toolu_01B9ZZ5mEg9fZWpQuCHwg1gn</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha-Projects-skills/95047199-69f0-49a5-9432-18cba428ecec/tasks/b1en6q7cs.output</output-file>
+<status>completed</status>
+<summary>Background command "Poll bugbot at 3min mark in background" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bwlow2tbx</task-id>
+<summary>Monitor event: "poll for bugbot (cursor) review on PR #5"</summary>
+<event>BUGBOT_TIMEOUT after 10min</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>

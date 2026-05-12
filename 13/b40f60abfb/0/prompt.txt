@@ -1,0 +1,17 @@
+some of the agent installs aren't working like cursor. can we update the repo to follow the smae skills install as this one /Users/alisha/Projects/cc-skills-golang
+
+---
+
+I made some changse as well. can you commit everything
+
+---
+
+how do I test all the new installs  without merging into main?
+
+---
+
+do I need to increment the versions so it doesn't mess with current users?
+
+---
+
+yes pleas bump

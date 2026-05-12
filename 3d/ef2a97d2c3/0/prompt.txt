@@ -1,0 +1,1 @@
+can you rename everything from agent-plugins to skills. I'll handle renaming folder

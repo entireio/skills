@@ -1,0 +1,87 @@
+Implement Task 1 from the approved code-tour diagrams plan in `/Users/alisha/.marvin/worktrees/project-overview`. You own only `skills/code-tour/SKILL.md`. You are not alone in the codebase; do not revert others' edits, and adjust to accommodate unrelated changes.
+
+Task requirements:
+- Follow TDD: run the failing validation first, verify it fails for the expected reason, then make the minimal skill-file changes, then rerun the same validation and confirm it passes.
+- Update the skill so it defines an optional `## Visual Map` section before `## What this repo is`.
+- State that diagrams appear only when they are clear and useful.
+- Limit output to at most two diagrams.
+- Define allowed diagram types and priority order.
+- Require 1-2 sentences of interpretation after each diagram.
+- Add anti-speculation / skip guardrails.
+- Keep the output header as `Entire Code Tour:`.
+- Do not edit README or any other file.
+- After changes, run `git diff --check` and report its result.
+- Do not commit.
+
+Use this exact failing/passing validation command:
+
+```bash
+node - <<'NODE'
+const fs = require('fs');
+const skill = fs.readFileSync('skills/code-tour/SKILL.md', 'utf8');
+if (!skill.includes('## Visual Map')) throw new Error('missing Visual Map section');
+if (!skill.includes('clear and useful')) throw new Error('missing confidence rule');
+if (!skill.includes('at most two diagrams')) throw new Error('missing diagram limit');
+if (skill.indexOf('## Visual Map') > skill.indexOf('## What this repo is')) {
+  throw new Error('Visual Map appears after prose');
+}
+console.log('skill diagram validation ok');
+NODE
+```
+
+Return:
+- whether the red step failed as expected and why
+- what you changed
+- whether the green step passed
+- `git diff --check` result
+- exact file paths changed
+
+---
+
+Task 1 needs a focused fix for spec compliance. Keep ownership limited to `skills/code-tour/SKILL.md`. Do not edit other files and do not commit.
+
+Spec-review gaps to fix:
+1. The skill currently defines diagram types as `Mermaid flowchart` and `Mermaid mindmap`. The approved design/plan requires conceptual diagram types in priority order: `Repo Map`, `Request/Execution Flow`, `Artifact Flow`.
+2. The skill says diagrams are optional and capped at 0-2, but it does not explicitly explain when to emit 0, 1, or 2 diagrams.
+3. The skill does not explicitly preserve the guidance to prefer simple diagrams for high-level understanding.
+
+Please update the skill minimally to close those exact gaps while keeping the existing optional `## Visual Map` structure and the `Entire Code Tour:` header.
+
+After editing:
+- rerun the original validation script from Task 1
+- run `git diff --check`
+- summarize what changed and confirm whether both checks passed
+
+---
+
+Task 1 needs a final quality pass fix in `skills/code-tour/SKILL.md`. Keep ownership limited to that file. Do not edit README or any other file. Do not commit.
+
+Fix these concrete issues from code-quality review:
+1. The skill refers to `recent git churn` but never tells the agent how to collect it. Add the exact git command needed for churn-by-path signals.
+2. The diagram rules are repeated in multiple places with slightly different wording. Consolidate enough to reduce duplication and avoid multiple sources of truth, while preserving the required behavior.
+3. The auth/header timing is under-specified. Clarify whether the `Entire Code Tour:` header must wait until both `entire dispatch` and the later focused `entire search` calls have succeeded, and what happens if auth fails during either phase.
+4. The manifest-selection guidance is under-specified for monorepos/polyglot repos. Add an explicit selection rule or fallback.
+
+Constraints:
+- Keep the optional `## Visual Map` section before `## What this repo is`.
+- Preserve the approved diagram semantics: clear/useful only, 0/1/2 rules, conceptual type priority order, simple diagrams, interpretation sentences, anti-speculation guardrails.
+- Keep the output header as `Entire Code Tour:`.
+- Make the minimal text changes needed.
+
+After editing:
+- rerun this validation command
+```bash
+node - <<'NODE'
+const fs = require('fs');
+const skill = fs.readFileSync('skills/code-tour/SKILL.md', 'utf8');
+if (!skill.includes('## Visual Map')) throw new Error('missing Visual Map section');
+if (!skill.includes('clear and useful')) throw new Error('missing confidence rule');
+if (!skill.includes('at most two diagrams')) throw new Error('missing diagram limit');
+if (skill.indexOf('## Visual Map') > skill.indexOf('## What this repo is')) throw new Error('Visual Map appears after prose');
+if (!skill.includes('Repo Map') || !skill.includes('Request/Execution Flow') || !skill.includes('Artifact Flow')) throw new Error('missing conceptual diagram priority order');
+if (!skill.includes('Prefer simple diagrams for high-level understanding')) throw new Error('missing simple diagram guidance');
+console.log('skill diagram validation ok');
+NODE
+```
+- run `git diff --check`
+- summarize what changed and whether both checks passed

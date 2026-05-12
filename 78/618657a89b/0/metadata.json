@@ -1,0 +1,53 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "78618657a89b",
+  "session_id": "810cdadc-9c84-436b-a940-aec5dc4ae8dc",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-08T20:17:01.254498Z",
+  "branch": "improve-handoff-session",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/session-handoff/SKILL.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "4caeea23359f",
+  "token_usage": {
+    "input_tokens": 86,
+    "cache_creation_tokens": 286147,
+    "cache_read_tokens": 3358059,
+    "output_tokens": 39718,
+    "api_call_count": 44
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-08T20:17:01.218794Z",
+    "agent_lines": 60,
+    "agent_removed": 35,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 60,
+    "total_lines_changed": 95,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 60,
+      "agent_lines_removed": 35
+    }
+  ]
+}

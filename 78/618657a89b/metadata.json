@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "78618657a89b",
+  "strategy": "manual-commit",
+  "branch": "improve-handoff-session",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/session-handoff/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/78/618657a89b/0/metadata.json",
+      "transcript": "/78/618657a89b/0/transcript.jsonl",
+      "content_hash": "/78/618657a89b/0/transcript_hash.txt",
+      "prompt": "/78/618657a89b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 86,
+    "cache_creation_tokens": 286147,
+    "cache_read_tokens": 3358059,
+    "output_tokens": 39718,
+    "api_call_count": 44
+  }
+}

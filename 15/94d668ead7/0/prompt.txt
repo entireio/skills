@@ -1,0 +1,9 @@
+check out main; pull the latest
+
+---
+
+why does this repo use /explain but everything else is not a slash..is that true
+
+---
+
+can we change it to not say /explain in docs

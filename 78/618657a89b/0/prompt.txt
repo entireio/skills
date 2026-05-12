@@ -1,0 +1,25 @@
+look at https://github.com/entireio/cli/pull/1144 can we update handoff session to use the new cli updates
+
+---
+
+/simplify
+
+---
+
+/codex:adversarial-review
+
+---
+
+fix
+
+---
+
+/commit-commands:commit-push-pr
+
+---
+
+explain how handoff skill on this branch works and could it be improved
+
+---
+
+fix 1, for 2 have it give summary, fix 3, fix 4, fix 7, fix 8

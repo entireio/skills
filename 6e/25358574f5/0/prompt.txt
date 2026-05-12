@@ -1,0 +1,127 @@
+/superpowers:brainstorming how can I design a skill that uses entire cli and entire checkpoint data so that I can have both a claude code sessiona and a codex session running at the same time and have
+  them both writing a spec or design document. my flow is usually have claude do initial design then have codex review and update then have claude review and update etc..
+  would be nice to have them talk to each other
+
+---
+
+yes
+
+---
+
+c
+
+---
+
+b
+
+---
+
+I want both. let the user decide
+
+---
+
+hmm pros and cons of a and b
+
+---
+
+a
+
+---
+
+b
+
+---
+
+c
+
+---
+
+c
+
+---
+
+allow A or C
+
+---
+
+b. also a requirement is I can still use other skills in this process. currently I like to use brainstorming skill but it could change
+
+---
+
+thats correct
+
+---
+
+c
+
+---
+
+.collab should live in .entire folder
+
+---
+
+looks good but are the commits necessary? it would be great if it didn't commit
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+continue
+
+---
+
+/codex:adversarial-review reviwe docs/superpowers/specs/2026-04-14-collab-skill-design.md
+
+---
+
+is [high] The turn prompt injects untrusted document really an issue if the document was generated from scratch by agent?
+
+---
+
+fix Turn ownership is not fenced, so concurrent or expired turns can both commit state and fix [medium] git hash-object -w makes every uncommitted draft revision durable
+
+---
+
+can claude do adversarial review
+
+---
+
+if agent is on auto mode meaning its having it do 8 turns. does this race become more common
+
+---
+
+explain what this is "do you want real atomicity (rename-from-tmpfile is easy)"
+
+---
+
+okay drop atomic language
+
+---
+
+implement
+
+---
+
+I don't want ot commit doc
+
+---
+
+1

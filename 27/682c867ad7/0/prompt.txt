@@ -1,0 +1,5 @@
+can you review how well the new entire commit pr skill worked. waht improvements can be made
+
+---
+
+fix all

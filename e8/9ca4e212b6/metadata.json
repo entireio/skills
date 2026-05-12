@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "e89ca4e212b6",
+  "strategy": "manual-commit",
+  "branch": "codex/add-github-templates",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".github/ISSUE_TEMPLATE/bug_report.yml",
+    ".github/ISSUE_TEMPLATE/skill_improvement.yml",
+    ".github/ISSUE_TEMPLATE/skill_request.yml",
+    ".github/PULL_REQUEST_TEMPLATE.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e8/9ca4e212b6/0/metadata.json",
+      "transcript": "/e8/9ca4e212b6/0/transcript.jsonl",
+      "content_hash": "/e8/9ca4e212b6/0/transcript_hash.txt",
+      "prompt": "/e8/9ca4e212b6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 41826,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1516032,
+    "output_tokens": 4685,
+    "api_call_count": 28
+  }
+}

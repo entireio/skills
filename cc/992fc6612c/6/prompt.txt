@@ -1,0 +1,29 @@
+Implement Task 2 from the approved code-tour diagrams plan. You own only `README.md`. You are not alone in the codebase; do not revert others' edits, and adjust to accommodate unrelated changes.
+
+Task requirements:
+- Follow TDD: run the failing validation first, verify it fails for the expected reason, then make the minimal README change, then rerun the same validation and confirm it passes.
+- Update the `code-tour` section in `README.md` to mention optional high-level diagrams before the prose overview.
+- Make clear that diagrams appear only when the repo structure is clear enough to support them.
+- Do not edit `skills/code-tour/SKILL.md` or any other file.
+- After changes, run `git diff --check` and report its result.
+- Do not commit.
+
+Use this exact failing/passing validation command:
+
+```bash
+node - <<'NODE'
+const fs = require('fs');
+const readme = fs.readFileSync('README.md', 'utf8');
+if (!readme.includes('optional high-level diagrams')) {
+  throw new Error('README missing diagram summary');
+}
+console.log('readme diagram validation ok');
+NODE
+```
+
+Return:
+- whether the red step failed as expected and why
+- what you changed
+- whether the green step passed
+- `git diff --check` result
+- exact file paths changed

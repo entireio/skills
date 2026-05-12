@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.6",
+  "checkpoint_id": "ee2544bd04c4",
+  "strategy": "manual-commit",
+  "branch": "search-skills",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "skills/replay/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ee/2544bd04c4/0/metadata.json",
+      "transcript": "/ee/2544bd04c4/0/transcript.jsonl",
+      "content_hash": "/ee/2544bd04c4/0/transcript_hash.txt",
+      "prompt": "/ee/2544bd04c4/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 15,
+    "cache_creation_tokens": 137198,
+    "cache_read_tokens": 613041,
+    "output_tokens": 2939,
+    "api_call_count": 5
+  }
+}
