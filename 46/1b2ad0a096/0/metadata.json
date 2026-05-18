@@ -1,0 +1,54 @@
+{
+  "cli_version": "0.6.2",
+  "checkpoint_id": "461b2ad0a096",
+  "session_id": "647f82b2-5e8a-4754-80a8-1e3f869083e3",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-18T17:37:00.254611Z",
+  "branch": "improve-handoff-session",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "gemini-extension.json",
+    "package.json"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "1b2d42d5d383",
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 28200,
+    "cache_read_tokens": 486240,
+    "output_tokens": 2240,
+    "api_call_count": 12
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-18T17:37:00.239485Z",
+    "agent_lines": 2,
+    "agent_removed": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "total_lines_changed": 4,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2,
+      "agent_lines_removed": 2
+    }
+  ]
+}

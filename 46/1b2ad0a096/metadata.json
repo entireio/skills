@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.6.2",
+  "checkpoint_id": "461b2ad0a096",
+  "strategy": "manual-commit",
+  "branch": "improve-handoff-session",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "gemini-extension.json",
+    "package.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/46/1b2ad0a096/0/metadata.json",
+      "transcript": "/46/1b2ad0a096/0/transcript.jsonl",
+      "content_hash": "/46/1b2ad0a096/0/transcript_hash.txt",
+      "prompt": "/46/1b2ad0a096/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 28200,
+    "cache_read_tokens": 486240,
+    "output_tokens": 2240,
+    "api_call_count": 12
+  }
+}
