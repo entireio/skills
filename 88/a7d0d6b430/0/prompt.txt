@@ -1,0 +1,1 @@
+increase version. also remove any entire specific repos from the skill.md use made up names for examples like foo and bar etc.. then address all comments on pr if real issues then fix

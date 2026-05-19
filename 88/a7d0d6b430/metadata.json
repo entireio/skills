@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.6.2",
+  "checkpoint_id": "88a7d0d6b430",
+  "strategy": "manual-commit",
+  "branch": "scope-skill",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "package.json",
+    "skills/session-crosslink/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/88/a7d0d6b430/0/metadata.json",
+      "transcript": "/88/a7d0d6b430/0/transcript.jsonl",
+      "content_hash": "/88/a7d0d6b430/0/transcript_hash.txt",
+      "prompt": "/88/a7d0d6b430/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 21,
+    "cache_creation_tokens": 47720,
+    "cache_read_tokens": 843963,
+    "output_tokens": 6494,
+    "api_call_count": 16
+  }
+}
