@@ -33,9 +33,9 @@ Try each strategy in order until one returns a session id.
 entire session current --json
 ```
 
-If the output is valid JSON, read `session_id` and `agent`. Continue with those values.
+If the output is valid JSON **and** has a non-empty `session_id`, read `session_id` and `agent` and continue with those values. If the JSON parses but `session_id` is missing or empty, treat Strategy A as failed and fall through to B — don't proceed to attach with no session id.
 
-**Strategy B: Entire-enabled sibling repo.** If the user named a repo that has Entire enabled (e.g. `the cli repo`), `cd` there and re-try `entire session current --json`. The session state lives wherever the session was tracked.
+**Strategy B: Entire-enabled sibling repo.** If the user named a repo that has Entire enabled (e.g. `the foo repo`), `cd` there and re-try `entire session current --json`. The session state lives wherever the session was tracked.
 
 **Strategy C: Runtime-specific transcript directory.** If neither A nor B works, the session was never recorded by Entire and you must read it from the agent runtime:
 
@@ -51,7 +51,7 @@ Record `agent` so Step 4 can pass `--agent <name>` to attach.
 
 Build a candidate set, union from these sources, then de-duplicate by path:
 
-1. **From the user's message**: any repo paths or aliases the user named explicitly (e.g. "the cli repo and the api"). Resolve aliases via the user's `CLAUDE.md` or treat as filesystem paths.
+1. **From the user's message**: any repo paths or aliases the user named explicitly (e.g. "the foo repo and the bar api"). Resolve aliases via the user's `CLAUDE.md` or treat as filesystem paths.
 
 2. **From sibling repos under the launch directory** (only if launch dir is NOT Entire-enabled): list immediate subdirectories that have their own `.git` and a `.entire/settings.json`.
 
@@ -97,9 +97,9 @@ Show the user a compact table:
 
 ```
 repo                              HEAD commit   action                          checkpoint
-devenv/cli                        a1b2c3d       would_add_trailer               (new)
-devenv/entire.io                  e4f5g6h       would_link_existing_in_head     ckpt-7d6c
-devenv/entiredb                   —             error: no commits yet           —
+foo                               a1b2c3d       would_add_trailer               (new)
+bar                               e4f5g6h       would_link_existing_in_head     ckpt-7d6c
+baz                               —             error: no commits yet           —
 ```
 
 Then ask: "Attach session `<id>` to the would_* rows? Error rows and `would_skip_existing_in_state` rows will be skipped."
@@ -118,11 +118,11 @@ Capture exit status per repo. Report a final summary:
 
 ```
 attached:
-  devenv/cli      ckpt-9f8e  (new trailer on a1b2c3d)
-  devenv/entire.io ckpt-7d6c (added to existing checkpoint on e4f5g6h)
+  foo    ckpt-9f8e  (new trailer on a1b2c3d)
+  bar    ckpt-7d6c  (added to existing checkpoint on e4f5g6h)
 skipped:
-  devenv/entiredb  (no commits yet)
-  scope-skill      (already linked: ckpt-c97b)
+  baz    (no commits yet)
+  qux    (already linked: ckpt-c97b)
 ```
 
 Remind the user: attach amends HEAD, so each touched repo's local branch has diverged from its remote. If those branches have open PRs, force-push (`git push --force-with-lease`) to update them.
