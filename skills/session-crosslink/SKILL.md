@@ -15,11 +15,11 @@ followed by a blank line, then the content. Apply the header to the **first resp
 
 ## STOP — Read these rules before doing ANYTHING
 
-1. **Do NOT ask clarifying questions until the resolver/discovery steps have run.** The session id and candidate repo list usually resolve from `entire session current --json` plus `files_touched`. Only ask if both come back empty.
-2. **Do NOT amend any commits without showing the dry-run table first.** The whole point of this skill is the preview-then-confirm flow.
-3. **Do NOT run `entire session attach` without `--target-repo`.** Even if cwd is the repo you'd attach to, pass it explicitly so the user sees which repo each call hits.
+1. **Do NOT ask clarifying questions until the resolver/discovery steps have run.** The session id and candidate repo list usually resolve from `entire session current --json` plus what the user said. Only ask if both come back empty.
+2. **Do NOT run `entire session attach` without showing the preview table first.** The whole point of this skill is preview-then-confirm. `attach` amends the target repo's HEAD; previewing wrong means amending the wrong commit.
+3. **Always `cd` into the target repo before running `entire session attach`.** The CLI resolves the repo from cwd. Use one `cd … && entire session attach …` per call so each invocation hits the right repo.
 
-Required CLI: entire CLI with `entire session attach --target-repo`, `--dry-run`, and `--json`. If those flags are rejected, tell the user to upgrade and stop.
+Required CLI: `entire` 0.6.2+. No special flags needed — this skill works against the shipped CLI via cwd-scoped `entire session attach`.
 
 ## Flow
 
@@ -33,7 +33,7 @@ Try each strategy in order until one returns a session id.
 entire session current --json
 ```
 
-If the output is valid JSON, read `session_id`, `agent`, `worktree_path`, and `files_touched`. Continue to Step 2 with those values.
+If the output is valid JSON, read `session_id` and `agent`. Continue with those values.
 
 **Strategy B: Entire-enabled sibling repo.** If the user named a repo that has Entire enabled (e.g. `the cli repo`), `cd` there and re-try `entire session current --json`. The session state lives wherever the session was tracked.
 
@@ -43,7 +43,7 @@ If the output is valid JSON, read `session_id`, `agent`, `worktree_path`, and `f
 - **Codex:** check `$CODEX_HOME/sessions/` or `~/.codex/sessions/`. Set `agent` to `codex`.
 - **Other runtimes:** ask the user for the session id.
 
-Record `agent` so Step 3 can pass `--agent <name>` to attach.
+Record `agent` so Step 4 can pass `--agent <name>` to attach.
 
 **If all strategies fail:** print "Could not resolve a session id — pass one explicitly or run from an Entire-enabled directory" and stop.
 
@@ -51,13 +51,13 @@ Record `agent` so Step 3 can pass `--agent <name>` to attach.
 
 Build a candidate set, union from these sources, then de-duplicate by path:
 
-1. **From `files_touched`** (when Step 1 returned them): for each path, walk up to the nearest `.git` directory. Record `git rev-parse --show-toplevel` for that path.
+1. **From the user's message**: any repo paths or aliases the user named explicitly (e.g. "the cli repo and the api"). Resolve aliases via the user's `CLAUDE.md` or treat as filesystem paths.
 
-2. **From the user's message**: any repo paths or aliases the user named explicitly (e.g. "the cli repo and the api"). Resolve aliases via the user's `CLAUDE.md` or treat as filesystem paths.
+2. **From sibling repos under the launch directory** (only if launch dir is NOT Entire-enabled): list immediate subdirectories that have their own `.git` and a `.entire/settings.json`.
 
-3. **From sibling repos under the launch directory** (only if launch dir is NOT Entire-enabled): list immediate subdirectories that have their own `.git` and a `.entire/settings.json`. Skip dirs gitignored only at the top level — those are typically the right candidates here.
+3. **From the agent's edit history in this session**: any repo whose files were edited during the session — derive from the agent's own context. If unsure, ask the user.
 
-For each candidate, run `entire status --json` and decide:
+For each candidate, run `entire status --json` (with cwd inside that repo) and decide:
 
 - `"enabled": true` → keep.
 - `"enabled": false` with a settings-parse error (`unknown field "..."`) → keep. Status fails noisily on misconfigured local settings even when attach would succeed.
@@ -65,51 +65,54 @@ For each candidate, run `entire status --json` and decide:
 
 If the candidate set is empty, ask the user which repos to crosslink.
 
-### Step 3: Preview with --dry-run
+### Step 3: Compute the preview locally
 
-For each candidate repo, run:
+For each candidate, inspect git and the session store to compute the action — same logic `entire session attach` uses internally, but without amending anything:
 
 ```bash
-entire session attach <session-id> --agent <agent> --target-repo <path> --dry-run --json
+# Get HEAD hash and message
+HEAD_HASH=$(git -C <repo> rev-parse HEAD)
+HEAD_MSG=$(git -C <repo> log -1 --format=%B HEAD)
+
+# Existing Entire-Checkpoint trailer on HEAD, if any
+EXISTING_TRAILER=$(printf '%s\n' "$HEAD_MSG" | grep -E '^Entire-Checkpoint:' | tail -1 | awk '{print $2}')
+
+# Is the session already tracked in this repo's store?
+STATE_FILE=<repo>/.git/entire-sessions/<session-id>.json
 ```
 
-Capture stdout (not stderr — agent flush warnings emit there). Each call returns one of:
+Decide the action per repo:
 
-```json
-{
-  "session_id": "...",
-  "target_repo": "/abs/path",
-  "head_commit": "abc123",
-  "existing_trailer": "ckpt-id-or-empty",
-  "action": "would_add_trailer" | "would_link_existing_in_head" | "would_skip_existing_in_state",
-  "checkpoint_id_planned": "ckpt-id",
-  "transcript_bytes": 42000,
-  "agent": "Claude Code"
-}
-```
+- Both `STATE_FILE` exists AND its `last_checkpoint_id` field is non-empty → `would_skip_existing_in_state`. Attach is a no-op; report that.
+- HEAD has an `EXISTING_TRAILER` → `would_link_existing_in_head`. Attach reuses that checkpoint id and adds this session to it.
+- Neither → `would_add_trailer`. Attach generates a fresh checkpoint id and amends HEAD with it.
 
-If a call exits non-zero, capture its stderr as the error column.
+For `would_link_existing_in_head` rows, the checkpoint id is `EXISTING_TRAILER`. For `would_add_trailer` rows, the checkpoint id can't be known ahead of time — attach generates one at write time. Show "new" in the table.
+
+If HEAD has no commits in the repo (`git rev-parse` fails), record an error row: `error: no commits yet`.
 
 ### Step 4: Render the preview table
 
-Show the user a compact table summarizing each candidate:
+Show the user a compact table:
 
 ```
 repo                              HEAD commit   action                          checkpoint
-devenv/cli                        a1b2c3d       would_add_trailer               ckpt-9f8e
+devenv/cli                        a1b2c3d       would_add_trailer               (new)
 devenv/entire.io                  e4f5g6h       would_link_existing_in_head     ckpt-7d6c
 devenv/entiredb                   —             error: no commits yet           —
 ```
 
-Then ask: "Attach session `<id>` to the would_* rows? Errors will be skipped."
+Then ask: "Attach session `<id>` to the would_* rows? Error rows and `would_skip_existing_in_state` rows will be skipped."
 
 ### Step 5: Execute on confirmation
 
-For each row where the user confirmed and `action` was a `would_*` value:
+For each row the user confirmed where `action` is `would_add_trailer` or `would_link_existing_in_head`:
 
 ```bash
-entire session attach <session-id> --agent <agent> --target-repo <path> --force
+cd <repo> && entire session attach <session-id> --agent <agent> --force
 ```
+
+Skip `would_skip_existing_in_state` rows (re-attach there is a no-op) and `error:` rows.
 
 Capture exit status per repo. Report a final summary:
 
@@ -119,16 +122,20 @@ attached:
   devenv/entire.io ckpt-7d6c (added to existing checkpoint on e4f5g6h)
 skipped:
   devenv/entiredb  (no commits yet)
+  scope-skill      (already linked: ckpt-c97b)
 ```
+
+Remind the user: attach amends HEAD, so each touched repo's local branch has diverged from its remote. If those branches have open PRs, force-push (`git push --force-with-lease`) to update them.
 
 ## Failure modes
 
 - **Session id not resolvable**: stop with a one-line message — see Step 1.
 - **No candidate repos**: ask the user which repos to crosslink.
-- **All candidates report `would_skip_existing_in_state`**: tell the user the session is already linked; no work to do.
-- **A child repo's `attach` fails mid-run after others succeeded**: do not retry automatically. Report which repos succeeded vs failed and surface the failing repo's stderr. The succeeded amends are idempotent — re-running the skill is safe.
-- **HEAD has no commits in a candidate**: dry-run returns `error: repository has no commits yet`. Tell the user to make at least one commit there first; skip on the confirmation pass.
+- **All candidates report `would_skip_existing_in_state`**: tell the user the session is already linked everywhere; no work to do.
+- **A repo's `attach` fails mid-run after others succeeded**: do not retry automatically. Report which repos succeeded vs failed and surface the failing repo's stderr. The succeeded amends are idempotent — re-running the skill is safe.
+- **HEAD has no commits in a candidate**: skip that row with `error: no commits yet`. Tell the user to make at least one commit there first.
+- **`entire session attach` fails with `Entire is disabled`**: the target repo opted out. Tell the user; don't retry.
 
 ## Why this skill exists
 
-Entire tracks agent sessions per repo via state stored under each repo's git common dir. When an agent runs from a higher-level folder, a sibling repo, or a non-Entire-enabled parent, none of the child repos see the session. This skill resolves the session id from the agent runtime (which always has it) and uses `entire session attach --target-repo --dry-run` to preview, then attach, one trailer per affected child repo without manual `cd` orchestration.
+Entire tracks agent sessions per repo via state stored under each repo's git common dir. When an agent runs from a higher-level folder, a sibling repo, or a non-Entire-enabled parent, none of the child repos see the session. This skill resolves the session id from the agent runtime (which always has it), discovers affected repos, previews each, then runs `entire session attach` per repo on confirmation — without amending the wrong commit or asking the user to babysit per-repo `cd`s.
