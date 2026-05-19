@@ -3,7 +3,7 @@
   "checkpoint_id": "1f64c84a8821",
   "strategy": "manual-commit",
   "branch": "scope-skill",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "skills/session-crosslink/SKILL.md"
   ],
@@ -13,13 +13,19 @@
       "transcript": "/1f/64c84a8821/0/transcript.jsonl",
       "content_hash": "/1f/64c84a8821/0/transcript_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/1f/64c84a8821/1/metadata.json",
+      "transcript": "/1f/64c84a8821/1/transcript.jsonl",
+      "content_hash": "/1f/64c84a8821/1/transcript_hash.txt",
+      "prompt": "/1f/64c84a8821/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 0,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 0,
-    "output_tokens": 0,
-    "api_call_count": 0
+    "input_tokens": 6238,
+    "cache_creation_tokens": 664764,
+    "cache_read_tokens": 28818923,
+    "output_tokens": 119142,
+    "api_call_count": 157
   }
 }

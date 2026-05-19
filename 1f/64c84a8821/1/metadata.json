@@ -1,0 +1,40 @@
+{
+  "cli_version": "0.6.2",
+  "checkpoint_id": "1f64c84a8821",
+  "session_id": "f3d53121-fdf7-40bf-a4df-e3b17ddbbbd1",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-19T20:47:01.047119Z",
+  "branch": "scope-skill",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7",
+  "turn_id": "38867a6e8a2d",
+  "token_usage": {
+    "input_tokens": 6238,
+    "cache_creation_tokens": 664764,
+    "cache_read_tokens": 28818923,
+    "output_tokens": 119142,
+    "api_call_count": 157
+  },
+  "session_metrics": {
+    "turn_count": 28
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 31,
+      "user_lines_removed": 1,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".codex/config.toml": 1,
+        ".codex/hooks.json": 27,
+        "new-skill-prompt.md": 3
+      },
+      "user_removed_per_file": {
+        ".codex/config.toml": 1
+      }
+    }
+  ]
+}

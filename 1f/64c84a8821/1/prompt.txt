@@ -1,0 +1,53 @@
+okay ready to implement. please do the skill and the cli change. make sure to review both code changes. then put up prs. for the cli pr make sure description explains what this solves and points to skill pr. use marvin to make cli worktree
+
+---
+
+I don't like the skill name. give me 10 other options
+
+---
+
+I lie session-crosslink
+
+---
+
+/entire:session-crosslink
+
+---
+
+m
+
+---
+
+build the CLI from that branch locally)
+
+---
+
+do it for me
+
+---
+
+yes
+
+---
+
+/entire:session-crosslink
+
+---
+
+yes
+
+---
+
+no
+
+---
+
+do we really need cli changes? can agents just figure it out?
+
+---
+
+but agent / user can run entire session attach --target-repo in a non entire enabled repo so agent still has to cd right?
+
+---
+
+yes and then also fix my entire cli to be the brew version
