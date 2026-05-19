@@ -1,15 +1,15 @@
 ---
-name: scope
+name: session-crosslink
 description: Use when an agent session ran outside the repo whose commits should record it — e.g. launched from a higher-level folder, a non-Entire repo, or one repo but editing another — to attach the session to each affected Entire-enabled repo's HEAD commit.
 ---
 
-# Scope Session
+# Session Crosslink
 
 ## Response Format
 
 Begin the first response to this skill invocation with the line:
 
-`Entire Scope:`
+`Entire Session Crosslink:`
 
 followed by a blank line, then the content. Apply the header to the **first response of the invocation only** — not on follow-up turns and not on error / early-exit responses (no session resolved, no affected repos found).
 
@@ -63,7 +63,7 @@ For each candidate, run `entire status --json` and decide:
 - `"enabled": false` with a settings-parse error (`unknown field "..."`) → keep. Status fails noisily on misconfigured local settings even when attach would succeed.
 - `"enabled": false` with no error → drop. Repo opted out of Entire.
 
-If the candidate set is empty, ask the user which repos to scope to.
+If the candidate set is empty, ask the user which repos to crosslink.
 
 ### Step 3: Preview with --dry-run
 
@@ -124,7 +124,7 @@ skipped:
 ## Failure modes
 
 - **Session id not resolvable**: stop with a one-line message — see Step 1.
-- **No candidate repos**: ask the user which repos to scope to.
+- **No candidate repos**: ask the user which repos to crosslink.
 - **All candidates report `would_skip_existing_in_state`**: tell the user the session is already linked; no work to do.
 - **A child repo's `attach` fails mid-run after others succeeded**: do not retry automatically. Report which repos succeeded vs failed and surface the failing repo's stderr. The succeeded amends are idempotent — re-running the skill is safe.
 - **HEAD has no commits in a candidate**: dry-run returns `error: repository has no commits yet`. Tell the user to make at least one commit there first; skip on the confirmation pass.
