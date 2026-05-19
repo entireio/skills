@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.6.2",
+  "checkpoint_id": "62841651aed5",
+  "strategy": "manual-commit",
+  "branch": "scope-skill",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude-plugin/marketplace.json",
+    ".claude-plugin/plugin.json",
+    ".codex-plugin/plugin.json",
+    ".cursor-plugin/plugin.json",
+    "gemini-extension.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/62/841651aed5/0/metadata.json",
+      "transcript": "/62/841651aed5/0/transcript.jsonl",
+      "content_hash": "/62/841651aed5/0/transcript_hash.txt",
+      "prompt": "/62/841651aed5/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 27,
+    "cache_creation_tokens": 8420,
+    "cache_read_tokens": 812764,
+    "output_tokens": 3818,
+    "api_call_count": 12
+  }
+}

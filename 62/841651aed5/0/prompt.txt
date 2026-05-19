@@ -1,0 +1,9 @@
+do normal push
+
+---
+
+do git push force
+
+---
+
+I think you missed some places to update the version
