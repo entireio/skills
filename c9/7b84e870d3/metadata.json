@@ -2,21 +2,32 @@
   "cli_version": "dev",
   "checkpoint_id": "c97b84e870d3",
   "strategy": "manual-commit",
+  "branch": "scope-skill",
   "checkpoints_count": 0,
-  "files_touched": null,
+  "files_touched": [
+    "README.md",
+    "skills/scope/SKILL.md",
+    "skills/session-crosslink/SKILL.md"
+  ],
   "sessions": [
     {
       "metadata": "/c9/7b84e870d3/0/metadata.json",
       "transcript": "/c9/7b84e870d3/0/transcript.jsonl",
       "content_hash": "/c9/7b84e870d3/0/transcript_hash.txt",
       "prompt": "/c9/7b84e870d3/0/prompt.txt"
+    },
+    {
+      "metadata": "/c9/7b84e870d3/1/metadata.json",
+      "transcript": "/c9/7b84e870d3/1/transcript.jsonl",
+      "content_hash": "/c9/7b84e870d3/1/transcript_hash.txt",
+      "prompt": "/c9/7b84e870d3/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 6205,
-    "cache_creation_tokens": 655716,
-    "cache_read_tokens": 26449943,
-    "output_tokens": 111067,
-    "api_call_count": 149
+    "input_tokens": 7692,
+    "cache_creation_tokens": 695115,
+    "cache_read_tokens": 26861270,
+    "output_tokens": 124471,
+    "api_call_count": 159
   }
 }
