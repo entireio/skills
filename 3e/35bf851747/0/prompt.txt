@@ -3,3 +3,7 @@ fix merge conflicts. don't add regressions
 ---
 
 but you got rid of the new command descriptions. add them back
+
+---
+
+commit and push
