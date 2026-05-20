@@ -1,0 +1,92 @@
+{
+  "cli_version": "0.6.2",
+  "checkpoint_id": "3e35bf851747",
+  "session_id": "1b42a18b-704c-4278-bb92-ed95ac914d02",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-20T16:25:01.312508Z",
+  "branch": "search-skills",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "README.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "618cd630290e",
+  "token_usage": {
+    "input_tokens": 41,
+    "cache_creation_tokens": 107134,
+    "cache_read_tokens": 1336330,
+    "output_tokens": 11018,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-20T16:25:01.289809Z",
+    "agent_lines": 0,
+    "agent_removed": 87,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 52,
+    "total_committed": 0,
+    "total_lines_changed": 139,
+    "agent_percentage": 62.589928057553955,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 993,
+      "user_lines_removed": 120,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude-plugin/marketplace.json": 1,
+        ".claude-plugin/plugin.json": 1,
+        ".codex-plugin/plugin.json": 1,
+        ".cursor-plugin/plugin.json": 1,
+        ".github/ISSUE_TEMPLATE/bug_report.yml": 53,
+        ".github/ISSUE_TEMPLATE/skill_improvement.yml": 34,
+        ".github/ISSUE_TEMPLATE/skill_request.yml": 33,
+        ".github/PULL_REQUEST_TEMPLATE.md": 23,
+        "CONTRIBUTING.md": 144,
+        "FIRST-TIME-CONTRIBUTORS.md": 291,
+        "LICENSE": 21,
+        "README.md": 168,
+        "gemini-extension.json": 1,
+        "package.json": 1,
+        "skills/explain/SKILL.md": 1,
+        "skills/session-crosslink/SKILL.md": 141,
+        "skills/session-handoff/SKILL.md": 77,
+        "skills/what-happened/SKILL.md": 1
+      },
+      "user_removed_per_file": {
+        ".claude-plugin/marketplace.json": 1,
+        ".claude-plugin/plugin.json": 1,
+        ".codex-plugin/plugin.json": 1,
+        ".cursor-plugin/plugin.json": 1,
+        "README.md": 52,
+        "gemini-extension.json": 1,
+        "package.json": 1,
+        "skills/explain/SKILL.md": 1,
+        "skills/session-handoff/SKILL.md": 60,
+        "skills/what-happened/SKILL.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 28,
+      "agent_lines_removed": 0
+    }
+  ]
+}
