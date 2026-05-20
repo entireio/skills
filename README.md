@@ -105,6 +105,27 @@ block, debugging a regression, or asking why that block changed.
 
 https://github.com/user-attachments/assets/47db0daa-60bd-4000-b956-2d0e4d980b9b
 
+### `recall`
+
+Turns "have we done this before?" into a task playbook. Recalls the closest
+prior session for a described task and synthesizes what worked, gotchas, files
+touched, and a suggested approach for the new task — instead of leaving you to
+re-discover precedent yourself.
+
+### `teach`
+
+Builds a topic-focused guided lesson from 3-5 canonical checkpoints, with a
+mental model and patterns to remember rather than a flat list of search
+results. Useful for onboarding to an unfamiliar area of the repo, e.g. "teach
+me how this repo handles auth".
+
+### `replay`
+
+Steps through a feature's checkpoints chronologically, pausing for questions
+at each step instead of dumping a summary. Works from a topic ("how X was
+built") or a time window ("replay last week") and closes with a few journey
+takeaways generalized across the steps.
+
 ### `session-handoff`
 
 Reads saved or active session context so another agent can pick up the task
@@ -119,6 +140,13 @@ Links an agent session that ran outside the repo whose commits should record it
 — launched from a higher-level folder, a non-Entire repo, or one repo but
 editing another — to each affected Entire-enabled repo's HEAD commit. Previews
 with `--dry-run` then amends on confirmation, no manual `cd` orchestration.
+
+### `session-to-skill`
+
+Turns Entire session history into a focused reusable `SKILL.md` draft, so
+repeated workflows become invokable skills without you manually finding,
+pasting, or reconstructing old agent conversations. Accepts a session or
+checkpoint ID, or searches history when you describe the workflow.
 
 ## Requirements
 
