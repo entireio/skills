@@ -11,110 +11,127 @@ Begin the first response to this skill invocation with the line:
 
 `Entire Session Handoff:`
 
-followed by a blank line, then the content. The header applies to the full compaction-summary flow, including the "Unanswered Question" branch (which is still a successful run — the skill summarized the transcript and surfaced the question).
-
-- Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation (e.g. after the user answers the surfaced unanswered question).
-- Do **not** include the header on error or early-exit responses (e.g. no `.git/entire-sessions/` directory, no sessions found after filtering, transcript file missing at the path the session JSON points to). The header's presence should signal that the skill ran and produced real output.
+followed by a blank line, then the content. Apply the header to the **first response of the invocation only** — not on follow-up turns and not on error / early-exit responses (no sessions found, transcript missing). Its presence signals the skill ran and produced real output. The "Unanswered Question" branch still gets the header.
 
 ## STOP — Read these rules before doing ANYTHING
 
 1. **Do NOT ask clarifying questions.** Auto-detect the session and read the transcript.
-2. **Do NOT run** `entire sessions list`, `entire sessions info`, `entire explain --session`, `git log`, `git status`, `git branch`, `ps aux`, or any other exploratory commands. They waste time and don't give you the transcript.
-3. **Do NOT say** "Would you like me to continue?" or "Let me know if you want me to pick this up." Just read the transcript and start working. (Exception: if the previous agent asked the user a question that was never answered, you MUST ask the user that question before proceeding.)
-4. **Do NOT summarize the session as having "0 turns" or "no progress"** without first reading the actual transcript file. The `entire` CLI metadata often undercounts — the transcript is the source of truth.
-5. **Skip your own session.** Your agent (e.g. Claude Code) also has a session in `.git/entire-sessions/`. Exclude any session whose `agent_type` matches your own agent type from the results.
+2. **Do NOT run** `git log`, `git status`, `git branch`, `ps aux`, or any other exploratory commands. Use only the `entire` CLI commands listed below.
+3. **Do NOT say** "Would you like me to continue?" or "Let me know if you want me to pick this up." Just read the transcript and start working. Exception: if the previous agent asked the user a question that was never answered, you MUST ask the user that question before proceeding.
 
-## Flow: Active / current session handoff
+Required CLI: entire 0.6.2+ (`session list --json`, `session info --transcript`, `session current --json|--transcript`, `checkpoint explain --json|--transcript|--raw-transcript --session-index N`). If a flag is rejected, tell the user to upgrade and stop.
 
-When the user says "current", "active", or just "hand off this session":
+## Flow: Active session handoff (default — also covers bare invocation and "current"/"active")
 
-### Step 1: Run `entire status`
-
-```
-entire status
-```
-
-This returns the active session ID. If the user mentioned an agent name (e.g. "codex"), look for that agent's session in the output.
-
-### Step 2: Find the transcript path
-
-Read the session file at `.git/entire-sessions/<session-id>.json` using the Read tool:
-
-```
-Read: .git/entire-sessions/<session-id>.json
-```
-
-The file looks like this:
-```json
-{
-  "session_id": "019d730f-e099-7910-a946-b5b20e2cfafc",
-  "agent_type": "Codex",
-  "phase": "active",
-  "started_at": "2026-04-09T09:25:21.725231-07:00",
-  "last_interaction_time": "2026-04-09T09:25:21.725657-07:00",
-  "transcript_path": "/Users/alisha/.codex/sessions/2026/04/09/rollout-....jsonl",
-  "last_prompt": "create solitaire game"
-}
-```
-
-Extract the `transcript_path` field. This is the path to the full conversation transcript.
-
-**Fallback:** If `entire status` doesn't give you a session ID, or the session JSON doesn't exist, use the Glob tool to find all `.git/entire-sessions/*.json` files, read them, and pick the most recent one (by `last_interaction_time` or `started_at`). Filter by agent name if the user specified one. Always exclude sessions matching your own agent type.
-
-### Step 3: Extract and summarize the transcript
-
-**Phase A — Extract raw transcript** (do NOT show this to the user):
+### Step 1: Resolve the canonical worktree path
 
 ```bash
-grep -E '"type":"(message|function_call|user|assistant)"' <transcript_path> | cut -c1-2000
+entire session current --json
 ```
 
-If the output exceeds ~500 lines, read the **last 100 lines** (final state) and **first 20 lines** (original task):
+If the output is valid JSON, read its `worktree_path` field — that is **the** canonical worktree root for this invocation, set by Entire itself. Use it verbatim in the next step (no `cwd` heuristic needed; symlinks, `/private/var`/`/var` quirks, and subdirectory invocation are all handled).
+
+If the output is not JSON (Entire prints `No active session found in this worktree.` when nothing is active), set the canonical worktree path to `null` and rely on the bidirectional prefix-match fallback in Step 2.
+
+### Step 2: Pick the session
 
 ```bash
-grep -E '"type":"(message|function_call|user|assistant)"' <transcript_path> | tail -100 | cut -c1-2000
-grep -E '"type":"(message|function_call|user|assistant)"' <transcript_path> | head -20 | cut -c1-2000
+entire session list --json
 ```
 
-**Phase B — Produce a compaction summary.** Internally process the extracted transcript and produce a structured summary with these sections:
+Each entry has `session_id`, `agent`, `status`, `worktree_path`, `started_at`, `last_active`, `turns`, `last_prompt`, `files_touched`. Apply filters in this order:
 
-1. **Task Overview** — The user's core request, success criteria, and any stated constraints or clarifications.
-2. **Current State** — Completed work: files created/modified, key decisions made, artifacts produced.
-3. **Important Discoveries** — Technical constraints uncovered, rationale behind decisions, errors hit and their resolutions, failed approaches and why they failed.
-4. **Next Steps** — Specific remaining actions, blockers, and priority ordering.
-5. **Context to Preserve** — User preferences, domain-specific details, and commitments made during the session.
-6. **Unanswered Question** (only if applicable) — If the previous agent's last message asked the user a question or presented options that were never answered, capture it here exactly as asked.
+1. **Worktree scope.** If you got a canonical worktree path in Step 1, keep entries where `worktree_path` equals it exactly. Otherwise, keep entries where `cwd` starts with `worktree_path` **or** `worktree_path` starts with `cwd`. If either filter yields zero entries, fall back to the unscoped list — better to summarize a slightly-off session than to refuse the handoff.
+2. **User-named agent filter** (optional). If the user said "codex", "claude", "kiro", "gemini", etc., keep only entries whose `agent` matches case-insensitively as a substring (so `gemini` matches `Gemini CLI`).
+3. **Drop self.** Drop entries where `agent` matches the agent currently running this skill (e.g. `Claude Code`, `Codex`, `Cursor`, `Gemini CLI`, `Copilot CLI`, `Factory AI Droid`, `OpenCode`). **If this empties the list**, undo this filter and keep self — the user is asking you to summarize *your own* current session for compaction. Note that fact in the announcement (Step 5).
+4. **Pick most recent.** Sort by `last_active` (fall back to `started_at`) descending; take the first.
 
-Be concise but complete — err on the side of including information that would prevent duplicate work or repeated mistakes.
+If filtering still leaves zero entries (truly nothing in the list, even self), print a one-line error (no header) and stop.
 
-### Step 4: Present summary, then continue
+### Step 3: Stream the raw transcript
 
-Show the compaction summary from Phase B to the user.
+```bash
+entire session info <session_id> --transcript > /tmp/handoff-<session_id>.jsonl
+```
 
-**Critical rule — unanswered questions go to the user, not you.** If section 6 (Unanswered Question) exists, present that question to the user and wait for their answer. Do NOT answer it yourself or pick a default. The user is the decision-maker.
+Snapshot is bounded to the file size at command start. Output is JSONL for most agents and a single JSON document for Gemini CLI.
 
-If there is no unanswered question, **immediately pick up the work** — start planning, coding, or doing whatever the next step is. Do not ask permission.
+### Step 4: Extract conversation content
+
+**JSONL agents** (Claude Code / Codex / Cursor / Copilot CLI / Factory AI Droid / OpenCode):
+
+```bash
+grep -E '"type":"(message|function_call|user|assistant)"' /tmp/handoff-<session_id>.jsonl | cut -c1-2000 | head -20    # original task
+grep -E '"type":"(message|function_call|user|assistant)"' /tmp/handoff-<session_id>.jsonl | cut -c1-2000 | tail -100   # final state
+```
+
+**Gemini CLI** (single JSON document — no JSONL grep):
+
+```bash
+jq 'keys' /tmp/handoff-<session_id>.jsonl
+```
+
+The top-level shape varies by Gemini CLI version, but messages live under one of `messages`, `contents`, `history`, or `turns`. Each entry has a `role` (`user`/`model`/`function`/`tool`) and a content payload under one of `parts[].text`, `content`, or `text`. Extract role + text in chronological order:
+
+```bash
+# Example — adapt the path based on what `jq 'keys'` showed.
+jq -r '.messages[] | "\(.role): \([.parts[]? | .text // ""] | join(" "))"' /tmp/handoff-<session_id>.jsonl | head -20
+jq -r '.messages[] | "\(.role): \([.parts[]? | .text // ""] | join(" "))"' /tmp/handoff-<session_id>.jsonl | tail -100
+```
+
+If neither shape works, fall back to the Read tool on the JSON file and locate the message array by inspection.
+
+Do not show the raw extracted lines to the user. They are inputs for Step 5.
+
+### Step 5: Announce, summarize, present
+
+**Announcement.** First line of the body: `Handing off <agent> session — <turns> turns, last active <relative time>, ID <first-8-of-session-id>.` If the picked session is your own (Step 2 self-filter fallback), prepend a one-clause note: `Self-handoff (no other sessions in this worktree)`. This gives the user a chance to catch a wrong pick before reading the summary.
+
+**Summary structure** (skip any section with no genuine content — do **not** hallucinate filler):
+
+1. **Task Overview** — the user's core request, success criteria, stated constraints.
+2. **Current State** — completed work: files created/modified, key decisions, artifacts produced.
+3. **Important Discoveries** — technical constraints found, rationale behind decisions, errors hit and how they were resolved, failed approaches and why.
+4. **Next Steps** — specific remaining actions, blockers, priority ordering.
+5. **Context to Preserve** — user preferences, domain details, commitments made during the session.
+6. **Unanswered Question** *(only if applicable)* — if the previous agent's last message asked the user a question or presented options that were never answered, capture it exactly as asked.
+
+A one-bug-fix session might legitimately have only Task Overview + Current State + Next Steps. A pure-research session might have only Task Overview + Important Discoveries. Empty sections are a feature; pad them only if you have real content.
+
+**Continue.** Show announcement + summary.
+
+- If section 6 exists, ask the user that question and wait. Do NOT pick a default.
+- Otherwise, **immediately pick up the work** — plan, code, or whatever the next step is. Do not ask permission.
 
 ## Flow: Checkpoint handoff (user gives a checkpoint ID)
 
-1. Run `entire explain --checkpoint <checkpoint-id> --full --no-pager`
-2. If `--full` fails, fall back to `entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager`
-3. Extract conversation content from ALL session transcripts (do NOT show raw output to the user):
+### Step 1: Enumerate sessions
 
 ```bash
-grep -rE '"type":"(message|function_call|user|assistant)"' <transcript_dir_or_files> | cut -c1-2000
+entire checkpoint explain <checkpoint-id> --json
 ```
 
-For large checkpoints with many sessions, focus on the last 100 lines per transcript to understand final state, and the first 20 lines for the original task.
+The envelope's `sessions` array lists every session that contributed. Multi-session checkpoints are common (parallel agents, retries, multi-phase work) and earlier sessions often carry the rationale, failed approaches, and user constraints that the latest session takes for granted.
 
-4. Produce and present a compaction summary using the same 5-section format from Step 3 Phase B above, then continue.
+### Step 2: Pick which sessions to stream
 
-Resolve checkpoint repos in order: explicit override → local `entire/checkpoints/v1` branch → `.entire/settings.json` `checkpoint_remote` → nearby local clone.
+- **1 session.** Stream the normalized compact transcript:
 
-## Flow: No specific request (bare invocation)
+  ```bash
+  entire checkpoint explain <checkpoint-id> --transcript > /tmp/handoff-ckpt-<checkpoint-id>.jsonl
+  ```
 
-Use the Glob tool to find `.git/entire-sessions/*.json`. Read each file, exclude your own agent type, pick the most recent by `last_interaction_time`. Read the transcript at `transcript_path`. Summarize and continue.
+- **2–8 sessions.** Iterate every index 0..N-1. Do **not** rely on the `--transcript` default (latest session only):
 
-## Agent name filtering
+  ```bash
+  # for N in 0 .. sessions.length-1
+  entire checkpoint explain <checkpoint-id> --raw-transcript --session-index <N> > /tmp/handoff-ckpt-<checkpoint-id>-<N>.jsonl
+  ```
 
-Words like "codex", "claude", "kiro", "gemini" in the user's request are **filters** for session selection. Match them case-insensitively against the `agent_type` field (fall back to `agent` field). Never invoke another agent's CLI.
+- **More than 8 sessions.** Sort the `sessions` array by timestamp (`started_at` or whichever field the envelope provides) descending and take the 8 most recent. Note the cap in the announcement: `<M of N> sessions summarized; oldest <M-N> elided as too old to matter.` This keeps the skill bounded while still covering the recent rationale layer.
+
+`--raw-transcript` keeps the per-agent raw bytes so the same JSONL grep extraction works. Index 0 is the first session chronologically.
+
+### Step 3: Extract, announce, summarize, continue
+
+Run the Step 4 extraction (head + tail per file) on each `/tmp/handoff-ckpt-*.jsonl`, then merge into a single five-section summary. Treat earlier sessions as the source of "Important Discoveries" and "Context to Preserve"; the latest session feeds "Current State" and "Next Steps". Empty-section rule from the active-session flow applies. Then announce + present per Step 5 of the active-session flow, with the announcement adapted to checkpoint context (`Handing off checkpoint <short-id> — <M> sessions, <total turns> turns total.`).

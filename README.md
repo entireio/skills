@@ -1,127 +1,140 @@
-# Skills
+![skills cover](assets/gh-repo-cover.png)
 
-Cross-agent skills and commands powered by Entire.
+# skills
 
-## Skills
+Bring your Entire context to your agents with cross-agent skills.
 
-### `session-handoff`
+## Why This Exists
 
-Reads Entire session metadata and helps move work from one agent to another without making the user reconstruct the context manually.
+The [Entire CLI](https://github.com/entireio/cli) captures the context behind your
+code changes: prompts, transcripts,
+[Checkpoints](https://docs.entire.io/cli/checkpoints), and the decisions that led
+to each change, alongside your git history. This repository packages
+agent-invokable workflows that teach coding agents how to use that context across
+development environments.
 
-Current behavior:
+Instead of looking up Entire commands yourself, you can ask in plain language and
+let your agent search prior work, inspect provenance, hand off session state, or
+turn repeated workflows into new skills.
 
-- auto-detects the most recent session from `.git/entire-sessions/`
-- reads the raw transcript at the path stored in session metadata
-- produces a structured compaction summary (Task Overview, Current State, Important Discoveries, Next Steps, Context to Preserve) instead of dumping raw transcript lines
-- surfaces unanswered questions from the previous agent for the user to answer
-- supports checkpoint handoff via `entire explain --checkpoint <id> --full --no-pager`
-- falls back to `entire explain --checkpoint <id> --raw-transcript --no-pager` if full output is unavailable
-- resolves checkpoints from: local `entire/checkpoints/v1` branch, `.entire/settings.json` `checkpoint_remote`, or nearby local clone
-- filters sessions by agent name (e.g. "codex", "gemini") when mentioned
+## Install
 
-### `session-to-skill`
-
-Turns Entire session history into a focused reusable skill draft without making the user manually find, paste, or reconstruct old agent conversations.
-
-Current behavior:
-
-- asks what reusable behavior the user wants to extract before reading transcripts
-- accepts an explicit session ID or checkpoint ID when the user already has one
-- searches Entire history with `entire search "<query>" --json` when the user describes a repeated workflow
-- expands selected checkpoints with `entire explain --checkpoint <id> --full --no-pager`
-- reads active session metadata from `.git/entire-sessions/<session-id>.json` when needed
-- extracts durable lessons such as repo conventions, validation commands, user corrections, required inputs, and behaviors to avoid
-- drafts a focused `SKILL.md` instead of recapping the whole session
-- asks before writing, installing, or overwriting a skill
-
-### `explain`
-
-Traces source code back to the original conversation where it was created. Use `/explain` with a function, file, or line of code to understand _why_ it exists.
-
-Current behavior:
-
-- identifies the commit that introduced the code via git blame/log
-- reads the session transcript via `entire explain --no-pager --commit <sha>`
-- works with functions, files, and individual line changes
-- reports clearly when code is untracked, uncommitted, or created outside an Entire session
-
-### `what-happened`
-
-Explains what happened to a specific code block by tracing the latest change for a file line,
-range, or pasted snippet through git blame and Entire checkpoints.
-
-Current behavior:
-
-- resolves file lines, ranges, or pasted snippets to exact line numbers
-- asks for a concrete file line, range, or snippet before running provenance commands
-- deduplicates commit and checkpoint lookups before running expensive transcript commands
-- asks before expanding broad ranges with many unique commits
-- summarizes `entire explain` output without dumping raw transcripts by default; raw transcript expansion is opt-in
-- falls back to clearly labeled current-code analysis when checkpoint-backed context is unavailable
-
-Examples:
-
-- "tell me why this code is like that"
-- "why does this code look like this?"
-- "what happened here: `src/auth.ts:42-57`"
-- "what happened at `src/auth.ts:42`"
-- "what happened to this block?" plus a pasted snippet
-
-### `search`
-
-Searches Entire checkpoint history and transcripts to find prior work by topic, repo, branch, author, or time window.
-
-Current behavior:
-
-- runs `entire search "<query>" --json` and summarizes the top matches
-- supports filters: `--repo`, `--branch`, `--author`, `--date`, and inline query filters like `author:<name>`, `date:week`
-- drills into a specific result with `entire explain --checkpoint <id> --full --no-pager`
-- broadens searches progressively when initial results are empty (remove branch filter, widen date, simplify terms)
-
-### `recall`
-
-Turns "have we done this before?" into a task playbook by recalling the closest prior session for a described task and synthesizing what worked, gotchas, files touched, and a suggested approach for the new task.
-
-Current behavior:
-
-- runs paired `entire search` queries (the original task phrasing plus an alternate phrasing) and deduplicates by checkpoint ID
-- scores hits by topical overlap with recency as a tiebreak, then reads the top 1-3 transcripts via `entire explain --checkpoint <id> --full --no-pager` (falls back to `--raw-transcript`)
-- produces a playbook with sections for closest precedent, what worked, gotchas, files touched, suggested approach, and other relevant precedents
-- broadens progressively (simplify query, drop date filter, drop branch filter) and reports each empty attempt before giving up
-
-### `teach`
-
-Builds a topic-focused guided lesson from 3-5 canonical checkpoints, with a mental model and patterns to remember rather than a flat list of search results.
-
-Current behavior:
-
-- searches over the last month so the lesson uses canonical examples, not just recent activity
-- scores hits by topical specificity (topic in prompt/title), transcript depth, and recency, and prefers diversity (different files, different authors) when picking the 3-5 anchors
-- reads each anchor with `entire explain --checkpoint <id> --full --no-pager` (falls back to `--raw-transcript`)
-- produces a lesson with what-you'll-learn, mental model, per-anchor lessons, patterns to remember, and where-to-go-next
-- adds an optional small Mermaid diagram only when the topic has a clear behavioral flow worth illustrating
-
-### `replay`
-
-Steps through a feature's checkpoints chronologically, pausing for questions at each step instead of dumping a summary.
-
-Current behavior:
-
-- resolves either a topic ("how X was built") or a time window ("replay last week"), using `entire dispatch` to derive seed terms when needed
-- builds a chronological sequence of up to 10 checkpoints by default and collapses near-duplicate prompts within a 30-minute window
-- opens with a session card (topic, total steps, date range, primary authors) and then shows step 1 with a paired pause prompt
-- on `next` / `continue` / `yes`, advances; on a question, answers from the current step's transcript only and re-prompts
-- closes with 3-5 journey takeaways generalized across the steps
-
-## Installation
-
-Install with [skills](https://skills.sh/) CLI (universal, works with any [Agent Skills](https://agentskills.io)-compatible tool):
+Install every skill with the [skills](https://skills.sh/) CLI:
 
 ```bash
 npx skills add https://github.com/entireio/skills --all
-# or a single skill:
-npx skills add https://github.com/entireio/skills --skill session-handoff
 ```
+
+Install one skill:
+
+```bash
+npx skills add https://github.com/entireio/skills --skill search
+```
+
+See [Agent-Specific Installation](#agent-specific-installation) for setup
+instructions by agent.
+
+## Quick Start
+
+> [!NOTE]
+> These skills are most useful in codebases with real
+> [Checkpoints](https://docs.entire.io/cli/checkpoints) and session history. The
+> richer the history, the more context your agent has to work with; in a new or
+> lightly captured repository, some workflows may have less to find or explain.
+
+After installing, ask your agent for the workflow you want:
+
+```text
+search past work for rate limiting
+```
+
+```text
+explain src/auth.ts
+```
+
+```text
+what happened here: src/auth.ts:42-57
+```
+
+```text
+hand off this session
+```
+
+```text
+turn my release notes workflow into a skill
+```
+
+For a guided walkthrough, see the
+[skills tutorial](https://docs.entire.io/skills/tutorial).
+
+## What skills help agents do
+
+| Goal | Example prompt |
+| --- | --- |
+| Find prior work before making changes | `search past work for the migration` |
+| Understand the intent behind a function, file, or line | `explain parseConfig` |
+| Investigate the latest change to a specific block | `what happened at src/auth.ts:42` |
+| Pick up another agent's work | `hand off the codex session` |
+| Convert repeated work into a reusable workflow | `make a skill from this session` |
+
+## Included skills
+
+The current repository includes these skills. Each skill lives in
+`skills/<skill-name>/SKILL.md`.
+
+### `search`
+
+Finds prior work in your Entire history by topic, repo, branch, author, or time
+window, so your agent can bring past context into the current task before making
+changes.
+
+https://github.com/user-attachments/assets/52e50eae-ba53-4f31-ad2e-2a29a767a34f
+
+### `explain`
+
+Looks up the session behind a function, file, or line so your agent can explain
+the requirement, decision, or original problem that shaped it.
+
+https://github.com/user-attachments/assets/ab2e88f6-9bce-417b-ba71-6e93ecad370b
+
+### `what-happened`
+
+Starts from an exact file line, range, or pasted snippet and traces the latest
+change with `git blame` and Checkpoint context. Useful when reviewing a concrete
+block, debugging a regression, or asking why that block changed.
+
+https://github.com/user-attachments/assets/47db0daa-60bd-4000-b956-2d0e4d980b9b
+
+### `session-handoff`
+
+Reads saved or active session context so another agent can pick up the task
+state, important discoveries, blockers, and next steps without making you
+reconstruct everything manually.
+
+https://github.com/user-attachments/assets/0df3b5cd-fe37-4145-af48-138642ccc8bc
+
+### `session-crosslink`
+
+Links an agent session that ran outside the repo whose commits should record it
+— launched from a higher-level folder, a non-Entire repo, or one repo but
+editing another — to each affected Entire-enabled repo's HEAD commit. Previews
+with `--dry-run` then amends on confirmation, no manual `cd` orchestration.
+
+## Requirements
+
+These skills are designed for repositories where Entire has captured useful
+history. Some workflows need:
+
+- the [Entire CLI](https://github.com/entireio/cli) installed
+- a git repository with Entire sessions, Checkpoints, or Checkpoint-backed commits
+- [`entire login`](https://docs.entire.io/cli/commands#login) for workflows that
+  search indexed history
+- a GitHub `origin` and pushed, indexed Checkpoints for remote search results
+
+Individual skills handle missing context differently and should explain what is
+missing before falling back or stopping.
+
+## Agent-Specific Installation
 
 <!-- prettier-ignore-start -->
 
@@ -131,6 +144,24 @@ npx skills add https://github.com/entireio/skills --skill session-handoff
 ```bash
 /plugin marketplace add entireio/skills
 /plugin install entire
+```
+
+</details>
+
+<details>
+<summary>Codex (OpenAI)</summary>
+
+Clone into the cross-client discovery path:
+
+```bash
+git clone https://github.com/entireio/skills.git ~/.agents/skills/entire
+```
+
+Codex auto-discovers skills from `~/.agents/skills/` and `.agents/skills/`.
+Update with:
+
+```bash
+cd ~/.agents/skills/entire && git pull
 ```
 
 </details>
@@ -149,43 +180,6 @@ Cursor auto-discovers skills from `.agents/skills/` and `.cursor/skills/`.
 </details>
 
 <details>
-<summary>Gemini CLI</summary>
-
-```bash
-gemini extensions install https://github.com/entireio/skills
-```
-
-Update with `gemini extensions update entire`.
-
-</details>
-
-<details>
-<summary>OpenCode</summary>
-
-Copy skills into the cross-client discovery directory:
-
-```bash
-git clone https://github.com/entireio/skills.git ~/.agents/skills/entire
-```
-
-OpenCode auto-discovers skills from `.agents/skills/`, `.opencode/skills/`, and `.claude/skills/`.
-
-</details>
-
-<details>
-<summary>Codex (OpenAI)</summary>
-
-Clone into the cross-client discovery path:
-
-```bash
-git clone https://github.com/entireio/skills.git ~/.agents/skills/entire
-```
-
-Codex auto-discovers skills from `~/.agents/skills/` and `.agents/skills/`. Update with `cd ~/.agents/skills/entire && git pull`.
-
-</details>
-
-<details>
 <summary>Copilot</summary>
 
 ```bash
@@ -199,49 +193,48 @@ Copilot auto-discovers skills from `.copilot/skills/`.
 </details>
 
 <details>
-<summary>Antigravity</summary>
-
-Clone and symlink into the cross-client discovery path:
+<summary>Gemini CLI</summary>
 
 ```bash
-git clone https://github.com/entireio/skills.git ~/.antigravity/skills/entire
+gemini extensions install https://github.com/entireio/skills
 ```
 
-Update with `cd ~/.antigravity/skills/entire && git pull`.
+Update with:
+
+```bash
+gemini extensions update entire
+```
+
+</details>
+
+<details>
+<summary>OpenCode</summary>
+
+Copy skills into the cross-client discovery directory:
+
+```bash
+git clone https://github.com/entireio/skills.git ~/.agents/skills/entire
+```
+
+OpenCode auto-discovers skills from `.agents/skills/`, `.opencode/skills/`, and
+`.claude/skills/`.
 
 </details>
 
 <!-- prettier-ignore-end -->
 
-## Quick Start
+## Contributing
 
-Natural language examples:
+See [CONTRIBUTING.md](CONTRIBUTING.md) for local development, validation, and pull
+request guidance. Please also follow the
+[Code of Conduct](https://github.com/entireio/.github/blob/main/CODE_OF_CONDUCT.md).
 
-- "hand off this session"
-- "hand off the codex session"
-- "pick up where codex left off"
-- "hand off checkpoint 7b7c2be8a262"
-- "turn my blog publishing workflow into a skill"
-- "make a skill from session 019ddbc1-a5bf-77e2-8b7a-b4094e850347"
-- "I keep doing the same release notes workflow; find the sessions and draft a skill"
-- `/explain parseConfig` — why does this function exist?
-- `/explain src/auth.ts` — what drove this file's creation?
-- "search past work for rate limiting"
-- "find checkpoints about the migration"
-- "have we done this before?"
-- "recall how we added a tenant-scoped field last time"
-- "find similar work for migrating a worker pool"
-- "teach me how this repo handles auth"
-- "school me on hooks"
-- "give me a lesson on billing webhooks"
-- "walk me through how the v2 checkpoints feature was built"
-- "replay last week"
-- "step me through how the doctor command was implemented"
+## Support
 
-## Checkpoint Resolution
+For bugs, feature requests, or questions, open a
+[GitHub issue](https://github.com/entireio/skills/issues). You can also join the
+[Entire Community Discord Server](https://discord.gg/jZJs3Tue4S).
 
-Checkpoints are resolved in this order:
+## License
 
-1. local `entire/checkpoints/v1` branch
-2. `.entire/settings.json` `checkpoint_remote`
-3. nearby local clone
+This project is licensed under the terms in [LICENSE](LICENSE).

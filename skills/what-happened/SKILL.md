@@ -1,5 +1,5 @@
 ---
-name: What Happened
+name: what-happened
 description: >
   Explain why code looks the way it does by tracing the latest change for a file
   range or pasted snippet through `git blame` and deduplicated `entire explain`
