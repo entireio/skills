@@ -113,6 +113,13 @@ reconstruct everything manually.
 
 https://github.com/user-attachments/assets/0df3b5cd-fe37-4145-af48-138642ccc8bc
 
+### `session-crosslink`
+
+Links an agent session that ran outside the repo whose commits should record it
+— launched from a higher-level folder, a non-Entire repo, or one repo but
+editing another — to each affected Entire-enabled repo's HEAD commit. Previews
+with `--dry-run` then amends on confirmation, no manual `cd` orchestration.
+
 ## Requirements
 
 These skills are designed for repositories where Entire has captured useful
