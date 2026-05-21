@@ -1,7 +1,4 @@
 {
   "enabled": true,
-  "telemetry": true,
-  "strategy_options": {
-    "checkpoints_version": "2"
-  }
+  "telemetry": true
 }
