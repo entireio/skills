@@ -64,6 +64,14 @@ hand off this session
 turn my release notes workflow into a skill
 ```
 
+```text
+review this branch before merging
+```
+
+```text
+summarize recent work
+```
+
 For a guided walkthrough, see the
 [skills tutorial](https://docs.entire.io/skills/tutorial).
 
@@ -74,6 +82,8 @@ For a guided walkthrough, see the
 | Find prior work before making changes | `search past work for the migration` |
 | Understand the intent behind a function, file, or line | `explain parseConfig` |
 | Investigate the latest change to a specific block | `what happened at src/auth.ts:42` |
+| Review branch changes with intent context | `review this branch before merging` |
+| Generate a weekly dispatch summary | `summarize recent work` |
 | Pick up another agent's work | `hand off the codex session` |
 | Convert repeated work into a reusable workflow | `make a skill from this session` |
 
@@ -112,6 +122,28 @@ state, important discoveries, blockers, and next steps without making you
 reconstruct everything manually.
 
 https://github.com/user-attachments/assets/0df3b5cd-fe37-4145-af48-138642ccc8bc
+
+### `review`
+
+Reviews code changes on the current branch by reading checkpoint transcripts to
+understand developer intent, then auditing the diff for issues. Produces
+intent-aware findings with severity levels (`Critical` / `High` / `Medium` /
+`Low`) compatible with `entire review --fix`. Includes a separate
+`references/review-rules.md` for the audit checklist.
+
+### `dispatch`
+
+Generates a markdown engineering dispatch summarizing recent agent work and
+writes it to `DISPATCH.md`. Defaults to the last 7 days; supports custom time
+windows. Prefers the native `entire dispatch --local` when available, with a
+manual fallback for environments without the CLI.
+
+### `using-entire`
+
+Orchestrator skill for codebase exploration. Routes user intent to the right
+sub-skill (search, explain, what-happened, review, dispatch, session-handoff,
+session-to-skill, session-crosslink) or runs a general exploration flow that
+reads checkpoint history before inferring from code.
 
 ### `session-crosslink`
 
