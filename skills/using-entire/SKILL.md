@@ -48,15 +48,15 @@ When this skill activates, determine which sub-skill best fits the user's need:
 
 | Scenario | Typical user expressions | Delegate to |
 |----------|------------------------|-------------|
-| Code block provenance | "why is this like this" / "wtf is going on" / "what happened at src/auth.ts:42" / "tell me why this changed" / "这块代码为什么这么写" | `what-happened` |
-| Find prior work | "has anyone done X before" / "search past work for rate limiting" / "find the previous implementation" / "之前有人做过 X 吗" | `search` |
-| Understand original intent | "explain this function" / "explain parseConfig" / "what was the intent behind src/auth.ts" / "解释一下这个文件" | `explain` |
-| Generate a dispatch / summary | "summarize recent work" / "generate a dispatch" / "what was accomplished this week" / "写个周报" / "最近都做了什么" | `dispatch` |
-| Code review with intent context | "review these changes" / "review this branch" / "audit before merging" / "帮我 review 一下" / "检查一下这个分支的代码" | `review` |
-| Hand off to another agent | "hand off this session" / "continue in another agent" / "pick up the codex session" / "接手之前的工作" | `session-handoff` |
-| Convert session to skill | "turn this into a skill" / "make a skill from this session" / "把这个流程封装成 skill" | `session-to-skill` |
-| Link session to other repos | "link session to other repos" / "attach session to the foo repo" / "这个 session 关联到另一个仓库" | `session-crosslink` |
-| General exploration | "understand this module" / "explore how auth works" / "help me understand the codebase" / "了解一下这个模块" | _(self — see below)_ |
+| Code block provenance | "why is this like this" / "wtf is going on" / "what happened at src/auth.ts:42" / "tell me why this changed" | `what-happened` |
+| Find prior work | "has anyone done X before" / "search past work for rate limiting" / "find the previous implementation" | `search` |
+| Understand original intent | "explain this function" / "explain parseConfig" / "what was the intent behind src/auth.ts" | `explain` |
+| Generate a dispatch / summary | "summarize recent work" / "generate a dispatch" / "what was accomplished this week" | `dispatch` |
+| Code review with intent context | "review these changes" / "review this branch" / "audit before merging" | `review` |
+| Hand off to another agent | "hand off this session" / "continue in another agent" / "pick up the codex session" | `session-handoff` |
+| Convert session to skill | "turn this into a skill" / "make a skill from this session" | `session-to-skill` |
+| Link session to other repos | "link session to other repos" / "attach session to the foo repo" | `session-crosslink` |
+| General exploration | "understand this module" / "explore how auth works" / "help me understand the codebase" | _(self — see below)_ |
 
 If the scenario clearly maps to a sub-skill, delegate entirely to that skill's
 workflow. Do not duplicate their steps here.
@@ -137,3 +137,12 @@ Always make it clear whether your answer comes from:
 
 Never present inferred intent as if it were recorded fact. The core value of
 this workflow is that distinction.
+
+## References
+
+For a deeper understanding of Entire's capabilities beyond what the sub-skills
+cover, consult these resources:
+
+- **CLI help**: run `entire help` to see all available commands and flags
+- **Documentation**: https://docs.entire.io/llms.txt — machine-readable
+  reference for the full Entire platform
