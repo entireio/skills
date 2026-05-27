@@ -144,5 +144,6 @@ For a deeper understanding of Entire's capabilities beyond what the sub-skills
 cover, consult these resources:
 
 - **CLI help**: run `entire help` to see all available commands and flags
-- **Documentation**: https://docs.entire.io/llms.txt — machine-readable
-  reference for the full Entire platform
+- **Documentation**: https://docs.entire.io/llms.txt — AI-friendly
+  documentation index following the [llms.txt standard](https://llmstxt.org),
+  designed to be consumed directly by LLMs and coding agents
