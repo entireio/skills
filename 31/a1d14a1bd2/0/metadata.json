@@ -1,0 +1,52 @@
+{
+  "cli_version": "0.6.2",
+  "checkpoint_id": "31a1d14a1bd2",
+  "session_id": "4e46a154-ff2f-42c6-9e7c-e0226e6ae859",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T21:30:42.543532Z",
+  "branch": "search-skills",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude-plugin/marketplace.json",
+    ".claude-plugin/plugin.json",
+    ".codex-plugin/plugin.json",
+    ".cursor-plugin/plugin.json",
+    "gemini-extension.json",
+    "package.json"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "f20c29ac2e50",
+  "checkpoint_transcript_start": 14,
+  "token_usage": {
+    "input_tokens": 141,
+    "cache_creation_tokens": 5029,
+    "cache_read_tokens": 345953,
+    "output_tokens": 2845,
+    "api_call_count": 6
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T21:30:42.524339Z",
+    "agent_lines": 6,
+    "agent_removed": 6,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 6,
+    "total_lines_changed": 12,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
