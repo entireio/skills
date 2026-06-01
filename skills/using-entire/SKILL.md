@@ -51,7 +51,7 @@ When this skill activates, determine which sub-skill best fits the user's need:
 | Code block provenance | "why is this like this" / "wtf is going on" / "what happened at src/auth.ts:42" / "tell me why this changed" | `what-happened` |
 | Find prior work | "has anyone done X before" / "search past work for rate limiting" / "find the previous implementation" | `search` |
 | Understand original intent | "explain this function" / "explain parseConfig" / "what was the intent behind src/auth.ts" | `explain` |
-| Generate a dispatch / summary | "summarize recent work" / "generate a dispatch" / "what was accomplished this week" | `dispatch` |
+| Generate a dispatch / summary | "summarize recent work" / "generate a dispatch" / "what was accomplished this week" | run `entire dispatch` directly |
 | Code review with intent context | "review these changes" / "review this branch" / "audit before merging" | `review` |
 | Hand off to another agent | "hand off this session" / "continue in another agent" / "pick up the codex session" | `session-handoff` |
 | Convert session to skill | "turn this into a skill" / "make a skill from this session" | `session-to-skill` |
