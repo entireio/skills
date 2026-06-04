@@ -5,7 +5,7 @@ description: "Use when a developer wants a topic-focused guided lesson built fro
 
 # Entire Teach
 
-Use `entire search` and `entire explain` to pick 3-5 canonical checkpoints for a topic and teach the user as a guided lesson. Output is a structured lesson with a mental model and takeaways, not a list of checkpoints.
+Use `entire search` and `entire explain` to pick 3-5 canonical checkpoints for a topic and teach the user as a guided lesson. Output is a structured lesson that opens with a high-level "how it works" overview of the system, then checkpoint-anchored lessons with takeaways — not a list of checkpoints.
 
 ## Response Format
 
@@ -87,11 +87,12 @@ If a fallback also fails, drop that anchor and use the next-best candidate from 
 ```text
 Entire Teach:
 
-## What you'll learn
-<1-2 sentences: the topic and what mental model the user will walk away with>
-
-## Mental model
-<2-3 sentences distilled across the transcripts about how the team thinks about this topic — invariants, vocabulary, decision tree>
+## How <topic> works
+<A high-level explanation of the system itself, synthesized from the transcripts, before any lessons:
+- What it does: 1-2 sentences on the problem the system solves, from the user's point of view.
+- The moving parts: the main components/layers and what each owns (a short list or table).
+- The lifecycle: the end-to-end flow from trigger to steady state, numbered steps. This is the natural home for the optional Mermaid diagram.
+- The key design idea: 1-2 sentences on the central invariant or principle the design hangs on.>
 
 ## Lesson 1: <short title>
 - Checkpoint <id> · <date> · <author>
@@ -116,10 +117,11 @@ Entire Teach:
 ```
 
 - Anchor every claim to a checkpoint ID, file path, or commit SHA.
+- Build the "How <topic> works" overview only from what the transcripts support — if they don't reveal the full architecture, cover what they do show and say so rather than inventing components.
 - Keep each lesson short — a paragraph at most. The lesson is a teaching artifact, not a transcript dump.
 - "Patterns to remember" is the most valuable section. It should generalize across the lessons, not restate them.
 
-8. **Optional small Mermaid diagram.** Include a diagram only if there is a clear flow worth illustrating (request flow, decision flow, fallback flow). At most one diagram, 5-7 boxes, concept-level labels, behavioral flow only. Skip the diagram if the topic is not flow-shaped.
+8. **Optional small Mermaid diagram.** Include a diagram only if there is a clear flow worth illustrating (request flow, decision flow, fallback flow). Place it in the "How <topic> works" lifecycle. At most one diagram, 5-7 boxes, concept-level labels, behavioral flow only. Skip the diagram if the topic is not flow-shaped.
 
 ## Failure Modes
 
