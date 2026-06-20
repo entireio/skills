@@ -63,8 +63,10 @@ Good skill instructions should:
 - avoid secrets, private transcripts, or user-specific local paths
 - stay focused on one repeatable workflow instead of becoming a general manual
 
-If you add, remove, rename, or materially change a skill, update `README.md`
-when the public list or examples change.
+If you add, remove, rename, or materially change a skill, update
+`skills/using-entire/SKILL.md` in the same change with a short route or
+description so the orchestrator stays current. Also update `README.md` when the
+public list or examples change.
 
 ## Using AI
 
