@@ -50,6 +50,9 @@ When this skill activates, determine which sub-skill best fits the user's need:
 |----------|------------------------|-------------|
 | Code block provenance | "why is this like this" / "wtf is going on" / "what happened at src/auth.ts:42" / "tell me why this changed" | `what-happened` |
 | Find prior work | "has anyone done X before" / "search past work for rate limiting" / "find the previous implementation" | `search` |
+| Recall a task playbook | "have we done this before" / "recall how we did X" / "how did we do this last time" | `recall` |
+| Replay feature history | "replay <feature>" / "walk me through how X was built" / "show me the journey of Y" | `replay` |
+| Teach a repo topic | "teach me <topic>" / "how does <topic> work in this repo" / "give me a lesson on X" | `teach` |
 | Understand original intent | "explain this function" / "explain parseConfig" / "what was the intent behind src/auth.ts" | `explain` |
 | Generate a dispatch / summary | "summarize recent work" / "generate a dispatch" / "what was accomplished this week" | run `entire dispatch` directly |
 | Code review with intent context | "review these changes" / "review this branch" / "audit before merging" | `review` |
