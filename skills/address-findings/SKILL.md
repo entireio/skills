@@ -54,30 +54,32 @@ Run `entire version`. If the command is not found, stop and tell the user:
 "The Entire CLI is required but not installed. Install it from
 https://entire.io/docs/cli and try again."
 
-### 2. Resolve the trail
+### 2. Resolve the trail selector
 
 - If the argument is a trail URL, take the number from the `/trails/<number>/`
-  path segment.
-- If it is a bare number or branch name, use it as-is.
+  path segment and use that number.
+- If it is a bare trail number, id, or branch name, use it as-is.
 - If you cannot determine a trail, stop and ask the user for the trail URL or number.
 
-Use the trail **number** for every command below.
+Use this value as the `<trail>` selector for every command below. `entire trail`
+accepts a trail number, id, or branch name interchangeably, so no number lookup
+is needed — a branch name works directly.
 
 ### 3. Fetch open findings
 
 ```bash
-entire trail finding list <number> --json --status open
+entire trail finding list <trail> --json --status open
 ```
 
 - If the output reports that authentication is required, stop and tell the user:
-  "Run `entire login` and try again."
+  "`entire trail finding list` requires authentication. Run `entire login` and try again."
 - If the `trail finding` subcommand is unavailable, or the API reports the
   feature is not enabled, stop and tell the user that trail findings may not be
   enabled for this account or repository. Do not invent findings.
 - Parse the JSON. Each finding has an id, a severity, a status, a body, a
   location (file path + line range), and may include a suggested change (a
   unified diff).
-- If there are no open findings, report "No open findings on trail <number>." and stop.
+- If there are no open findings, report "No open findings on this trail." and stop.
 
 ### 4. Branch guard (you must be on the trail's branch)
 
@@ -86,18 +88,18 @@ trail's branch before changing files.
 
 ```bash
 git rev-parse --abbrev-ref HEAD                # current branch
-entire trail list --json --status any -n 200   # locate the trail's branch by number
+entire trail list --json --status any -n 200   # locate the trail's branch
 ```
 
-Find the trail whose `number` matches and read its `branch`.
+Find the trail whose `number` or `branch` matches your selector and read its `branch`.
 
 - If the trail's branch differs from the current branch, stop and tell the user:
-  "Trail #<number> targets branch `<trail-branch>`, but you are on
-  `<current-branch>`. Check it out first (`entire trail checkout <number>`) and
+  "Trail `<trail>` targets branch `<trail-branch>`, but you are on
+  `<current-branch>`. Check it out first (`entire trail checkout <trail>`) and
   re-run." Do not edit files.
 - If you cannot find the trail in the list (e.g. pagination), do not hard-fail:
   warn that you could not verify the branch, and ask the user to confirm they are
-  on trail #<number>'s branch before you continue.
+  on the trail's branch before you continue.
 
 ### 5. Address each finding
 
@@ -106,13 +108,13 @@ Process findings highest severity first (high → medium → low). For each:
 1. **If it has a suggested unified-diff change**, dry-run it first:
 
    ```bash
-   entire trail finding apply <number> <finding-id> --check
+   entire trail finding apply <trail> <finding-id> --check
    ```
 
    If it applies cleanly, apply and resolve in one step:
 
    ```bash
-   entire trail finding apply <number> <finding-id> --resolve
+   entire trail finding apply <trail> <finding-id> --resolve
    ```
 
 2. **Otherwise** (no patch, the patch conflicts, or the fix needs reasoning):
@@ -121,7 +123,7 @@ Process findings highest severity first (high → medium → low). For each:
    touched code (a build or a focused test), run it. Then resolve:
 
    ```bash
-   entire trail finding resolve <number> <finding-id> -m "<one line: what you changed>"
+   entire trail finding resolve <trail> <finding-id> -m "<one line: what you changed>"
    ```
 
 3. **If you cannot confidently address it** (ambiguous, needs a product/design
@@ -142,7 +144,7 @@ Remind the user the changes are uncommitted and ready for review.
 ## Failure modes
 
 - **CLI not installed** → install message (step 1).
-- **Not authenticated** → "Run `entire login` and try again."
+- **Not authenticated** → "`entire trail finding list` requires authentication. Run `entire login` and try again."
 - **Trail findings not enabled / API error** → tell the user the feature may be
   unavailable; do not fabricate findings.
 - **Trail not found** → tell the user to check the URL or number; suggest
