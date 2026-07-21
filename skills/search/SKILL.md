@@ -48,13 +48,13 @@ Inline filters are also supported in the query: `author:<name>`, `date:<week|mon
 3. If the user wants details on a specific result, open the checkpoint with:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --full --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --full --no-pager
 ```
 
 If `--full` fails, fall back to:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 ```
 
 ## Code Search

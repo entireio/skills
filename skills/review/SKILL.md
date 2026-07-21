@@ -81,7 +81,7 @@ Extract `Entire-Checkpoint:` trailer values from commit bodies. Deduplicate chec
 For each unique checkpoint ID (up to 20):
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --json --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --json --no-pager
 ```
 
 Parse the JSON to extract session metadata. For each non-review session in the checkpoint,
@@ -91,7 +91,7 @@ user prompt. Truncate each checkpoint detail to 320 characters.
 If `--json` fails for a checkpoint, fall back to the bare human-readable output:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --no-pager
 ```
 
 Do not use `--full` in the review workflow — it produces long narrative text harder for
@@ -216,5 +216,5 @@ When checkpoint context is unavailable:
 - **Cannot detect base ref**: Ask the user to specify the base branch or commit.
 - **Diff too large (>100 files)**: Ask the user if they want to review all files or focus on
   a subset. Suggest reviewing only source files or files with checkpoint context.
-- **`entire explain` fails**: Note the specific checkpoint was unavailable, continue reviewing
+- **`entire checkpoint explain` fails**: Note the specific checkpoint was unavailable, continue reviewing
   remaining files without that context.

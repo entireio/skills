@@ -23,7 +23,7 @@ followed by a blank line, then the content.
 ## Rules
 
 1. First identify the reusable behavior the skill should capture. If the user has not said what the skill should help with, ask that question before reading transcripts.
-2. Use Entire history as evidence. Prefer `entire search`, `entire session current`, session metadata files, and `entire explain` over asking the user to paste old transcripts.
+2. Use Entire history as evidence. Prefer `entire search`, `entire session current`, session metadata files, and `entire checkpoint explain` over asking the user to paste old transcripts.
 3. A skill draft should be focused on future behavior, not a recap of the session. Preserve durable workflow, repo conventions, user corrections, commands, validation, and things to avoid.
 4. When several sessions may be relevant, summarize the repeated workflow pattern, recommend a source set, and ask the user to confirm before expanding transcripts.
 5. Do not write, install, or overwrite a skill file unless the user explicitly approves the destination. By default, present the `SKILL.md` draft in the response.
@@ -106,13 +106,13 @@ I will ignore metadata-only or one-off edit sessions unless you want them includ
 For a checkpoint, run:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --full --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --full --no-pager
 ```
 
 If full output fails and the user wants more detail, fall back to:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 ```
 
 For an active or current session, prefer:

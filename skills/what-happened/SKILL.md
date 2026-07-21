@@ -2,7 +2,7 @@
 name: what-happened
 description: >
   Explain why code looks the way it does by tracing the latest change for a file
-  range or pasted snippet through `git blame` and deduplicated `entire explain`
+  range or pasted snippet through `git blame` and deduplicated `entire checkpoint explain`
   lookups. Use when the user asks what happened, says "tell me why" about a code
   block, is confused about a section of code, asks "wtf is going on", "why is
   this like this", "why was this changed", or wants provenance for a specific
@@ -35,15 +35,15 @@ as not checkpoint-backed.
 1. Do not guess about file contents or line numbers. Resolve the exact target lines
    before explaining anything.
 2. Use the installed `entire` binary from `PATH`, not `./entire` from the current repo.
-3. Prefer `git blame` for provenance and `entire explain --commit` for transcript-backed context.
+3. Prefer `git blame` for provenance and `entire checkpoint explain --commit` for transcript-backed context.
    Do not use experimental `entire why` for this skill.
 4. Use this skill for latest-change provenance on a specific block. For broad original intent
    of a symbol, file, or feature, prefer the `explain` skill.
 5. Do not manually hunt through `.git/entire-sessions/` or raw transcript files for commit
-   provenance. If `entire explain` cannot provide transcript context, report the exact
+   provenance. If `entire checkpoint explain` cannot provide transcript context, report the exact
    missing or unavailable state.
 6. If multiple blame blocks match, include all distinct ranges. Deduplicate commit hashes
-   before running `entire explain`; run transcript lookups once per unique commit, not once
+   before running `entire checkpoint explain`; run transcript lookups once per unique commit, not once
    per range. Also deduplicate checkpoint IDs before expanding checkpoint transcripts; run
    checkpoint expansion once per unique checkpoint, not once per commit or range.
 7. Distinguish these states explicitly:
@@ -51,13 +51,13 @@ as not checkpoint-backed.
    - a checkpoint is referenced but is unavailable locally or remotely
    - a checkpoint is available, but full transcript expansion failed and raw transcript
      expansion was not explicitly requested
-   - Entire transcript lookup failed (the `entire explain` command itself errored)
+   - Entire transcript lookup failed (the `entire checkpoint explain` command itself errored)
    - the code is untracked, uncommitted, or otherwise has no committed history
    - any other provenance command fails after the target code was resolved
 8. For every resolved code block, include either checkpoint-backed history or a fallback
    explanation of what the current code does. Label fallback explanations as "not
    checkpoint-backed" and do not imply intent or historical rationale from checkpoints.
-9. Treat `entire explain` command output as intermediate source material for summarization.
+9. Treat `entire checkpoint explain` command output as intermediate source material for summarization.
    Do not paste raw command output or full transcripts into the user response unless the user
    explicitly asks for raw output. Include only short error excerpts when they help the user fix
    a failed lookup.
@@ -114,7 +114,7 @@ file with no committed history, keep the exact snippet for that range, and conti
 code behavior analysis.
 
 If blame reports an uncommitted pseudo-commit such as all zeroes or `Not Committed Yet`, mark
-those ranges as local uncommitted changes and do not run `entire explain` for them. If other
+those ranges as local uncommitted changes and do not run `entire checkpoint explain` for them. If other
 target ranges resolve to real commits, continue with those committed ranges.
 
 Use the output to identify every blame block inside the target range. Group adjacent
@@ -128,7 +128,7 @@ For each matching block, collect:
 
 Collect the unique real commit SHAs across all matching blocks while preserving each distinct
 range. Exclude untracked and local uncommitted pseudo-commits from this set. Build a map from
-commit SHA to all target ranges blamed to that commit. Do not run `entire explain` separately
+commit SHA to all target ranges blamed to that commit. Do not run `entire checkpoint explain` separately
 for multiple ranges that share the same commit.
 
 If the resolved target spans more than 5 unique real commits, stop before running `entire
@@ -144,7 +144,7 @@ that range was not already captured.
 For each unique commit SHA in that map, run exactly once:
 
 ```bash
-entire explain --commit <commit-sha> --no-pager
+entire checkpoint explain --commit <commit-sha> --no-pager
 ```
 
 When there are multiple unique commits, run those independent commit lookups in parallel when
@@ -167,7 +167,7 @@ checkpoint, expand that checkpoint once and map the result back to every relevan
 For each unique checkpoint ID that needs more detail, run:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --full --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --full --no-pager
 ```
 
 Do not run raw transcript expansion automatically. If `--full` fails or is insufficient,
@@ -175,7 +175,7 @@ mark the affected ranges for current-code fallback analysis unless the user expl
 for raw transcript detail. Only when explicitly requested, run:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 ```
 
 Use the collected output to answer:
@@ -184,14 +184,14 @@ Use the collected output to answer:
 - why this block changed
 - any constraint, bug, edge case, or refactor pressure that caused the final code
 
-Do not show the raw `entire explain` output by default. Summarize only the relevant parts tied
+Do not show the raw `entire checkpoint explain` output by default. Summarize only the relevant parts tied
 to the target ranges.
 
 If the commit has no checkpoint ID, use only the commit-level context returned by
-`entire explain --commit` for provenance and mark the range for fallback code behavior
+`entire checkpoint explain --commit` for provenance and mark the range for fallback code behavior
 analysis. Clearly state "no checkpoint-backed summary; no Entire checkpoint was referenced."
 
-If a checkpoint ID is present but `entire explain --checkpoint` cannot load it, keep the
+If a checkpoint ID is present but `entire checkpoint explain --checkpoint` cannot load it, keep the
 checkpoint ID in the answer and say "checkpoint <id> was referenced, but the checkpoint was
 not available locally or remotely." Include the command error only if it helps the user fix
 the issue, such as authentication or missing remote configuration.

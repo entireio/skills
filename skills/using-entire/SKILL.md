@@ -88,13 +88,13 @@ git log --format='%H %b' -5 -- <file> | grep -B1 'Entire-Checkpoint:'
    trailer, then use JSON output for non-interactive consumption:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --json --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --json --no-pager
 ```
 
 If you only have a commit hash (not a checkpoint ID), use:
 
 ```bash
-entire explain --commit <sha> --no-pager
+entire checkpoint explain --commit <sha> --no-pager
 ```
 
 4. **Synthesize**: combine the recorded intent (from checkpoints) with the
@@ -108,12 +108,15 @@ entire explain --commit <sha> --no-pager
 
 When running Entire commands from an agent subprocess:
 
+- **Verify unfamiliar or failing command syntax** with
+  `entire agent-help <command...> --json`. Treat the installed CLI output as the
+  source of truth when it differs from static documentation or skill guidance.
 - **Always pass `--json`** for commands that support it and might prompt
   interactively. `--json` implies non-interactive output.
 - **Always pass `--no-pager`** to prevent pager activation in subprocess
   contexts.
 - **Always specify `--checkpoint <id>` or `--commit <sha>`** for
-  `entire explain` — without a locator, the command falls back to an
+  `entire checkpoint explain` — without a locator, the command falls back to an
   interactive picker.
 
 ## When No Checkpoints Exist
@@ -146,7 +149,8 @@ this workflow is that distinction.
 For a deeper understanding of Entire's capabilities beyond what the sub-skills
 cover, consult these resources:
 
-- **CLI help**: run `entire help` to see all available commands and flags
+- **CLI help**: run `entire agent-help --json` for the installed command map or
+  `entire agent-help <command...> --json` for exact command syntax
 - **Documentation**: https://docs.entire.io/llms.txt — AI-friendly
   documentation index following the [llms.txt standard](https://llmstxt.org),
   designed to be consumed directly by LLMs and coding agents
