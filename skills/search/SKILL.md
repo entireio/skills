@@ -5,7 +5,7 @@ description: Use when the user wants to find prior work, checkpoints, or agent c
 
 # Search Checkpoints and Code
 
-Use `entire search` to find relevant checkpoints before guessing from memory, or `entire search --code` to search code content across repositories.
+Use `entire checkpoint search` to find relevant checkpoints before guessing from memory, or add `--code` to search code content across repositories. Treat `entire agent-help checkpoint search` as the source of truth for the installed CLI.
 
 ## Response Format
 
@@ -32,13 +32,13 @@ Do not use this for the current active session. Use `session-handoff` for that. 
 1. Run a focused search with JSON output so results are easy to inspect:
 
 ```bash
-entire search "<query>" --json
+entire checkpoint search "<query>" --json
 ```
 
-Add filters when the user already gave them or when the first search is too broad:
+The current repository is auto-detected. Add filters when the user gave them or when the first search is too broad. Use `--repo` only for a different repository:
 
 ```bash
-entire search "<query>" --json --repo owner/name --branch branch-name --author "Name" --date week
+entire checkpoint search "<query>" --json --repo owner/name --branch branch-name --author "Name" --date week
 ```
 
 Inline filters are also supported in the query: `author:<name>`, `date:<week|month>`, `branch:<name>`, `repo:<owner/name>`, `repo:*`.
@@ -48,27 +48,29 @@ Inline filters are also supported in the query: `author:<name>`, `date:<week|mon
 3. If the user wants details on a specific result, open the checkpoint with:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --full --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --full --no-pager
 ```
 
 If `--full` fails, fall back to:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --transcript
 ```
+
+Do not dump raw transcripts to the user. Filter or summarize only the relevant evidence.
 
 ## Code Search
 
 Add `--code` to search code content instead of checkpoints:
 
 ```bash
-entire search "<query>" --code --json
+entire checkpoint search "<query>" --code --json
 ```
 
 Scope and refine with flags:
 
 ```bash
-entire search "<query>" --code --json --repo owner/name --limit 20 --case-sensitive
+entire checkpoint search "<query>" --code --json --repo owner/name --limit 20 --case-sensitive
 ```
 
 - By default results are scoped to the current repository; add `--all-repos` (or `repo:*`) to search every repo the user can access
@@ -90,18 +92,33 @@ Code search is currently limited to admins and users on the insider list. If a `
 
 1. Tell the user code search requires admin or insider access
 2. If the target repo is checked out locally, search it with local tools (ripgrep, grep) instead
-3. For cross-repo questions, run a checkpoint search (`entire search "<query>" --json`, optionally `repo:*`) to find prior work that touches the code in question
+3. For cross-repo questions, run a checkpoint search (`entire checkpoint search "<query>" --json`, optionally `repo:*`) to find prior work that touches the code in question
+
+## Search Index Fallback
+
+This fallback applies to checkpoint search, not a successful empty code search.
+
+If search returns zero results or a search service 500 for terms known to exist:
+
+1. Run `entire checkpoint list --no-pager`.
+2. If checkpoints exist, treat the server search index as unavailable rather than reporting no history.
+3. Shortlist checkpoint IDs from the local list by prompt, date, or commit.
+4. Inspect only the best candidates with `entire checkpoint explain --checkpoint <id> --transcript`.
+
+If the local checkpoint list is empty, report that no local history is available.
 
 ## Search Heuristics
 
 - Start with the user's domain terms, feature name, error text, file name, or ticket ID
 - Prefer narrower searches before increasing `--limit`
-- Add `--repo` or `repo:*` explicitly when repository scope matters
+- Let Entire use the current repository by default; add `--repo` only for another repository or `--all-repos` for cross-repository search
 - If there are no useful hits, broaden in this order: remove branch filter, widen date, simplify query terms
 
 ## Failure Modes
 
 - If search says authentication is required, tell the user to run `entire login`
 - If code search says it is not available or access is denied, it is limited to admins and insiders — use the Code Search Fallback above rather than retrying
-- If there are no matches, say that clearly and mention the filters or query terms you tried
+- If command syntax or flags are uncertain, run `entire agent-help checkpoint search` or `entire agent-help checkpoint explain`
+- If server search has no matches, check the local checkpoint list before concluding that no history exists
+- If code search has no matches, say that clearly and mention the filters or query terms you tried
 - If the user really wants the current session, switch to `session-handoff` instead of searching checkpoints
