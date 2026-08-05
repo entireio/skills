@@ -23,7 +23,7 @@ followed by a blank line, then the content.
 ## Rules
 
 1. First identify the reusable behavior the skill should capture. If the user has not said what the skill should help with, ask that question before reading transcripts.
-2. Use Entire history as evidence. Prefer `entire search`, `entire session current`, session metadata files, and `entire explain` over asking the user to paste old transcripts.
+2. Use Entire history as evidence. Prefer `entire checkpoint search`, `entire session current`, session metadata files, and `entire checkpoint explain` over asking the user to paste old transcripts.
 3. A skill draft should be focused on future behavior, not a recap of the session. Preserve durable workflow, repo conventions, user corrections, commands, validation, and things to avoid.
 4. When several sessions may be relevant, summarize the repeated workflow pattern, recommend a source set, and ask the user to confirm before expanding transcripts.
 5. Do not write, install, or overwrite a skill file unless the user explicitly approves the destination. By default, present the `SKILL.md` draft in the response.
@@ -60,18 +60,18 @@ If the user gives a session ID, read the matching session metadata from:
 If the user describes a repeated workflow but does not give a session or checkpoint, search Entire history with terms from the target:
 
 ```bash
-entire search "<workflow terms>" --json
+entire checkpoint search "<workflow terms>" --json
 ```
 
 Use repo, branch, author, or date filters when the user provides them:
 
 ```bash
-entire search "<workflow terms>" --json --repo owner/name --branch branch-name --author "Name" --date month
+entire checkpoint search "<workflow terms>" --json --repo owner/name --branch branch-name --author "Name" --date month
 ```
 
 Interpret search results carefully:
 
-- If `entire search` returns valid JSON with `"total": 0` or an empty `results` array, do **not** call it an authentication failure. Say no indexed matches were found, then fall back to local session metadata.
+- If `entire checkpoint search` returns valid JSON with `"total": 0` or an empty `results` array, do **not** call it an authentication failure. Say no indexed matches were found, then fall back to local session metadata.
 - Only say authentication is required if the command output explicitly says authentication, login, or credentials are required.
 - If search fails for any other reason, report the short error and fall back to local session metadata when available.
 
@@ -106,13 +106,13 @@ I will ignore metadata-only or one-off edit sessions unless you want them includ
 For a checkpoint, run:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --full --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --full --no-pager
 ```
 
 If full output fails and the user wants more detail, fall back to:
 
 ```bash
-entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
+entire checkpoint explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 ```
 
 For an active or current session, prefer:
