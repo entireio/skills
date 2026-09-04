@@ -1,1 +1,1 @@
-The seach skill in this repository continues to cause issues on codex where it tries to execute the skill within its sandbox which prevents the entire executable from reading its credentials from the local macos secrets store. Can we improve the instructions to prevent that from happening?
+Can you check out a new branch, commit the changes and run pfleidi:pr to create a pull request?
