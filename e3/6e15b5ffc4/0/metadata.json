@@ -3,7 +3,7 @@
   "checkpoint_id": "e36e15b5ffc4",
   "session_id": "305cd403-8887-40ee-9c8c-bbd24789d5e9",
   "strategy": "manual-commit",
-  "created_at": "2026-09-05T20:21:49.039801Z",
+  "created_at": "2026-09-05T20:22:12.324297Z",
   "branch": "skill/search-research-triggers",
   "checkpoints_count": 6,
   "save_step_count": 1,
@@ -13,11 +13,11 @@
   "turn_id": "ba7b2beba2e6",
   "compact_transcript_start": 0,
   "token_usage": {
-    "input_tokens": 1540,
-    "cache_creation_tokens": 132702,
-    "cache_read_tokens": 7726331,
-    "output_tokens": 44403,
-    "api_call_count": 63
+    "input_tokens": 1574,
+    "cache_creation_tokens": 133466,
+    "cache_read_tokens": 8056558,
+    "output_tokens": 45061,
+    "api_call_count": 65
   },
   "skill_events_version": 1,
   "skill_events": [
@@ -108,14 +108,5 @@
   ],
   "session_metrics": {
     "turn_count": 14
-  },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 2,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0
-    }
-  ]
+  }
 }
