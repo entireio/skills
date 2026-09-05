@@ -1,0 +1,40 @@
+{
+  "cli_version": "0.10.6-nightly.202609040625.7c63555a3",
+  "checkpoint_id": "de16265c48e2",
+  "strategy": "manual-commit",
+  "branch": "skill/search-research-triggers",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "evals/investigate-plain/case.yaml",
+    "evals/investigate-plain/scaffold.sh",
+    "evals/research-plain/case.yaml",
+    "evals/research-plain/scaffold.sh",
+    "evals/search-plain/case.yaml",
+    "evals/search-plain/scaffold.sh",
+    "skills/search/SKILL.md",
+    "skills/using-entire/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/de/16265c48e2/0/metadata.json",
+      "transcript": "/de/16265c48e2/0/full.jsonl",
+      "compact_transcript": "/de/16265c48e2/0/transcript.jsonl",
+      "content_hash": "/de/16265c48e2/0/content_hash.txt",
+      "prompt": "/de/16265c48e2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1302,
+    "cache_creation_tokens": 122839,
+    "cache_read_tokens": 5492819,
+    "output_tokens": 37035,
+    "api_call_count": 49,
+    "subagent_tokens": {
+      "input_tokens": 58,
+      "cache_creation_tokens": 94644,
+      "cache_read_tokens": 530630,
+      "output_tokens": 683,
+      "api_call_count": 7
+    }
+  }
+}
