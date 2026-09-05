@@ -75,12 +75,39 @@ For a guided walkthrough, see the
 
 | Goal | Example prompt |
 | --- | --- |
+| Research or investigate a topic from recorded history | `research how checkpoint pushing works` / `investigate the flaky login redirect` |
 | Find prior work before making changes | `search past work for the migration` |
 | Understand the intent behind a function, file, or line | `explain parseConfig` |
 | Investigate the latest change to a specific block | `what happened at src/auth.ts:42` |
 | Review branch changes with intent context | `review this branch before merging` |
 | Pick up another agent's work | `hand off the codex session` |
 | Convert repeated work into a reusable workflow | `make a skill from this session` |
+
+## Make search the default research step
+
+Agents pick skills by matching the request against each skill's description, and
+generic verbs like "research", "investigate", or "look into" compete with their
+built-in grep and file-reading tools. Two things in this repository tip that
+balance toward Entire history:
+
+- The `search` and `using-entire` skill descriptions claim those verbs
+  explicitly, so a plain "investigate X" routes to `entire search` first.
+- For Claude Code, the plugin ships a `UserPromptSubmit` hook
+  (`hooks/research-nudge.sh`) that recognizes research-shaped prompts and
+  reminds the agent to run `entire search` before reading code. Other agents
+  ignore the hook.
+
+User instructions outrank skill descriptions in every agent, so the most
+reliable option is a line in your `CLAUDE.md` or `AGENTS.md`:
+
+```markdown
+When asked to research, investigate, look into, or dig into anything in this
+codebase, run `entire search "<topic>" --json --compact --limit 5` first and
+summarize the prior work before reading source files or grepping.
+```
+
+The `evals/` directory holds `claude plugin eval` cases that check this routing;
+see `evals/README.md`.
 
 ## Included skills
 

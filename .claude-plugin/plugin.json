@@ -15,5 +15,8 @@
     "what-happened",
     "agent-workflows",
     "plugins"
-  ]
+  ],
+  "experimental": {
+    "evals": "evals"
+  }
 }
