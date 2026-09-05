@@ -91,8 +91,10 @@ built-in grep and file-reading tools. Two things in this repository tip that
 balance toward Entire history:
 
 - The `search` and `using-entire` skill descriptions claim those verbs
-  explicitly, so a plain "investigate X" routes to `entire search` first.
-- For Claude Code, the plugin ships a `UserPromptSubmit` hook
+  explicitly and ask for the skill as the first action, before any file
+  orientation, so a plain "investigate X" routes to `entire search` first.
+  This is measured to be sufficient on its own (see `evals/README.md`).
+- For Claude Code, the plugin also ships an optional `UserPromptSubmit` hook
   (`hooks/research-nudge.sh`) that recognizes research-shaped prompts and
   reminds the agent to run `entire search` before reading code. Other agents
   ignore the hook.

@@ -1,12 +1,14 @@
 ---
 name: using-entire
 description: >
-  Use for any research, investigation, or codebase-understanding request —
-  "search X", "research X", "investigate X", "look into X", "dig into X", "explore X",
-  "understand X", "why is this like this", "what was tried before" — so the
-  agent reads recorded intent from Entire checkpoints before inferring from
-  code. Routes to the right Entire sub-skill (search, recall, explain,
-  what-happened, replay, teach, review, session-handoff).
+  Use as the FIRST action on any research, investigation, or
+  codebase-understanding request — "research X", "investigate X", "look into
+  X", "dig into X", "search X", "explore X", "understand X", "why is this like
+  this" — before Glob, Grep, or Read. Recorded intent lives in Entire
+  checkpoints on the server, not in local files, so an empty or unfamiliar
+  working copy is not a reason to skip it. Routes to the right Entire sub-skill
+  (search, recall, explain, what-happened, replay, teach, review,
+  session-handoff).
 ---
 
 # Using Entire
