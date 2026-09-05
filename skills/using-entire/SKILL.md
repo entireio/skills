@@ -2,7 +2,7 @@
 name: using-entire
 description: >
   Use for any research, investigation, or codebase-understanding request —
-  "research X", "investigate X", "look into X", "dig into X", "explore X",
+  "search X", "research X", "investigate X", "look into X", "dig into X", "explore X",
   "understand X", "why is this like this", "what was tried before" — so the
   agent reads recorded intent from Entire checkpoints before inferring from
   code. Routes to the right Entire sub-skill (search, recall, explain,

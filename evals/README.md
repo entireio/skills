@@ -23,7 +23,7 @@ git-ignored.
 | look-into-verb | 0/2 | 2/2 | 2/2 |
 | research-plain | 0/2 | 0/2 | 2/2 |
 | investigate-plain | 0/2 | 0/2 | 2/2 |
-| research-verb, investigate-verb, bare-search-verb, code-across-repos | 2/2 | 2/2 | 2/2 |
+| research-verb, investigate-verb, bare-search-verb, search-plain, code-across-repos | 2/2 | 2/2 | 2/2 |
 | local-grep-control (must not trigger) | 2/2 | 2/2 | 2/2 |
 
 Bare "Research X" / "Investigate X" prompts need the hook or a CLAUDE.md line;

@@ -1,6 +1,6 @@
 ---
 name: search
-description: Use when the user asks to research, investigate, look into, dig into, or search for a topic, feature, bug, or decision; wants to know what prior work, context, or decisions already exist; or needs code found across repositories. Triggers on "research X", "investigate X", "look into X", "dig into X", "search for X", "what do we know about X", "has this been done before", "find the previous implementation", "where is X implemented in our other repos". Use before reading code or grepping when the question is about history, intent, or prior work. Not for grepping files in the current working copy or for the current active session.
+description: Use when the user asks to research, investigate, look into, dig into, or search for a topic, feature, bug, or decision; wants to know what prior work, context, or decisions already exist; or needs code found across repositories. Triggers on "search X", "search for X", "research X", "investigate X", "look into X", "dig into X", "what do we know about X", "has this been done before", "find the previous implementation", "where is X implemented in our other repos". Use before reading code or grepping when the question is about history, intent, or prior work. Not for grepping files in the current working copy or for the current active session.
 ---
 
 # Search Checkpoints and Code
