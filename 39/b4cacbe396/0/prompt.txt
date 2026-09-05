@@ -1,0 +1,241 @@
+how to improve the entire search skill so when user says something like "research, search, investigate" it uses entire search cli. give ideas no implementation yet. also why doesn't it currently work that way
+
+---
+
+okay create a branch and make those improvements
+
+---
+
+<task-notification>
+<task-id>a784dfd737f8b3400</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha-Projects-skills/305cd403-8887-40ee-9c8c-bbd24789d5e9/tasks/a784dfd737f8b3400.output</output-file>
+<status>completed</status>
+<summary>Agent "Look up plugin eval and hook formats" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Based on my research, here are your exact reference answers:
+
+## 1. `claude plugin eval` Case Format
+
+**Note:** Plugin eval is **early access** (not yet in public docs). Enablement: pass an environment variable provided during onboarding, or it's enabled automatically on first-party clients post-`claude update`. For users with telemetry disabled (Bedrock/Vertex/Foundry, gateways, or `DISABLE_TELEMETRY` set), contact Anthropic support for the enablement variable name.
+
+### Case Schema
+
+**`evals/&lt;case&gt;/prompt.md` frontmatter:**
+```yaml
+name: "Case Name"
+tags: ["tag1", "tag2"]
+plugins: ["../.."]  # relative path to plugin, or name if installed
+runs: 3              # default: 3
+max_turns: 10        # default: 10
+timeout_seconds: 300 # default: 300
+allowed_tools: [Bash, Write, Skill]
+model: claude-opus-4
+append_system_prompt: "Additional context"
+env: 
+  EVAL_CUSTOM_VAR: value
+```
+
+**Optional `case.yaml` (when frontmatter isn't enough):**
+```yaml
+schema_version: "1.1"
+name: Case Name
+context:
+  scaffold_script: "setup.sh"
+  history_file: "transcript.jsonl"  # replay a transcript, evaluate the next turn
+  add_dirs: ["fixtures/"]
+```
+
+**Graders: `evals/&lt;case&gt;/graders/&lt;name&gt;.md`**
+
+*Skill trigger (exact example):*
+```yaml
+---
+type: tool_used
+tool: Skill
+input_match: '"skill"\s*:\s*"(?:[\w-]+:)?deploy"'
+min: 1
+max: 1
+target: last_message
+---
+
+Agent must invoke the deploy skill exactly once.
+```
+
+*Bash regex (exact example):*
+```yaml
+---
+type: tool_used
+tool: Bash
+input_match: "entire search"
+min: 1
+target: trace
+---
+
+Agent must run `entire search` command at least once (checked in trace).
+```
+
+*Other grader types:*
+```yaml
+type: regex
+pattern: "success|complete"
+flags: "i"
+match: contains
+target: last_message
+---
+Rubric text here
+```
+
+**Plugin manifest** (`plugin.json`):
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "experimental": {
+    "evals": "evals/"
+  }
+}
+```
+
+**Minimal complete example:**
+
+`plugin.json`:
+```json
+{"name": "test-plugin", "version": "1.0.0", "experimental": {"evals": "evals"}}
+```
+
+`evals/skill-invoke/prompt.md`:
+```yaml
+---
+name: "Deploy skill invocation"
+tags: ["skill", "deploy"]
+runs: 2
+max_turns: 5
+---
+
+Deploy the application. Use available skills.
+```
+
+`evals/skill-invoke/graders/skill-used.md`:
+```yaml
+---
+type: tool_used
+tool: Skill
+input_match: '"skill"\s*:\s*"(?:[\w-]+:)?deploy"'
+---
+
+Skill deploy must be invoked.
+```
+
+**Ablation reporting** (`--ablation with-without`):
+- Runs each case twice: once with the plugin, once without
+- Results in `results/&lt;ts&gt;/aggregate-result.json` with `.cases[].arms.{with,without}[]` structure
+- Shows delta across graders; non-scored indicators (for skills: `withOnly: true, scored: false`) appear unscored
+
+**Reference:** Embedded in Claude Code harness (not yet public docs). Run `claude plugin eval --help` for current flags.
+
+---
+
+## 2. `UserPromptSubmit` Hook for Plugins
+
+**Location:** `hooks/hooks.json` at plugin root (not inside `.claude-plugin/`)
+
+**Plugin manifest reference** (`plugin.json`):
+```json
+{
+  "name": "my-plugin",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "your-script.sh"
+      }
+    ]
+  }
+}
+```
+
+**Alternatively, standalone `hooks/hooks.json`:**
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "${CLAUDE_PLUGIN_ROOT}/bin/validate-prompt.sh"
+      }
+    ]
+  }
+}
+```
+
+**Stdin JSON** (what your hook receives on stdin):
+```json
+{
+  "session_id": "abc123",
+  "prompt_id": "550e8400-e29b-41d4-a716-446655440000",
+  "transcript_path": "/path/to/transcript.jsonl",
+  "cwd": "/home/user/my-project",
+  "permission_mode": "default",
+  "hook_event_name": "UserPromptSubmit",
+  "user_prompt": "the user's submitted prompt text"
+}
+```
+
+**Output JSON (how hook adds context):**
+
+Plain stdout becomes context Claude sees. Or use JSON:
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "UserPromptSubmit",
+    "additionalContext": "String context visible to Claude"
+  }
+}
+```
+
+Array format:
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "UserPromptSubmit",
+    "additionalContext": [
+      "First context piece",
+      "Second context piece"
+    ]
+  }
+}
+```
+
+**Variable substitution in hooks:**
+- `${CLAUDE_PLUGIN_ROOT}` — plugin directory path
+- `${CLAUDE_PLUGIN_DATA}` — plugin data directory
+- Others: `${CLAUDE_PROJECT_DIR}`, `${CLAUDE_SKILL_DIR}`, `${CLAUDE_SESSION_ID}`
+
+**Example complete hook script** (`hooks/validate-prompt.sh`):
+```bash
+#!/bin/bash
+prompt=$(jq -r '.user_prompt' &lt;&amp;0)
+
+if [[ $prompt == *"forbidden"* ]]; then
+  jq -n '{hookSpecificOutput: {hookEventName: "UserPromptSubmit", permissionDecision: "deny", permissionDecisionReason: "Prompt contains restricted keyword"}}'
+  exit 2
+fi
+
+echo "Checked prompt: $(echo $prompt | cut -c1-20)..."
+```
+
+**Reference:** 
+- Hooks: https://code.claude.com/docs/en/hooks.md
+- Plugins: https://code.claude.com/docs/en/plugins.md
+- Plugin reference: https://code.claude.com/docs/en/plugins-reference.md</result>
+<usage><subagent_tokens>96538</subagent_tokens><tool_uses>8</tool_uses><duration_ms>95778</duration_ms></usage>
+</task-notification>
+
+---
+
+/rubber-duck
+
+---
+
+can you also add search to the key words / description. so if I say "search x" also do the test pass without the hook?
