@@ -1,0 +1,121 @@
+{
+  "cli_version": "0.10.6-nightly.202609040625.7c63555a3",
+  "checkpoint_id": "e36e15b5ffc4",
+  "session_id": "305cd403-8887-40ee-9c8c-bbd24789d5e9",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-05T20:21:49.039801Z",
+  "branch": "skill/search-research-triggers",
+  "checkpoints_count": 6,
+  "save_step_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "ba7b2beba2e6",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 1540,
+    "cache_creation_tokens": 132702,
+    "cache_read_tokens": 7726331,
+    "output_tokens": 44403,
+    "api_call_count": 63
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01GN99K6mrKTnaWF2tGm8XM8",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:writing-skills"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "08ff3f8def32",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 77,
+        "end": 78,
+        "entry_ids": [
+          "3c20b26b-c2ab-4fe5-b847-3a9ac57f4eb5"
+        ],
+        "tool_use_id": "toolu_01GN99K6mrKTnaWF2tGm8XM8"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01GN99K6mrKTnaWF2tGm8XM8"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:writing-skills",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "prompt-skill-claude-code-rubber-duck-2026-09-05T18:59:12.636236Z",
+      "event_type": "prompt_invocation",
+      "skill": {
+        "name": "rubber-duck"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "prompt_slash_command",
+        "confidence": "explicit"
+      },
+      "turn_id": "442d4a37f906",
+      "timestamp": "2026-09-05T18:59:12.636236Z",
+      "native": {
+        "command": "/rubber-duck"
+      },
+      "collapse": {
+        "target": "user_message",
+        "label": "/rubber-duck",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01Rj1wjqZi8G3HagJutqrkq1",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "entire-internal:github-pr-review"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "ba7b2beba2e6",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 677,
+        "end": 678,
+        "entry_ids": [
+          "b6792702-d0da-4b77-ad8e-96961debb207"
+        ],
+        "tool_use_id": "toolu_01Rj1wjqZi8G3HagJutqrkq1"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01Rj1wjqZi8G3HagJutqrkq1"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: entire-internal:github-pr-review",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 14
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
