@@ -18,7 +18,7 @@ empty directory, concludes there is nothing to research, and never reaches for
 a skill, which makes the bare-verb cases fail for the wrong reason. Results
 land in `evals/results/`, which is git-ignored.
 
-## Measured on 2026-09-05 (Claude Code 2.1.261, 2 runs per case, hook removed)
+## Measured on 2026-09-05 (Claude Code 2.1.261, 2 runs per case)
 
 | Case | Old descriptions, empty cwd | Old descriptions, fixture | New descriptions, fixture |
 | --- | --- | --- | --- |
@@ -34,5 +34,4 @@ The description rewrite is what moves "dig into" and "look into". For the bare
 "research X" / "investigate X" prompts, most of the earlier failure was the
 empty eval cwd rather than the descriptions; with a fixture the old wording
 already passed 4/4 and the new wording passes 6/6 across the three bare cases.
-The `UserPromptSubmit` hook is not required for any case to pass; it remains as
-a belt-and-braces reminder for Claude Code only.
+All runs above were made with no hook installed; the plugin ships none.

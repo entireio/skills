@@ -87,20 +87,14 @@ For a guided walkthrough, see the
 
 Agents pick skills by matching the request against each skill's description, and
 generic verbs like "research", "investigate", or "look into" compete with their
-built-in grep and file-reading tools. Two things in this repository tip that
-balance toward Entire history:
+built-in grep and file-reading tools. The `search` and `using-entire` skill
+descriptions claim those verbs explicitly and ask for the skill as the first
+action, before any file orientation, so a plain "investigate X" routes to
+`entire search` first. This is measured to be sufficient on its own (see
+`evals/README.md`).
 
-- The `search` and `using-entire` skill descriptions claim those verbs
-  explicitly and ask for the skill as the first action, before any file
-  orientation, so a plain "investigate X" routes to `entire search` first.
-  This is measured to be sufficient on its own (see `evals/README.md`).
-- For Claude Code, the plugin also ships an optional `UserPromptSubmit` hook
-  (`hooks/research-nudge.sh`) that recognizes research-shaped prompts and
-  reminds the agent to run `entire search` before reading code. Other agents
-  ignore the hook.
-
-User instructions outrank skill descriptions in every agent, so the most
-reliable option is a line in your `CLAUDE.md` or `AGENTS.md`:
+User instructions outrank skill descriptions in every agent, so if you want a
+guarantee, add a line to your `CLAUDE.md` or `AGENTS.md`:
 
 ```markdown
 When asked to research, investigate, look into, or dig into anything in this
