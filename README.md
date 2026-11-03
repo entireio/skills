@@ -8,7 +8,7 @@ Bring your Entire context to your agents with cross-agent skills.
 
 The [Entire CLI](https://github.com/entireio/cli) captures the context behind your
 code changes: prompts, transcripts,
-[Checkpoints](https://docs.entire.io/cli/checkpoints), and the decisions that led
+[Checkpoints](https://docs.entire.com/guides/sessions/overview), and the decisions that led
 to each change, alongside your git history. This repository packages
 agent-invokable workflows that teach coding agents how to use that context across
 development environments.
@@ -38,7 +38,7 @@ instructions by agent.
 
 > [!NOTE]
 > These skills are most useful in codebases with real
-> [Checkpoints](https://docs.entire.io/cli/checkpoints) and session history. The
+> [Checkpoints](https://docs.entire.com/guides/sessions/overview) and session history. The
 > richer the history, the more context your agent has to work with; in a new or
 > lightly captured repository, some workflows may have less to find or explain.
 
@@ -69,7 +69,7 @@ review this branch before merging
 ```
 
 For a guided walkthrough, see the
-[skills tutorial](https://docs.entire.io/skills/tutorial).
+[skills tutorial](https://docs.entire.com/learn/skills).
 
 ## What skills help agents do
 
@@ -146,33 +146,46 @@ https://github.com/user-attachments/assets/0df3b5cd-fe37-4145-af48-138642ccc8bc
 Reviews code changes on the current branch by reading checkpoint transcripts to
 understand developer intent, then auditing the diff for issues. Produces
 intent-aware findings with severity levels (`Critical` / `High` / `Medium` /
-`Low`) compatible with `entire review --fix`. Includes a separate
+`Low`), and can run as a reviewer inside `entire review`. When the Entire Graph
+and Brain plugins are installed, it also checks callers of changed symbols and
+recorded decisions for the touched code. Includes a separate
 `references/review-rules.md` for the audit checklist.
 
 ### `using-entire`
 
 Orchestrator skill for codebase exploration. Routes user intent to the right
 sub-skill (search, explain, what-happened, review, session-handoff,
-session-to-skill, session-crosslink) or runs a general exploration flow that
-reads checkpoint history before inferring from code.
+session-to-skill, session-crosslink, address-findings) or runs a general
+exploration flow that reads checkpoint history before inferring from code. When
+the Entire Graph or Brain plugin is installed, it also routes code-structure
+questions to Graph and task-briefing or decision questions to Brain.
 
 ### `session-crosslink`
 
 Links an agent session that ran outside the repo whose commits should record it
 — launched from a higher-level folder, a non-Entire repo, or one repo but
-editing another — to each affected Entire-enabled repo's HEAD commit. Previews
-with `--dry-run` then amends on confirmation, no manual `cd` orchestration.
+editing another — to each affected Entire-enabled repo's HEAD commit. Shows a
+preview first, then amends on confirmation, no manual `cd` orchestration.
 
 ## Requirements
 
 These skills are designed for repositories where Entire has captured useful
 history. Some workflows need:
 
-- the [Entire CLI](https://github.com/entireio/cli) installed
+- the [Entire CLI](https://docs.entire.com/installation) 0.11.0 or later
+  (checked against 0.12.2)
 - a git repository with Entire sessions, Checkpoints, or Checkpoint-backed commits
-- [`entire login`](https://docs.entire.io/cli/commands#login) for workflows that
-  search indexed history
-- a GitHub `origin` and pushed, indexed Checkpoints for remote search results
+- [`entire login`](https://docs.entire.com/cli-reference/login) for workflows that
+  search indexed history or read trails
+- a GitHub or Entire-hosted `origin` and pushed, indexed Checkpoints for remote
+  search results
+
+Optional: the official [Entire Graph](https://docs.entire.com/guides/graph/overview)
+and [Entire Brain](https://docs.entire.com/guides/brain/overview) plugins
+(`entire plugin install graph`, `entire plugin install brain`). When installed,
+`using-entire`, `search`, `explain`, `review`, `recall`, `teach`, and
+`session-handoff` add code-structure context from Graph and recorded decisions
+from Brain. The skills never install or set up a plugin themselves.
 
 Individual skills handle missing context differently and should explain what is
 missing before falling back or stopping.

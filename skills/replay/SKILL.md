@@ -45,7 +45,7 @@ entire version
 ```
 
 - If this is not a git repo, stop and tell the user: `Run this from inside a git repository.`
-- If the Entire CLI is unavailable, stop and tell the user: `The Entire CLI is required but not installed. Install it from https://entire.io/docs/cli and try again.`
+- If the Entire CLI is unavailable, stop and tell the user: `The Entire CLI is required but not installed. Install it from https://docs.entire.com/installation and try again.`
 
 2. Treat `entire search`, `entire checkpoint explain`, and `entire dispatch` as authentication-gated. If any reports authentication is required, stop and tell the user:
 

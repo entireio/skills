@@ -19,7 +19,7 @@ followed by a blank line, then the content. Apply the header to the **first resp
 2. **Do NOT run `entire session attach` without showing the preview table first.** The whole point of this skill is preview-then-confirm. `attach` amends the target repo's HEAD; previewing wrong means amending the wrong commit.
 3. **Always `cd` into the target repo before running `entire session attach`.** The CLI resolves the repo from cwd. Use one `cd … && entire session attach …` per call so each invocation hits the right repo.
 
-Required CLI: `entire` 0.6.2+. No special flags needed — this skill works against the shipped CLI via cwd-scoped `entire session attach`.
+Required CLI: `entire` 0.11.0+ (for the `resolution` field of `entire session current --json`). No special flags needed — this skill works against the shipped CLI via cwd-scoped `entire session attach`.
 
 ## Flow
 
@@ -33,7 +33,15 @@ Try each strategy in order until one returns a session id.
 entire session current --json
 ```
 
-If the output is valid JSON **and** has a non-empty `session_id`, read `session_id` and `agent` and continue with those values. If the JSON parses but `session_id` is missing or empty, treat Strategy A as failed and fall through to B — don't proceed to attach with no session id.
+If the output is valid JSON **and** has a non-empty `session_id`, check `resolution` before using it. Attach acts on the session, so the session must be this agent's own:
+
+- `caller-env` or `ancestry` → it is this agent's session. Read `session_id` and `agent` and continue.
+- `worktree` or `caller-ambiguous` → it is a guess (the most recent session here, or one of several claimants). Continue only if the user confirms it, and label it as inferred in the Step 3 preview.
+- `other-worktree` → it belongs to another worktree. Treat Strategy A as failed and fall through to B.
+
+If the JSON parses but `session_id` is missing or empty, treat Strategy A as failed and fall through to B — don't proceed to attach with no session id.
+
+With `--json`, a missing session prints nothing on stdout and exits non-zero. When this agent's own session is not tracked, stderr says `This command is running inside <agent> session <id>, but Entire has no session state for it.` That `<id>` is this session's id and is exactly what `entire session attach` needs; use it with `--agent` set from `<agent>` (for example `Claude Code` → `claude-code`, `Codex` → `codex`; `entire agent list` shows the names). If stderr instead says several sessions claim the command, do not pick one: fall through to B.
 
 **Strategy B: Entire-enabled sibling repo.** If the user named a repo that has Entire enabled (e.g. `the foo repo`), `cd` there and re-try `entire session current --json`. The session state lives wherever the session was tracked.
 

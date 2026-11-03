@@ -51,10 +51,16 @@ If the user wants a specific skill name, use it. Otherwise infer a short hyphen-
 
 If the user gives a checkpoint ID, skip to checkpoint expansion.
 
-If the user gives a session ID, read the matching session metadata from:
+If the user gives a session ID, read its metadata with:
 
-```text
-.git/entire-sessions/<session-id>.json
+```bash
+entire session info <session-id> --json
+```
+
+It reports `agent`, `status`, `started_at`, `turns`, and, when known, `last_active`, `last_prompt`, and `files_touched`. If the command fails, read the state file directly from the git common directory (shared by every worktree):
+
+```bash
+cat "$(git rev-parse --git-common-dir)/entire-sessions/<session-id>.json"
 ```
 
 If the user describes a repeated workflow but does not give a session or checkpoint, search Entire history with terms from the target:
@@ -75,7 +81,7 @@ Interpret search results carefully:
 - Only say authentication is required if the command output explicitly says authentication, login, or credentials are required.
 - If search fails for any other reason, report the short error and fall back to local session metadata when available.
 
-When falling back locally, inspect `.git/entire-sessions/*.json` and match against `last_prompt`, `description`, `files_touched`, `started_at`, `last_interaction_time`, `agent_type`, and the user's workflow terms.
+When falling back locally, run `entire session list --json` and match each entry's `last_prompt`, `files_touched`, `started_at`, `last_active`, and `agent` against the user's workflow terms. If that command fails, inspect `$(git rev-parse --git-common-dir)/entire-sessions/*.json` and match `last_prompt`, `files_touched`, `started_at`, `last_interaction_time`, and `agent_type` instead.
 
 Review the top results and infer the repeated workflow pattern before showing raw session choices. Lead with the pattern, not the IDs.
 
@@ -115,13 +121,15 @@ If full output fails and the user wants more detail, fall back to:
 entire checkpoint explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 ```
 
-For an active or current session, prefer:
+For an active or current session, read its metadata with `entire session current --json`, then stream its transcript to a file:
 
 ```bash
-entire session current
+entire session current --transcript > /tmp/skill-src-current.jsonl
 ```
 
-If the installed Entire CLI does not support the singular `session` group yet, use the session metadata fallback directly: inspect `.git/entire-sessions/*.json`, pick the relevant session by `last_interaction_time`, `started_at`, `agent_type`, or the user's requested agent, then extract `transcript_path`.
+For another session, use `entire session info <session-id> --transcript > /tmp/skill-src-<session-id>.jsonl`. Use the resulting file as `<transcript_path>` below.
+
+If these commands fail, use the session metadata fallback directly: inspect `$(git rev-parse --git-common-dir)/entire-sessions/*.json`, pick the relevant session by `last_interaction_time`, `started_at`, `agent_type`, or the user's requested agent, then extract `transcript_path`.
 
 When reading a raw transcript, extract relevant conversation and tool-call lines without dumping them to the user:
 
