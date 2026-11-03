@@ -60,7 +60,7 @@ entire session info <session-id> --json
 It reports `agent`, `status`, `started_at`, `turns`, and, when known, `last_active`, `last_prompt`, and `files_touched`. If the command fails, read the state file directly from the git common directory (shared by every worktree):
 
 ```bash
-cat "$(git rev-parse --git-common-dir)/entire-sessions/<session-id>.json"
+cat "$(git rev-parse --path-format=absolute --git-common-dir)/entire-sessions/<session-id>.json"
 ```
 
 If the user describes a repeated workflow but does not give a session or checkpoint, search Entire history with terms from the target:
@@ -81,7 +81,7 @@ Interpret search results carefully:
 - Only say authentication is required if the command output explicitly says authentication, login, or credentials are required.
 - If search fails for any other reason, report the short error and fall back to local session metadata when available.
 
-When falling back locally, run `entire session list --json` and match each entry's `last_prompt`, `files_touched`, `started_at`, `last_active`, and `agent` against the user's workflow terms. If that command fails, inspect `$(git rev-parse --git-common-dir)/entire-sessions/*.json` and match `last_prompt`, `files_touched`, `started_at`, `last_interaction_time`, and `agent_type` instead.
+When falling back locally, run `entire session list --json` and match each entry's `last_prompt`, `files_touched`, `started_at`, `last_active`, and `agent` against the user's workflow terms. If that command fails, inspect `$(git rev-parse --path-format=absolute --git-common-dir)/entire-sessions/*.json` and match `last_prompt`, `files_touched`, `started_at`, `last_interaction_time`, and `agent_type` instead.
 
 Review the top results and infer the repeated workflow pattern before showing raw session choices. Lead with the pattern, not the IDs.
 
@@ -129,7 +129,7 @@ entire session current --transcript > /tmp/skill-src-current.jsonl
 
 For another session, use `entire session info <session-id> --transcript > /tmp/skill-src-<session-id>.jsonl`. Use the resulting file as `<transcript_path>` below.
 
-If these commands fail, use the session metadata fallback directly: inspect `$(git rev-parse --git-common-dir)/entire-sessions/*.json`, pick the relevant session by `last_interaction_time`, `started_at`, `agent_type`, or the user's requested agent, then extract `transcript_path`.
+If these commands fail, use the session metadata fallback directly: inspect `$(git rev-parse --path-format=absolute --git-common-dir)/entire-sessions/*.json`, pick the relevant session by `last_interaction_time`, `started_at`, `agent_type`, or the user's requested agent, then extract `transcript_path`.
 
 When reading a raw transcript, extract relevant conversation and tool-call lines without dumping them to the user:
 
