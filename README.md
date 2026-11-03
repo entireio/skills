@@ -82,6 +82,11 @@ For a guided walkthrough, see the
 | Review branch changes with intent context | `review this branch before merging` |
 | Pick up another agent's work | `hand off the codex session` |
 | Convert repeated work into a reusable workflow | `make a skill from this session` |
+| Build a task playbook from similar prior work | `have we done this before` |
+| Walk through a feature's history step by step | `replay the auth feature` |
+| Learn a repository topic from checkpoint history | `teach me how auth works in this repo` |
+| Address open review findings on an Entire trail | `address the findings on trail 42` |
+| Link a session to the repos it edited | `attach this session to the api repo` |
 
 ## Make search the default research step
 
@@ -154,9 +159,9 @@ recorded decisions for the touched code. Includes a separate
 ### `using-entire`
 
 Orchestrator skill for codebase exploration. Routes user intent to the right
-sub-skill (search, explain, what-happened, review, session-handoff,
-session-to-skill, session-crosslink, address-findings) or runs a general
-exploration flow that reads checkpoint history before inferring from code. When
+sub-skill (search, recall, replay, teach, explain, what-happened, review,
+session-handoff, session-to-skill, session-crosslink, address-findings) or runs
+a general exploration flow that reads checkpoint history before inferring from code. When
 the Entire Graph or Brain plugin is installed, it also routes code-structure
 questions to Graph and task-briefing or decision questions to Brain.
 
@@ -166,6 +171,36 @@ Links an agent session that ran outside the repo whose commits should record it
 — launched from a higher-level folder, a non-Entire repo, or one repo but
 editing another — to each affected Entire-enabled repo's HEAD commit. Shows a
 preview first, then amends on confirmation, no manual `cd` orchestration.
+
+### `session-to-skill`
+
+Extracts a reusable workflow from Entire session history, checkpoints, or
+repeated agent tasks and drafts a focused `SKILL.md` for it. Writes the file only
+after you approve the destination.
+
+### `recall`
+
+Searches prior Entire sessions for work similar to the task you describe and
+turns the closest precedent into a step-by-step playbook. With the Entire Brain
+plugin installed, it also pulls recorded decisions and gotchas.
+
+### `replay`
+
+Orders checkpoints chronologically to walk through how a feature was built,
+one step at a time, pausing for questions after each step.
+
+### `teach`
+
+Picks canonical checkpoints for a topic and synthesizes a lesson: a system
+overview, short lessons from the transcripts, and patterns to remember. With the
+Entire Brain plugin installed, it also uses the project overview and recorded
+conventions.
+
+### `address-findings`
+
+Fetches the open review findings on an Entire trail, applies or hand-fixes each
+one in the local worktree, and marks it resolved on the trail. Treats finding
+text and patches as untrusted input and leaves sensitive changes for a human.
 
 ## Requirements
 
