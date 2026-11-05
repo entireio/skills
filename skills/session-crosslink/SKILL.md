@@ -17,9 +17,10 @@ followed by a blank line, then the content. Apply the header to the **first resp
 
 1. **Do NOT ask clarifying questions until the resolver/discovery steps have run.** The session id and candidate repo list usually resolve from `entire session current --json` plus what the user said. Only ask if both come back empty.
 2. **Do NOT run `entire session attach --force` without showing the preview table first.** The whole point of this skill is preview-then-confirm. `attach` can amend the target repo's HEAD; previewing wrong means amending the wrong commit.
-3. **Always `cd` into the target repo before running `entire session attach`.** The CLI resolves the repo from cwd. Use one `cd … && entire session attach …` per call so each invocation hits the right repo.
+3. **Always `cd` into the target repo before running `entire session attach`.** The CLI resolves the repo from cwd. Use one `cd … && GIT_TERMINAL_PROMPT=0 entire session attach …` per call so each invocation hits the right repo.
+4. **Run every `entire session attach` with `GIT_TERMINAL_PROMPT=0`, and stop on output you don't recognize.** Some agents run shell commands in a pseudo-terminal, where attach without `--force` asks `Continue?` and waits instead of printing its plan. `GIT_TERMINAL_PROMPT=0` tells the CLI not to prompt. If a preview matches none of the shapes in Step 3, or attach prompts anyway, stop: answer nothing, run no `--force` in any repo, and show the user what attach printed.
 
-Required CLI: `entire` 0.11.5+ (for the `resolution` field of `entire session current --json`, and for `entire session attach` printing its plan without changing anything until `--force`). No special flags needed — this skill works against the shipped CLI via cwd-scoped `entire session attach`.
+Required CLI: `entire` 0.11.5+, for the `resolution` field of `entire session current --json` and for `entire session attach` printing its plan without changing anything until `--force`. The plan shapes in Step 3 match 0.12.2 and the 0.12.3 nightly of 2026-11-05.
 
 ## Flow
 
@@ -36,7 +37,7 @@ entire session current --json
 If the output is valid JSON **and** has a non-empty `session_id`, check `resolution` before using it. Attach acts on the session, so the session must be this agent's own:
 
 - `caller-env` or `ancestry` → it is this agent's session. Read `session_id` and `agent` and continue.
-- `worktree` or `caller-ambiguous` → it is a guess (the most recent session here, or one of several claimants). Continue only if the user confirms it, and label it as inferred in the Step 3 preview.
+- `worktree` or `caller-ambiguous` → it is a guess (the most recent session here, or one of several claimants). Continue only if the user confirms it, and label it as inferred in the Step 4 preview table.
 - `other-worktree` → it belongs to another worktree. Treat Strategy A as failed and fall through to B.
 
 If the JSON parses but `session_id` is missing or empty, treat Strategy A as failed and fall through to B — don't proceed to attach with no session id.
@@ -51,7 +52,7 @@ With `--json`, a missing session prints nothing on stdout and exits non-zero. Wh
 - **Codex:** check `$CODEX_HOME/sessions/` or `~/.codex/sessions/`. Set `agent` to `codex`.
 - **Other runtimes:** ask the user for the session id.
 
-Record `agent` so Step 4 can pass `--agent <name>` to attach.
+Record `agent` so Steps 3 and 5 can pass `--agent <name>` to attach.
 
 **If all strategies fail:** print "Could not resolve a session id — pass one explicitly or run from an Entire-enabled directory" and stop.
 
@@ -78,34 +79,68 @@ If the candidate set is empty, ask the user which repos to crosslink.
 `entire session attach` previews itself. Run it **without** `--force` in each candidate repo:
 
 ```bash
-cd "<repo>" && entire session attach <session-id> --agent <agent>
+cd "<repo>" && GIT_TERMINAL_PROMPT=0 entire session attach <session-id> --agent <agent>
 ```
 
-From an agent shell there is no terminal to prompt on, so attach prints what it would do to stderr, adds `Nothing was changed. This needs the user's go-ahead…`, and exits non-zero without touching the repo. Read the printed plan and classify the repo:
+In PowerShell, set the variable in the same command: `$env:GIT_TERMINAL_PROMPT = '0'; entire session attach …`. With prompts off, attach prints what it would do, adds `Nothing was changed. This needs the user's go-ahead…`, and exits 1 without touching the repo. To check whether the commit is pushed, the preview fetches the repo's remotes.
 
-- **`would_add_trailer`**: the plan ends with `Session <id> goes into a new checkpoint linked by that trailer.` Attach adds an `Entire-Checkpoint` trailer to an unpushed commit, which rewrites that commit and any later commits on the branch; the plan lists them.
-- **`would_link_existing`**: the plan starts with `Adds session <id> to checkpoint <checkpoint>, which commit <hash> already has. Git history is not changed.` Record that checkpoint ID.
-- **`would_link_pushed`**: the plan starts with `Commit <hash> is already pushed to <remote>, so it won't be changed.` The link goes into a new checkpoint instead. If the plan adds `A recorded link counts only when the commit's author attaches it.`, say so in the table.
-- **`already_linked`**: attach printed `Session <id> is already in checkpoint <checkpoint> on commit <hash>.` and exited 0. Nothing to do.
-- **`would_push_existing`**: attach printed that same line, then `Checkpoint <checkpoint>, which holds session <id>, isn't on <remote> yet.` An earlier attach linked the session but did not push it; `--force` only pushes that checkpoint.
-- **`error: <reason>`**: attach refused, for example no commits yet, merges after the commit, a rebase or merge in progress, or the remote could not be reached to confirm the commit is unpushed. Record the reason.
+Keep each repo's exit status and output, then classify it in two passes. Match the short fragments below, not whole sentences. Read stdout and stderr together, since a harness with a terminal may merge them.
 
-Also note where the transcript goes. `Pending checkpoints, including this one with the session transcript, are pushed to <remote> now.` means attach pushes the transcript as soon as it runs; `…pushed with your next git push.` means it waits. Show this per repo so the user knows what leaves the machine.
+**Pass 1: outcome.**
 
-Note any warning attach prints, such as `the session has no new turns since checkpoint …`. A session can be attached to several commits; each checkpoint records the turns since the previous one.
+| Exit | Output contains | Outcome |
+|---|---|---|
+| non-zero | a line with both `Nothing was changed` and `--force` | preview: classify it in pass 2 |
+| non-zero | no such line | `error: <attach's message>` |
+| 0 | `is already in checkpoint <checkpoint> on commit <hash>` | `already_linked`: nothing to do |
+| 0 | `Entire is disabled` | `error: Entire is disabled` |
+| 0 | anything else | `unrecognized` |
+
+An error means attach refused, for example `repository has no commits yet`, merges after the commit, a rebase or merge in progress, or a remote it couldn't reach to confirm the commit is unpushed. Record attach's message as the reason.
+
+**Pass 2: plan.** A preview must match exactly one action fragment and exactly one transcript fragment.
+
+| Action | Fragment |
+|---|---|
+| `would_add_trailer` | `goes into a new checkpoint linked by that trailer` |
+| `would_link_existing` | `Adds session <id> to checkpoint <checkpoint>, which commit` … `already has` |
+| `would_link_pushed` | `is already pushed to <remote>, so it won't be changed` |
+| `would_push_existing` | `which holds session <id>, isn't on <remote> yet` |
+
+| Transcript | Fragment |
+|---|---|
+| `now, to <remote>` | `are pushed to <remote> now` |
+| `on next git push` | `is pushed with your next git push` |
+| `held` | `stays on this machine until you upload it with 'entire checkpoint push'` |
+
+- **`would_add_trailer`**: attach adds an `Entire-Checkpoint` trailer to an unpushed commit, which rewrites that commit and any later commits on the branch; the plan lists them.
+- **`would_link_existing`**: the commit already has a checkpoint. Attach adds the session to it and leaves git history unchanged. Record that checkpoint ID.
+- **`would_link_pushed`**: the commit is already pushed, so attach leaves it unchanged and records the link in a new checkpoint. If the plan adds `A recorded link counts only when the commit's author attaches it.`, say so in the table.
+- **`would_push_existing`**: an earlier attach linked the session but didn't push the checkpoint; `--force` only pushes it.
+
+The transcript column tells the user what leaves the machine, and when. `held` comes from the manual checkpoint push policy in CLI releases after 0.12.2: the checkpoint stays on the machine until the user runs `entire checkpoint push`. An `already_linked` repo whose output says `is waiting; upload it with: entire checkpoint push` is held the same way.
+
+**Anything else is `unrecognized`:** a preview that matches no action or transcript fragment, or more than one, and any exit-0 output not listed in pass 1. The CLI has probably reworded its plan. Stop: run no `--force` in any repo, show the user what attach printed for that repo, and ask them to check it or run attach themselves. Don't infer a plan from a partial match.
+
+Show the plan's other lines to the user as printed, such as notes on signed commits, branches that keep the old commits, or `Only the turns since checkpoint … are recorded`. If attach warns `no user prompts were parsed from this transcript`, the session id or `--agent` is probably wrong: stop and ask the user. Other warnings, such as `the session has no new turns since checkpoint …`, go in the preview. A session can be attached to several commits; each checkpoint records the turns since the previous one.
 
 ### Step 4: Render the preview table
 
-Show the user a compact table:
+If any repo is `unrecognized`, skip the table and the question: stop as Step 3 says.
+
+Otherwise show the user a compact table:
 
 ```
 repo     commit    action                checkpoint   transcript pushed
 foo      a1b2c3d   would_add_trailer     (new)        on next git push
 bar      e4f5g6h   would_link_existing   ckpt-7d6c    now, to origin
 web      9c8d7e6   would_link_pushed     (new)        now, to origin
-qux      b7c8d9e   already_linked        ckpt-c97b    —
-baz      —         error: no commits yet —            —
+ops      5d4c3b2   would_link_pushed     (new)        held: entire checkpoint push
+qux      b7c8d9e   already_linked        ckpt-c97b    -
+baz      -         error: no commits yet -            -
 ```
+
+Under the table, quote each `would_*` repo's plan exactly as attach printed it, up to `Nothing was changed`, so the user approves attach's own words rather than a summary of them.
 
 Then ask: "Attach session `<id>` to the would_* rows? `already_linked` and error rows will be skipped."
 
@@ -114,17 +149,26 @@ Then ask: "Attach session `<id>` to the would_* rows? `already_linked` and error
 For each row the user confirmed where `action` starts with `would_`:
 
 ```bash
-cd "<repo>" && entire session attach <session-id> --agent <agent> --force
+cd "<repo>" && GIT_TERMINAL_PROMPT=0 entire session attach <session-id> --agent <agent> --force
 ```
 
 Skip `already_linked` and `error:` rows.
 
-Capture exit status per repo. Report a final summary:
+Then rerun the Step 3 preview command in each attached repo. It should exit 0 with `is already in checkpoint <checkpoint>`, which gives the checkpoint ID for the summary. For a `would_add_trailer` row, also confirm that the rewritten HEAD carries the trailer:
+
+```bash
+cd "<repo>" && git log -1 --format='%(trailers:key=Entire-Checkpoint,valueonly)'
+```
+
+If the rerun previews `would_push_existing` instead, attach wrote the checkpoint but couldn't push it; a `--force` that exits 1 with `was written locally but did not reach <remote>` ends this way. Report it, and push with `--force` again only if the user agrees. Report any other result as attach printed it.
+
+Report a final summary:
 
 ```
 attached:
   foo    ckpt-9f8e  (new trailer on a1b2c3d)
   bar    ckpt-7d6c  (added to existing checkpoint on e4f5g6h)
+  ops    ckpt-3b2a  (link recorded; held until entire checkpoint push)
 skipped:
   baz    (no commits yet)
   qux    (already linked: ckpt-c97b)
@@ -137,11 +181,13 @@ Attach only rewrites unpushed commits (`would_add_trailer` rows), so a normal `g
 - **Session id not resolvable**: stop with a one-line message — see Step 1.
 - **No candidate repos**: ask the user which repos to crosslink.
 - **All candidates report `already_linked`**: tell the user the session is already linked everywhere; no work to do.
+- **A preview is `unrecognized`**: stop before any `--force` and show the user what attach printed (Step 3).
+- **attach asks `Continue?` or doesn't return**: don't answer it. Stop the command and the skill, and tell the user. With `GIT_TERMINAL_PROMPT=0` set, attach doesn't prompt.
 - **A repo's `attach` fails mid-run after others succeeded**: do not retry automatically. Report which repos succeeded vs failed and surface the failing repo's stderr. Re-running the skill is safe: repos that already hold the session report `already_linked`.
 - **HEAD has no commits in a candidate**: skip that row with `error: no commits yet`. Tell the user to make at least one commit there first.
-- **Attach can't confirm the commit is unpushed** (remote unreachable): skip that row with the error; tell the user to retry when the remote is reachable.
-- **`entire session attach` fails with `Entire is disabled`**: the target repo opted out. Tell the user; don't retry.
+- **Attach can't confirm the commit is unpushed** (remote unreachable): skip that row with the error; tell the user to retry when the remote is reachable. The preview fetches each remote, so in a sandbox without network access (for example Codex), run attach outside the sandbox.
+- **attach prints `Entire is disabled` and exits 0**: the target repo opted out. Tell the user; don't retry.
 
 ## Why this skill exists
 
-Entire tracks agent sessions per repo via state stored under each repo's git common dir. When an agent runs from a higher-level folder, a sibling repo, or a non-Entire-enabled parent, none of the child repos see the session. This skill resolves the session id from the agent runtime (which always has it), discovers affected repos, previews each, then runs `entire session attach` per repo on confirmation — without amending the wrong commit or asking the user to babysit per-repo `cd`s.
+Entire tracks agent sessions per repo via state stored under each repo's git common dir. When an agent runs from a higher-level folder, a sibling repo, or a non-Entire-enabled parent, none of the child repos see the session. This skill resolves the session id from the agent runtime (which always has it), discovers affected repos, previews each with attach's own plan, then runs `entire session attach --force` per repo on confirmation, without rewriting the wrong commit or asking the user to babysit per-repo `cd`s.

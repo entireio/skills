@@ -168,9 +168,10 @@ questions to Graph and task-briefing or decision questions to Brain.
 ### `session-crosslink`
 
 Links an agent session that ran outside the repo whose commits should record it
-— launched from a higher-level folder, a non-Entire repo, or one repo but
-editing another — to each affected Entire-enabled repo's HEAD commit. Shows a
-preview first, then amends on confirmation, no manual `cd` orchestration.
+(launched from a higher-level folder, a non-Entire repo, or one repo but editing
+another) to each affected Entire-enabled repo's HEAD commit. It shows
+`entire session attach`'s own plan for each repo, stops if it doesn't recognize
+a plan, and attaches only after you confirm, with no manual `cd` orchestration.
 
 ### `session-to-skill`
 
