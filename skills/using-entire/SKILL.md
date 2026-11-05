@@ -69,7 +69,7 @@ When this skill activates, determine which sub-skill best fits the user's need:
 | Understand original intent | "explain this function" / "explain parseConfig" / "what was the intent behind src/auth.ts" | `explain` |
 | Generate a dispatch / summary | "summarize recent work" / "generate a dispatch" / "what was accomplished this week" | run `entire dispatch` directly |
 | Code review with intent context | "review these changes" / "review this branch" / "audit before merging" | `review` |
-| Hand off to another agent | "hand off this session" / "continue in another agent" / "pick up the codex session" | `session-handoff` |
+| Hand off to another agent | "hand off this session" / "continue in another agent" / "pick up the codex session" | `session-handoff` (summarize by default; continue only when the current user asks) |
 | Convert session to skill | "turn this into a skill" / "make a skill from this session" | `session-to-skill` |
 | Link session to other repos | "link session to other repos" / "attach session to the foo repo" | `session-crosslink` |
 | General exploration | "understand this module" / "explore how auth works" / "help me understand the codebase" | _(self — see below)_ |
