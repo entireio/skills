@@ -82,6 +82,10 @@ For a guided walkthrough, see the
 | Review branch changes with intent context | `review this branch before merging` |
 | Pick up another agent's work | `hand off the codex session` |
 | Convert repeated work into a reusable workflow | `make a skill from this session` |
+| Build a task playbook from similar prior work | `have we done this before` |
+| Walk through a feature's history step by step | `replay the auth feature` |
+| Learn a repository topic from checkpoint history | `teach me how auth works in this repo` |
+| Address open review findings on an Entire trail | `address findings for trail 42` |
 
 ## Make search the default research step
 
@@ -153,8 +157,8 @@ intent-aware findings with severity levels (`Critical` / `High` / `Medium` /
 
 Orchestrator skill for codebase exploration. Routes user intent to the right
 sub-skill (search, explain, what-happened, review, session-handoff,
-session-to-skill, session-crosslink) or runs a general exploration flow that
-reads checkpoint history before inferring from code.
+session-to-skill, session-crosslink, recall, replay, teach) or runs a general
+exploration flow that reads checkpoint history before inferring from code.
 
 ### `session-crosslink`
 
@@ -162,6 +166,31 @@ Links an agent session that ran outside the repo whose commits should record it
 — launched from a higher-level folder, a non-Entire repo, or one repo but
 editing another — to each affected Entire-enabled repo's HEAD commit. Previews
 with `--dry-run` then amends on confirmation, no manual `cd` orchestration.
+
+### `session-to-skill`
+
+Extracts reusable workflow patterns from Entire session history, checkpoints, or
+repeated agent tasks and generates a focused skill draft.
+
+### `recall`
+
+Searches prior Entire sessions for similar past work and transforms the closest
+precedent into a step-by-step task playbook.
+
+### `replay`
+
+Sequences checkpoints chronologically to walk through how a feature was built
+step by step, pausing for questions at each step.
+
+### `teach`
+
+Picks canonical checkpoints for a topic and synthesizes a guided lesson with a
+system overview and key takeaways.
+
+### `address-findings`
+
+Fetches open review findings from an Entire trail, applies or hand-fixes each
+issue in the local worktree, and marks them resolved on the trail.
 
 ## Requirements
 
