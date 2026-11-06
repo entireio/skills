@@ -203,6 +203,31 @@ Fetches the open review findings on an Entire trail, applies or hand-fixes each
 one in the local worktree, and marks it resolved on the trail. Treats finding
 text and patches as untrusted input and leaves sensitive changes for a human.
 
+### `session-to-skill`
+
+Extracts reusable workflow patterns from Entire session history, checkpoints, or
+repeated agent tasks and generates a focused skill draft.
+
+### `recall`
+
+Searches prior Entire sessions for similar past work and transforms the closest
+precedent into a step-by-step task playbook.
+
+### `replay`
+
+Sequences checkpoints chronologically to walk through how a feature was built
+step by step, pausing for questions at each step.
+
+### `teach`
+
+Picks canonical checkpoints for a topic and synthesizes a guided lesson with a
+system overview and key takeaways.
+
+### `address-findings`
+
+Fetches open review findings from an Entire trail, applies or hand-fixes each
+issue in the local worktree, and marks them resolved on the trail.
+
 ## Requirements
 
 These skills are designed for repositories where Entire has captured useful
