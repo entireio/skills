@@ -1,3 +1,10 @@
 docs
 settings.local.json
 evals/results/
+
+# Skills that `entire agent add --search-skill` / `--agent-help-skill` scaffold
+# into agent directories. This repo publishes its skills from skills/, and the
+# skills installer also scans .claude/skills, .agents/skills, and similar, so
+# committing these would ship duplicates of the search skill to users.
+/.*/skills/entire-search/
+/.*/skills/entire/

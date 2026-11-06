@@ -5,8 +5,9 @@ This file defines the severity levels, audit dimensions, and output format for t
 
 ## Severity Levels
 
-Every finding must begin with one of these severity prefixes. These prefixes are parsed
-by `entire review --fix` to extract individual findings for automated remediation.
+Every finding must begin with one of these severity prefixes. Keep them exact: when
+`entire review` runs this skill as one of its reviewers, its judge consolidates findings
+across reviewers by severity.
 
 | Severity | Prefix | Meaning | Examples |
 | --- | --- | --- | --- |

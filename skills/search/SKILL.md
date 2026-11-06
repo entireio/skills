@@ -1,6 +1,15 @@
 ---
 name: search
-description: Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or "what do we know about X". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories ("where is X implemented in our other repos"). Not for grepping the current working copy on its own, and not for the current active session.
+description: >
+  Use when the user asks to research, investigate, look into, dig into, or
+  search for anything — a topic, feature, bug, decision, or "what do we know
+  about X". Invoke this as the FIRST action on such requests, before Glob, Grep,
+  or Read: the answer is in Entire's recorded history (prompts, transcripts, and
+  decisions, across repos), not in the local files, and a working copy that
+  looks empty or unfamiliar is not a reason to skip it. Also use to find code
+  across repositories ("where is X implemented in our other repos"). Not for
+  grepping the current working copy on its own, and not for the current active
+  session.
 ---
 
 # Search Checkpoints and Code
@@ -34,7 +43,7 @@ followed by a blank line, then the content.
 - You are about to read code to understand a feature, bug, or decision and no one has checked the recorded history yet
 - The user wants to find code across repositories they have access to, e.g. "where is X implemented?", "find usages of Y in our other repos" — use code search (`--code`)
 
-Do not use this for the current active session; use `session-handoff` for that. Use grep or ripgrep instead of code search only when the user wants matches in the files of the current working copy and is not asking about history, intent, or other repos.
+Do not use this for the current active session; use `session-handoff` for that. Use grep or ripgrep instead of code search only when the user wants matches in the files of the current working copy and is not asking about history, intent, or other repos. If the Entire Graph plugin is installed (`entire graph version` exits 0), locate definitions, callers, or the code for a task in the current working copy with `entire graph query --repo . --head --format agent --query "<task>"` instead of grep; `--code` stays the tool for other repositories.
 
 ## Process
 
@@ -54,7 +63,7 @@ Add filters when the user already gave them or when the first search is too broa
 entire search "<query>" --json --compact --limit 5 --repo owner/name --branch branch-name --author "Name" --date week
 ```
 
-- `--repo` takes multiple repos: repeat it or comma-separate (`--repo a --repo b`, `--repo a,b`)
+- `--repo` accepts `owner/name`, `gh/<owner>/<repo>`, or `et/<project>/<repo>`, and takes multiple repos: repeat it or comma-separate (`--repo a --repo b`, `--repo a,b`)
 - Inline filters also work in the query: `author:<name>`, `date:<week|month>`, `branch:<name>`, `repo:<owner/name>`, `repo:*`
 - Results default to the current repository. To search all accessible repos, pass `--all-repos`, write `repo:*` inside the query string, or pass `--repo '*'` (quoted). `--repo repo:*` is invalid — inline tokens never go in flag values.
 
@@ -67,7 +76,7 @@ entire checkpoint explain <id> --no-pager
 ```
 
 - Add `--full` to pull the checkpoint's entire session transcript; if `--full` fails, fall back to `--raw-transcript`
-- For a checkpoint hit from another GitHub repo, add `--repo <owner/name>` — it needs the full checkpoint `id` from the hit and a checkpoint that has been pushed. If the flag is unknown (versions before 0.10.0) or explain finds nothing, do not retry — answer from the compact fields instead
+- For a checkpoint or commit hit from another repo, add `--repo gh/<owner>/<repo>` for a GitHub repo or `--repo et/<project>/<repo>` for an Entire-native repo. The hit's `repo` field has no forge prefix, so add it; a bare `owner/name` is rejected with "forge prefix is required". Pass the hit's full `id` (a checkpoint ID or full commit SHA, never a prefix); the checkpoint must have been pushed. If the flag is unknown (versions before 0.10.0) or explain finds nothing, do not retry — answer from the compact fields instead
 - For a session hit on the current branch, bridge with `entire checkpoint explain --session <id>`, which lists that session's checkpoints; explain one of those
 - repo and pr hits (and sessions or commits from other repos or branches) cannot be explained — summarize them from the compact fields alone
 
