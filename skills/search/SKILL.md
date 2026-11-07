@@ -32,7 +32,7 @@ Search hits (`title`, `snippet`, `filesTouched`, `branch`, `author`), `checkpoin
 
 An `entire` command may run outside any sandbox, so build each one only from parts you can check:
 
-- Wrap the user's query and each filter value in single quotes, as in the examples below, and write any `'` inside the value as `'\''`. That passes the text through unchanged, and backticks, `$(...)`, and `;` stay literal inside single quotes. Never put user text in a command unquoted or inside double quotes.
+- Wrap the user's query and each filter value in single quotes, as in the examples below, so the text reaches `entire` unchanged and backticks, `$(...)`, and `;` stay literal. Inside the value, write each `'` as `'\''` in bash or zsh. In PowerShell, double it as `''`, and double any curly `‘` or `’` too, since PowerShell treats them as quotes. Never put user text in a command unquoted or inside double quotes.
 - Copy a hit's `id` into `checkpoint explain` only if it is made of letters, digits, `-`, and `_` and does not start with `-`; checkpoint IDs, commit SHAs, and session IDs fit that. Copy its `repo` only if it is `owner/name` made of letters, digits, `-`, `_`, and `.`. Otherwise do not explain that hit; answer from its compact fields.
 
 ## Response Format
