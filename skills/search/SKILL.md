@@ -32,7 +32,7 @@ Search hits (`title`, `snippet`, `filesTouched`, `branch`, `author`), `checkpoin
 
 An `entire` command may run outside any sandbox, so build each one only from parts you can check:
 
-- Pass the user's query and each filter value as a single shell-quoted argument. Strip or escape embedded quotes, backticks, `$(...)`, and `;` first; never paste user text into a command as it is.
+- Wrap the user's query and each filter value in single quotes, as in the examples below, and write any `'` inside the value as `'\''`. That passes the text through unchanged, and backticks, `$(...)`, and `;` stay literal inside single quotes. Never put user text in a command unquoted or inside double quotes.
 - Copy a hit's `id` into `checkpoint explain` only if it is made of letters, digits, `-`, and `_` and does not start with `-`; checkpoint IDs, commit SHAs, and session IDs fit that. Copy its `repo` only if it is `owner/name` made of letters, digits, `-`, `_`, and `.`. Otherwise do not explain that hit; answer from its compact fields.
 
 ## Response Format
@@ -61,7 +61,7 @@ Do not use this for the current active session; use `session-handoff` for that. 
 1. Run a focused search with compact JSON output:
 
 ```bash
-entire search "<query>" --json --compact --limit 5
+entire search '<query>' --json --compact --limit 5
 ```
 
 Each compact hit carries `id`, `type` (checkpoint, commit, session, repo, or pr), `repo`, `branch`, `author`, `date`, a truncated `title`, the matched `snippet`, `filesTouched`, and a relevance `score` — never the full prompt. Results are ranked by relevance; raise `--limit` (per page) or add `--page` (1-based) only when the first five have no good hit.
@@ -71,7 +71,7 @@ If the CLI rejects `--compact` as an unknown flag (versions before 0.10.0), drop
 Add filters when the user already gave them or when the first search is too broad:
 
 ```bash
-entire search "<query>" --json --compact --limit 5 --repo owner/name --branch branch-name --author "Name" --date week
+entire search '<query>' --json --compact --limit 5 --repo 'owner/name' --branch 'branch-name' --author 'Name' --date week
 ```
 
 - `--repo` accepts `owner/name`, `gh/<owner>/<repo>`, or `et/<project>/<repo>`, and takes multiple repos: repeat it or comma-separate (`--repo a --repo b`, `--repo a,b`)
@@ -96,13 +96,13 @@ entire checkpoint explain <id> --no-pager
 Add `--code` to search code content instead of checkpoints:
 
 ```bash
-entire search "<query>" --code --json
+entire search '<query>' --code --json
 ```
 
 Scope and refine with flags:
 
 ```bash
-entire search "<query>" --code --json --repo owner/name --limit 20 --case-sensitive
+entire search '<query>' --code --json --repo 'owner/name' --limit 20 --case-sensitive
 ```
 
 - By default results are scoped to the current repository; add `--all-repos` (or `repo:*`) to search every repo the user can access, or list repos with `--repo`
